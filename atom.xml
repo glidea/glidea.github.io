@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://glidea.github.io</id>
     <title>Glidea&apos;s Blog</title>
-    <updated>2020-04-10T11:20:38.237Z</updated>
+    <updated>2020-04-10T11:30:42.569Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://glidea.github.io"/>
     <link rel="self" href="https://glidea.github.io/atom.xml"/>
@@ -11,20 +11,11 @@
     <icon>https://glidea.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Glidea&apos;s Blog</rights>
     <entry>
-        <title type="html"><![CDATA[345345]]></title>
-        <id>https://glidea.github.io/post/345345/</id>
-        <link href="https://glidea.github.io/post/345345/">
-        </link>
-        <updated>2020-04-10T11:20:28.000Z</updated>
-        <content type="html"><![CDATA[<p>53453453453</p>
-]]></content>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[异常]]></title>
         <id>https://glidea.github.io/post/yi-chang/</id>
         <link href="https://glidea.github.io/post/yi-chang/">
         </link>
-        <updated>2020-04-10T08:10:52.000Z</updated>
+        <updated>2020-04-10T11:29:28.000Z</updated>
         <content type="html"><![CDATA[<p>相当于在C项目中，只能通过if else处理异常情况（不完备，没有工程系统性，可读性差）</p>
 <p>出现异常，可以选择不处理<br>
 throws到上一级（调用处），由上一级决定处不处理</p>
@@ -44,73 +35,6 @@ Error也unchecked</p>
 1、try块抛出的异常尽量少而具体，不能偷懒把所有垃圾都放进一个垃圾桶，要垃圾分类<br>
 2、同理catch也要处理尽量具体的异常<br>
 3、如果异常情况出现频率比较高，建议使用if else处理</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Servlet]]></title>
-        <id>https://glidea.github.io/post/test/</id>
-        <link href="https://glidea.github.io/post/test/">
-        </link>
-        <updated>2020-04-10T06:53:10.000Z</updated>
-        <content type="html"><![CDATA[<!-- more -->
-<p>1、Servlet是干啥的</p>
-<ul>
-<li>Servlet是用来处理客户端请求的动态资源的，任务有：
-<ul>
-<li>
-<blockquote>
-<p>获取请求数据</p>
-</blockquote>
-</li>
-<li>
-<blockquote>
-<p>处理请求</p>
-</blockquote>
-</li>
-<li>
-<blockquote>
-<p>完成响应</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<p>2、创建Servlet的的步骤</p>
-<ul>
-<li>新建Java类，并继承HttpServlet类（或者实现Servlet接口，再或者继承GenericServlet类）
-<ul>
-<li>那这三种方式有什么区别呢</li>
-<li>实现Servlet接口：需要实现多种方法。</li>
-<li>继承GenericServlet类：只需要实现service方法。（GenericServlet是Servlet的抽象实现类，除service之外的方法都实现了）</li>
-<li>继承HttpServlet类：</li>
-<li>需要实现doGet和doPost方法。（HttpServlet是GenericServlet的子类）</li>
-</ul>
-</li>
-<li>实现doGet和doPost方法</li>
-<li>配置xml文件
-<ul>
-<li>配置<servlet>，主要是为了找到资源对应的Java类，还可以配置Servlet的初始化参数。<servlet>对应了一个ServletConfig对象。</li>
-<li>配置<servlet-mapping>，主要为了设置资源的访问路径</li>
-</ul>
-</li>
-</ul>
-<p>3、Servlet的启动流程</p>
-<ul>
-<li>用户输入浏览器访问路径</li>
-<li>服务器找到和访问路径对应的<url-pattern>，进而找到对应的<servlet-name></li>
-<li>根据<servlet-name>找到对应的Java类（如果是首次调用，服务器会将ServletConfig对象传给init方法）</li>
-</ul>
-<p>4、Servlet的生命周期函数</p>
-<ul>
-<li>init():第一次被访问时执行（懒汉式单例）
-<ul>
-<li>可在<servlet>标签里配置成饿汉式，即服务器启动时就加载</li>
-<li>但优先级最高为2，因为TomCat默认启动的Servlet优先级为1</li>
-</ul>
-</li>
-<li>service():每次被访问都执行</li>
-<li>destroy():服务器关闭，才会执行（通常为空）</li>
-</ul>
 ]]></content>
     </entry>
 </feed>

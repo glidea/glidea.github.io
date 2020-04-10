@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://glidea.github.io</id>
     <title>Glidea&apos;s Blog</title>
-    <updated>2020-04-10T11:30:42.569Z</updated>
+    <updated>2020-04-10T11:33:48.867Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://glidea.github.io"/>
     <link rel="self" href="https://glidea.github.io/atom.xml"/>
@@ -10,31 +10,4 @@
     <logo>https://glidea.github.io/images/avatar.png</logo>
     <icon>https://glidea.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Glidea&apos;s Blog</rights>
-    <entry>
-        <title type="html"><![CDATA[异常]]></title>
-        <id>https://glidea.github.io/post/yi-chang/</id>
-        <link href="https://glidea.github.io/post/yi-chang/">
-        </link>
-        <updated>2020-04-10T11:29:28.000Z</updated>
-        <content type="html"><![CDATA[<p>相当于在C项目中，只能通过if else处理异常情况（不完备，没有工程系统性，可读性差）</p>
-<p>出现异常，可以选择不处理<br>
-throws到上一级（调用处），由上一级决定处不处理</p>
-<p>若要处理<br>
-try...catch处理<br>
-final释放资源</p>
-<p>uncheckedException是RuntimeException<br>
-Error也unchecked</p>
-<p>新建自定义异常类（出现频率低的异常）<br>
-继承Exception<br>
-含一个有参构造函数，参数为异常信息str（分数不合法等）super(&quot;message&quot;)</p>
-<pre><code>直接抛出Exception(&quot;message&quot;)会更方便，但是可读性，封装性差
-
-所以新建类的目的：给Exception(&quot;message&quot;)一个别名
-</code></pre>
-<p>异常处理要点<br>
-1、try块抛出的异常尽量少而具体，不能偷懒把所有垃圾都放进一个垃圾桶，要垃圾分类<br>
-2、同理catch也要处理尽量具体的异常<br>
-3、如果异常情况出现频率比较高，建议使用if else处理</p>
-]]></content>
-    </entry>
 </feed>

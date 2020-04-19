@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Glidea&#39;s Blog</title>
-<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1587125966104">
+<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1587269089787">
 <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.css" rel="stylesheet">
 <link rel="stylesheet" href="https://glidea.github.io/styles/main.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -75,180 +75,41 @@
                 <div class="post-left">
                     <div>
                         
+                        <a href="https://glidea.github.io/post/san-men-wen-ti/">
+                            <span class="post-title gt-c-content-color-first">三门问题</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-04-19 ·
+                        </time>
+                        
+                            <a href="https://glidea.github.io/tag/Kq13qkXiY/" class="post-tag">
+                                # 算法
+                            </a>
+                        
+                            <a href="https://glidea.github.io/tag/1a9iTw_mJI/" class="post-tag">
+                                # 数学
+                            </a>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
                         <a href="https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-1/">
                             <span class="post-title gt-c-content-color-first">操作系统知识点总结-1</span>
                         </a>
                     </div>
                     <div class="gt-post-content post-abstract gt-c-content-color-second">
-                        <h3 id="1-操作系统的功能是什么">1、操作系统的功能是什么</h3>
-<ul>
-<li>管理软硬资源
-<ul>
-<li>处理机管理</li>
-<li>存储器管理</li>
-<li>文件管理</li>
-<li>设备管理</li>
-</ul>
-</li>
-<li>向上层提供服务
-<ul>
-<li>向用户提供GUI，单命令（联机命令接口），批处理（脱机命令接口）</li>
-<li>向应用程序提供程序接口（系统调用）</li>
-</ul>
-</li>
-<li>对底层功能进行拓展</li>
-</ul>
-<h3 id="2-操作系统的特征是什么">2、操作系统的特征是什么</h3>
-<ul>
-<li>并发：一个时间段内，多件事情在宏观上同时发生，在微观上交替发生</li>
-<li>共享（并发的条件）
-<ul>
-<li>互斥共享：一个资源，一个时间段内只允许一个进程访问</li>
-<li>同时共享：一个资源，一个时间段内允许多个进程访问</li>
-</ul>
-</li>
-<li>虚拟：一个物理实体（硬盘）--》若干个虚拟逻辑体（C盘、D盘...）</li>
-<li>异步：在资源有限的情况下，并发执行的多个程序的执行，总是走走停停的（不按代码的顺序执行）</li>
-</ul>
-<h3 id="3-操作系统的特征之间的关系">3、操作系统的特征之间的关系</h3>
-<ul>
-<li>并发和共享互为存在条件
-<ul>
-<li>没有共享，无法实现并发</li>
-<li>没用并发，共享就没有意义</li>
-</ul>
-</li>
-<li>并发和共享是虚拟的前提条件
-<ul>
-<li>共享是并发的前提，而并发是虚拟性<strong>存在意义的前提</strong></li>
-</ul>
-</li>
-<li>并发和共享必然导致异步</li>
-</ul>
-<h3 id="4-操作系统的发展背景和分类">4、操作系统的发展背景和分类</h3>
-<ul>
-<li>手工操作阶段（手工输入一条条指令）
-<ul>
-<li>缺：人机速度矛盾（人工太tm慢了，机器等得很不耐烦）</li>
-</ul>
-</li>
-<li>批处理阶段
-<ul>
-<li>单道批处理系统（引入脱机输入输出技术）
-<ul>
-<li>优：缓解了人机速度矛盾</li>
-<li>缺：内存中只有一道程序执行，资源利用率还是很低（每次只有一个进程走流程，没走到的部分只能干等着）</li>
-</ul>
-</li>
-<li>多道批处理系统（操作系统开始出现）
-<ul>
-<li>优：提高了资源利用率，多道程序可并发执行</li>
-<li>缺：没有人机交互（给操作系统执行一堆命令，你只能选择等待或终止命令）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>操作系统阶段
-<ul>
-<li>分时操作系统
-<ul>
-<li>优：提供人机交互</li>
-<li>缺：不能优先处理紧急任务（对普通用户可忽略，现代分时系统也有程序的优先级之分）</li>
-</ul>
-</li>
-<li>实时操作系统（分软硬实时系统）
-<ul>
-<li>优：能优先处理紧急任务</li>
-</ul>
-</li>
-<li>两种系统的缺点在其应用领域都不算缺点</li>
-</ul>
-</li>
-</ul>
-<h3 id="5-操作系统大内核的功能组成">5、操作系统大内核的功能组成</h3>
-<ul>
-<li>时钟管理（分配时间片...）</li>
-<li>中断处理（并发的前提：不必等到程序运行结束，才能切换程序）</li>
-<li>原语（一种不可中断的程序，底层的CPU切换，进程通信...）</li>
-<li>对资源进行管理的功能（不直接涉及硬件的功能，微内核不包含）
-<ul>
-<li>进程管理</li>
-<li>存储器管理</li>
-<li>设备管理</li>
-</ul>
-</li>
-</ul>
-<h3 id="6-运行态和中断机制">6、运行态和中断机制</h3>
-<ul>
-<li>CPU的运行态
-<ul>
-<li>内核程序在核心态中执行特权指令和非特权指令（陷入指令除外）</li>
-<li>应用程序在用户态中执行非特权指令</li>
-</ul>
-</li>
-<li>操作系统的中断机制
-<ul>
-<li>作用：中断当前运行的应用程序，CPU由用户态变成核心态，系统内核收回控制权</li>
-<li>意义：中断是实现程序并发的前提（微观上，不用等到内存中的程序执行完，就可以切换别的程序）</li>
-<li>分类
-<ul>
-<li>内中断（异常）：与当前执行的指令有关，中断信号源自CPU内部
-<ul>
-<li>陷入，陷阱</li>
-<li>故障</li>
-<li>终止</li>
-</ul>
-</li>
-<li>外中断（狭义中断）：与当前执行的指令无关，中断信号源自CPU外部
-<ul>
-<li>时钟中断（当前程序的时间片用完的时候）</li>
-<li>I/O中断请求</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>执行原理
-<ul>
-<li>检查中断信号
-<ul>
-<li>内中断：CPU在执行指令时会检查异常</li>
-<li>外中断：每个指令周期末尾，CPU会检查是否有外中断信号待处理</li>
-</ul>
-</li>
-<li>为中断信号找到相应的中断处理程序
-<ul>
-<li>根据中断信号类型，通过中断向量表，找到处理程序的指针</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="7-系统调用一种特殊的异常">7、系统调用（一种特殊的异常）</h3>
-<ul>
-<li>系统调用与库函数的区别
-<ul>
-<li>有的库函数不包含系统调用</li>
-<li>有的库函数是对系统调用的封装</li>
-</ul>
-</li>
-<li>什么功能要用系统调用实现
-<ul>
-<li>涉及共享资源的有关操作</li>
-<li>会直接影响其它进程的操作</li>
-</ul>
-</li>
-<li>系统调用的过程
-<ul>
-<li>传递系统调用参数</li>
-<li>用户态下发送系统调用请求：执行陷入指令（trap，访管指令），引起内中断，进入核心态</li>
-<li>核心态下处理系统调用</li>
-<li>返回应用程序，执行后续指令</li>
-</ul>
-</li>
-</ul>
-
+                        
                     </div>
                     <div class="post-info">
                         <time class="post-time gt-c-content-color-first">

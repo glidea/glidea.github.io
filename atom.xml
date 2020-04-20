@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://glidea.github.io</id>
     <title>Glidea&apos;s Blog</title>
-    <updated>2020-04-19T04:07:08.728Z</updated>
+    <updated>2020-04-20T02:21:11.493Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://glidea.github.io"/>
     <link rel="self" href="https://glidea.github.io/atom.xml"/>
@@ -35,29 +35,21 @@
 <p>​		讲到这里思路很明显了，我们要用计算机模拟数百万次这种场景，进而得出答案。</p>
 <h4 id="4-计算机模拟的代码">4、计算机模拟的代码</h4>
 <pre><code class="language-java">public class Solution {
-    private int N;// 模拟场景的次数
-
-    public Solution(int N) {
-        if (N &lt;= 0)
-            throw new IllegalArgumentException(&quot;模拟次数必须为正数&quot;);
-
-        this.N = N;
-    }
+    private static int N = 100000;// 模拟场景的次数
 
     // 计算选择N次 换门或者不换门 的整体中奖概率
-    private double getProbability(boolean changeDoor) {
+    private static double getProbability(boolean changeDoor) {
         int winTimeCount = 0;
 
-        for (int i = 0; i &lt; N; i++) {
+        for (int i = 0; i &lt; N; i++)
             if (choice(changeDoor))
                 winTimeCount++;
-        }
 
         return (double) winTimeCount / N;
     }
 
     // 模拟 选择换门或者不换门 是否能中奖
-    private boolean choice(boolean changeDoor) {
+    private static boolean choice(boolean changeDoor) {
         int firstChoice = (int) (Math.random() * 3);
         int prizeDoor = (int) (Math.random() * 3);
 
@@ -73,10 +65,8 @@
     }
 
     public static void main(String[] args) {
-        Solution solution = new Solution(100000);
-
-        System.out.println(&quot;换门 - 中奖的概率：&quot; + solution.getProbability(true));
-        System.out.println(&quot;不换门 - 中奖的概率：&quot; + solution.getProbability(false));
+        System.out.println(&quot;换门 - 中奖的概率：&quot; + getProbability(true));
+        System.out.println(&quot;不换门 - 中奖的概率：&quot; + getProbability(false));
     }
 }
 </code></pre>

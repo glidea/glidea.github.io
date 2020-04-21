@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>三门问题 | Glidea&#39;s Blog</title>
-<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1587476015685">
+<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1587476154574">
 <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.css" rel="stylesheet">
 <link rel="stylesheet" href="https://glidea.github.io/styles/main.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -88,10 +88,10 @@
                     
                 </div>
                 <div class="post-content">
-                    <h4 id="1-什么是三门问题">1、什么是三门问题</h4>
+                    <h4 id="一-什么是三门问题">一、什么是三门问题</h4>
 <p>​		三门问题出自美国的电视游戏节目Let's Make a Deal。参赛者会看见三扇关闭了的门，其中一扇的后面有一辆汽车，选中后面有车的那扇门可赢得该汽车，另外两扇门后面则各藏有一只山羊。当参赛者选定了一扇门，但未去开启它的时候，节目主持人开启剩下两扇门的其中一扇，露出其中一只山羊。主持人其后会问参赛者要不要换另一扇仍然关上的门。</p>
 <p>​		<strong>问题是换门后会不会增加中奖概率？</strong></p>
-<h4 id="2-答案是个啥">2、答案是个啥？</h4>
+<h4 id="二-答案是个啥">二、答案是个啥？</h4>
 <p>​		相信你直觉上的答案是 “换门不会增加中奖概率”</p>
 <p>​		但是<strong>正确答案是换门可以增加中奖概率</strong></p>
 <p>​		你是不是觉得这个答案很奇怪，很反直觉，内心有一万个不服？</p>
@@ -100,12 +100,12 @@
 <p>​		但是你眉头一皱，总感觉哪里不对劲</p>
 <p>​		对数学证明的态度在好像明白和质疑之间反复横跳</p>
 <p>​		那既然你对直觉和数学证明都不太相信的话，那我们就用另外的方式去求解一下这个答案！</p>
-<h4 id="3-计算机模拟求解的思路">3、计算机模拟求解的思路</h4>
+<h4 id="三-计算机模拟求解的思路">三、计算机模拟求解的思路</h4>
 <p>​		用程序怎么解决这个问题呢？</p>
 <p>​		直接套概率公式，让计算机给你解计算题？？这样的话不就是相当于我们把上面的正确答案，用计算机复述了一遍吗</p>
 <p>​		正确思路是，我们要假设自个参加了一百万次这个节目，并面临了同样的选择，并且并且我一定要换门。看看我这一百万次，能中多少次奖，进而求出换门的中奖率。然后我又参加一百万次，但这一百万次我要坚持不换门，看看我这一百万次，能中多少次奖，进而求出不换门的中奖率。</p>
 <p>​		讲到这里思路很明显了，我们要用计算机模拟数百万次这种场景，进而得出答案。</p>
-<h4 id="4-计算机模拟的代码">4、计算机模拟的代码</h4>
+<h4 id="四-计算机模拟的代码">四、计算机模拟的代码</h4>
 <pre><code class="language-java">public class Solution {
     private static int N = 100000;// 模拟场景的次数
 
@@ -146,7 +146,7 @@
 <pre><code>换门 - 中奖的概率：0.66731
 不换门 - 中奖的概率：0.33346
 </code></pre>
-<h4 id="5-为什么答案是会增加中奖概率呢">5、为什么答案是会增加中奖概率呢</h4>
+<h4 id="五-为什么答案是会增加中奖概率呢">五、为什么答案是会增加中奖概率呢</h4>
 <p>​		至此，答案已经很明显了，但是你可能还是不太明白这个答案，所以在此我给出一个不严谨的解释</p>
 <p>​		假设选择换门，而现在选择的门后面没有奖品，所以必定中奖（只有一个门可以换）</p>
 <p>​		假设选择换门，而现在选择的门后面有奖品，所以必定不中奖</p>

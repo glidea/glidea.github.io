@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://glidea.github.io</id>
     <title>Glidea&apos;s Blog</title>
-    <updated>2020-04-21T13:35:56.610Z</updated>
+    <updated>2020-04-21T14:08:18.756Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://glidea.github.io"/>
     <link rel="self" href="https://glidea.github.io/atom.xml"/>
@@ -87,6 +87,17 @@
 <li>间接通信：消息发送到公共信箱</li>
 </ul>
 </li>
+</ul>
+<h4 id="八-线程和进程">八、线程和进程</h4>
+<ul>
+<li>多个线程从属于一个进程</li>
+<li>线程是处理机调度的单位，进程是资源分配的单位</li>
+<li>同一进程内的线程切换不会导致进程的切换，运行环境也就无需改变，系统开销从而降低</li>
+</ul>
+<h4 id="九-线程的实现方式">九、线程的实现方式</h4>
+<ul>
+<li>应用通过线程库实现用户级线程并自主管理，操作系统不知道</li>
+<li>将m个用户级线程映射到n个内核级线程（多对多模型）</li>
 </ul>
 ]]></content>
     </entry>

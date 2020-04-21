@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>操作系统知识点总结 - 2 | Glidea&#39;s Blog</title>
-<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1587476154574">
+<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1587478096674">
 <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.css" rel="stylesheet">
 <link rel="stylesheet" href="https://glidea.github.io/styles/main.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -155,6 +155,17 @@
 <li>间接通信：消息发送到公共信箱</li>
 </ul>
 </li>
+</ul>
+<h4 id="八-线程和进程">八、线程和进程</h4>
+<ul>
+<li>多个线程从属于一个进程</li>
+<li>线程是处理机调度的单位，进程是资源分配的单位</li>
+<li>同一进程内的线程切换不会导致进程的切换，运行环境也就无需改变，系统开销从而降低</li>
+</ul>
+<h4 id="九-线程的实现方式">九、线程的实现方式</h4>
+<ul>
+<li>应用通过线程库实现用户级线程并自主管理，操作系统不知道</li>
+<li>将m个用户级线程映射到n个内核级线程（多对多模型）</li>
 </ul>
 
                 </div>

@@ -1,0 +1,209 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>操作系统知识点总结 - 2 | Glidea&#39;s Blog</title>
+<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1587476015685">
+<link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="https://glidea.github.io/styles/main.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/go.min.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.23.0/moment.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Glidea&#39;s Blog
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            文章
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            分类
+                        </a>
+                    
+                </div>
+            
+        </div>
+    </div>
+</nav>
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    操作系统知识点总结 - 2
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-04-21 ·
+                    </time>
+                    
+                        <a href="https://glidea.github.io/tag/eYyARY70R/" class="post-tags">
+                            # 操作系统
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h4 id="一-进程和程序有什么区别">一、进程和程序有什么区别</h4>
+<ul>
+<li>程序是静态的，是存储在硬盘的可执行文件，是一系列指令的集合</li>
+<li>进程是动态的，是存储在内存中的实体，是程序的一次执行过程</li>
+</ul>
+<h4 id="二-进程的组成">二、进程的组成</h4>
+<ul>
+<li>PCB：存放操作系统管理进程所需的信息（进程描述信息、进程控制管理信息、资源分配清单、处理机相关信息）
+<ul>
+<li>PCB是进程存在的唯一标志</li>
+</ul>
+</li>
+<li>程序段：程序代码（指令集合）</li>
+<li>数据段：运行过程中所产生的数据（代码中定义的变量）</li>
+</ul>
+<h4 id="三-进程的特征">三、进程的特征</h4>
+<ul>
+<li>动态性（基本特征）</li>
+<li>独立性（独立获得资源，独立接受调度的基本单位）</li>
+<li>并发性</li>
+<li>异步性</li>
+<li>结构性</li>
+</ul>
+<h4 id="四-进程的组织方式">四、进程的组织方式</h4>
+<ul>
+<li>链接方式：按照进程状态将PCB分为多个队列</li>
+<li>索引方式：按照进程状态将PCB分为多个索引表</li>
+</ul>
+<h4 id="五-进程的状态与转换">五、进程的状态与转换</h4>
+<ul>
+<li>状态：创建、就绪、运行、阻塞、终止</li>
+<li>基本状态之间的转换（原语实现转换的过程）
+<ul>
+<li>就绪 --》运行：进程被调度</li>
+<li>运行 --》就绪：时间片用完，或CPU被高优先级进程抢占</li>
+<li>运行 --》阻塞：进程用系统调用的方式，申请系统资源，或者请求等待某个事情的发生（比如其它进程的执行结果）</li>
+<li>阻塞 --》就绪：资源已经分配，或者等待的事情发生（被动）</li>
+</ul>
+</li>
+</ul>
+<h4 id="六-原语实现进程状态转换要干的事情">六、原语实现进程状态转换要干的事情</h4>
+<ul>
+<li>更新PCB的信息
+<ul>
+<li>所有进程控制原语一定会修改进程状态标记</li>
+<li>剥夺当前运行进程的CPU使用权，要先保存运行环境，相反进程开始运行前，要恢复运行环境</li>
+</ul>
+</li>
+<li>将PCB插入合适的队列</li>
+<li>分配 / 回收资源</li>
+</ul>
+<h4 id="七-进程通信的方式">七、进程通信的方式</h4>
+<ul>
+<li>共享存储：互斥访问一块共享空间
+<ul>
+<li>共享存储的实现可以基于存储区或者数据结构</li>
+</ul>
+</li>
+<li>管道通信：互斥访问一个共享文件（缓冲区）
+<ul>
+<li>一个管道只能实现半双工通信</li>
+<li>写满时，不能再写，读空时，不能再读</li>
+<li>没写满，不能读，没读空，不能写</li>
+</ul>
+</li>
+<li>消息传递：进程通过发送 / 接收原语来 发送 / 接收结构化的消息（消息头/消息体）
+<ul>
+<li>直接通信：消息直接挂到接收线程的消息队列里</li>
+<li>间接通信：消息发送到公共信箱</li>
+</ul>
+</li>
+</ul>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://glidea.github.io/post/san-men-wen-ti/" class="post-title gt-a-link">
+                    三门问题
+                </a>
+            </div>
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">be static</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://glidea.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+    hljs.initHighlightingOnLoad()
+</script>
+
+
+    </div>
+</div>
+</body>
+</html>

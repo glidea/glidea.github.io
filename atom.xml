@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://glidea.github.io</id>
     <title>Glidea&apos;s Blog</title>
-    <updated>2020-04-20T02:21:11.493Z</updated>
+    <updated>2020-04-21T13:33:43.313Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://glidea.github.io"/>
     <link rel="self" href="https://glidea.github.io/atom.xml"/>
@@ -10,6 +10,86 @@
     <logo>https://glidea.github.io/images/avatar.png</logo>
     <icon>https://glidea.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Glidea&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[操作系统知识点总结 - 2]]></title>
+        <id>https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-2/</id>
+        <link href="https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-2/">
+        </link>
+        <updated>2020-04-21T13:32:54.000Z</updated>
+        <content type="html"><![CDATA[<h4 id="一-进程和程序有什么区别">一、进程和程序有什么区别</h4>
+<ul>
+<li>程序是静态的，是存储在硬盘的可执行文件，是一系列指令的集合</li>
+<li>进程是动态的，是存储在内存中的实体，是程序的一次执行过程</li>
+</ul>
+<h4 id="二-进程的组成">二、进程的组成</h4>
+<ul>
+<li>PCB：存放操作系统管理进程所需的信息（进程描述信息、进程控制管理信息、资源分配清单、处理机相关信息）
+<ul>
+<li>PCB是进程存在的唯一标志</li>
+</ul>
+</li>
+<li>程序段：程序代码（指令集合）</li>
+<li>数据段：运行过程中所产生的数据（代码中定义的变量）</li>
+</ul>
+<h4 id="三-进程的特征">三、进程的特征</h4>
+<ul>
+<li>动态性（基本特征）</li>
+<li>独立性（独立获得资源，独立接受调度的基本单位）</li>
+<li>并发性</li>
+<li>异步性</li>
+<li>结构性</li>
+</ul>
+<h4 id="四-进程的组织方式">四、进程的组织方式</h4>
+<ul>
+<li>链接方式：按照进程状态将PCB分为多个队列</li>
+<li>索引方式：按照进程状态将PCB分为多个索引表</li>
+</ul>
+<h4 id="五-进程的状态与转换">五、进程的状态与转换</h4>
+<ul>
+<li>状态：创建、就绪、运行、阻塞、终止</li>
+<li>基本状态之间的转换（原语实现转换的过程）
+<ul>
+<li>就绪 --》运行：进程被调度</li>
+<li>运行 --》就绪：时间片用完，或CPU被高优先级进程抢占</li>
+<li>运行 --》阻塞：进程用系统调用的方式，申请系统资源，或者请求等待某个事情的发生（比如其它进程的执行结果）</li>
+<li>阻塞 --》就绪：资源已经分配，或者等待的事情发生（被动）</li>
+</ul>
+</li>
+</ul>
+<h4 id="六-原语实现进程状态转换要干的事情">六、原语实现进程状态转换要干的事情</h4>
+<ul>
+<li>更新PCB的信息
+<ul>
+<li>所有进程控制原语一定会修改进程状态标记</li>
+<li>剥夺当前运行进程的CPU使用权，要先保存运行环境，相反进程开始运行前，要恢复运行环境</li>
+</ul>
+</li>
+<li>将PCB插入合适的队列</li>
+<li>分配 / 回收资源</li>
+</ul>
+<h4 id="七-进程通信的方式">七、进程通信的方式</h4>
+<ul>
+<li>共享存储：互斥访问一块共享空间
+<ul>
+<li>共享存储的实现可以基于存储区或者数据结构</li>
+</ul>
+</li>
+<li>管道通信：互斥访问一个共享文件（缓冲区）
+<ul>
+<li>一个管道只能实现半双工通信</li>
+<li>写满时，不能再写，读空时，不能再读</li>
+<li>没写满，不能读，没读空，不能写</li>
+</ul>
+</li>
+<li>消息传递：进程通过发送 / 接收原语来 发送 / 接收结构化的消息（消息头/消息体）
+<ul>
+<li>直接通信：消息直接挂到接收线程的消息队列里</li>
+<li>间接通信：消息发送到公共信箱</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[三门问题]]></title>
         <id>https://glidea.github.io/post/san-men-wen-ti/</id>
@@ -82,7 +162,7 @@
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[操作系统知识点总结-1]]></title>
+        <title type="html"><![CDATA[操作系统知识点总结 - 1]]></title>
         <id>https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-1/</id>
         <link href="https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-1/">
         </link>

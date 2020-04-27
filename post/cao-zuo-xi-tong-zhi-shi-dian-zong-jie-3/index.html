@@ -1,0 +1,253 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>操作系统知识点总结 - 3 | Glidea&#39;s Blog</title>
+<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1587994009066">
+<link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="https://glidea.github.io/styles/main.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/go.min.js"></script>
+<script src="https://cdn.bootcss.com/moment.js/2.23.0/moment.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Glidea&#39;s Blog
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            文章
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            分类
+                        </a>
+                    
+                </div>
+            
+        </div>
+    </div>
+</nav>
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    操作系统知识点总结 - 3
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-04-27 ·
+                    </time>
+                    
+                </div>
+                <div class="post-content">
+                    <h4 id="一-处理机调度的三个层次">一、处理机调度的三个层次</h4>
+<ul>
+<li>作业调度：从后备队列中选择合适的作业将其从外存调入内存，并为其创建进程</li>
+<li>内存调度：从挂起队列中选择合适的进程将其数据从外存调回内存（内存不足时，某些进程会被挂起到外存）</li>
+<li>进程调度：从就绪队列中选择一个进程为其分配处理机</li>
+</ul>
+<h4 id="二-进程调度">二、进程调度</h4>
+<ul>
+<li>什么时候需要调度进程
+<ul>
+<li>运行中的进程主动放弃处理机资源
+<ul>
+<li>进程正常终止</li>
+<li>发生异常终止</li>
+<li>主动阻塞（如 等待I / O）</li>
+</ul>
+</li>
+<li>运行中的进程被动放弃处理机资源
+<ul>
+<li>分配的时间片用完</li>
+<li>有更紧急的事（如 I / O中断）</li>
+<li>有更高优先级的进程进入就绪队列</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>什么时候一定不能进行进程调度
+<ul>
+<li>处理中断的时候</li>
+<li>进程在操作系统内核程序临界区中（进程运行到锁里的代码，这时要让进程尽快执行完）</li>
+<li>原子操作过程中</li>
+</ul>
+</li>
+<li>进程调度和进程切换
+<ul>
+<li>狭义进程调度：从就绪队列选择一个要运行的进程</li>
+<li>进程切换：保存原来进程的运行环境，恢复新进程的运行环境</li>
+<li>广义进程调度：狭义进程调度 + 进程切换</li>
+</ul>
+</li>
+</ul>
+<h4 id="三-调度算法的评价指标">三、调度算法的评价指标</h4>
+<ul>
+<li>CPU利用率：忙碌时间 / 总时间</li>
+<li>系统吐出量：完成作业数 / 总时间 （作业完成效率）</li>
+<li>周转时间
+<ul>
+<li>周转时间：作业完成时间 - 作业提交时间 （等待 + 运行）</li>
+<li>平均周转时间：各作业周转时间之和 / 作业数</li>
+<li>带权周转时间：作业周转时间 / 作业运行时间 （越小越好）</li>
+<li>平均带权周转时间：各作业带权周转时间之和 / 作业数</li>
+</ul>
+</li>
+<li>等待时间</li>
+<li>响应时间：从用户提交请求到首次产生响应的时间</li>
+</ul>
+<h4 id="四-调度算法">四、调度算法</h4>
+<ul>
+<li>先来先服务（FCFS）：只考虑进程的等待时间
+<ul>
+<li>规则：按照作业 / 进程到达的先后顺序进行服务</li>
+<li>是否可抢占：NO</li>
+<li>优：公平</li>
+<li>缺：短作业 / 进程不爽，自己就是撒泡尿，还要等个拉屎的</li>
+</ul>
+</li>
+<li>短作业优先（SJF）：只考虑进程的运行时间
+<ul>
+<li>规则：先服务要求服务时间最短的作业 / 进程</li>
+<li>是否可抢占：NO or YES</li>
+<li>优：“最短的”平均等待 / 周转时间</li>
+<li>缺：长作业 / 进程不爽，自己就是拉个屎，撒尿的抢着来</li>
+<li>补充：SJF的抢占式版本SRNT算法：只考虑剩余运行时间，优点和缺点都更极端</li>
+</ul>
+</li>
+<li>高响应比优先（HRRN）：考虑了进程的等待和运行时间
+<ul>
+<li>规则：响应比高的作业 / 进程优先，响应比 =（等待时间+运行时间）/ 运行时间</li>
+<li>是否可抢占：NO</li>
+<li>优：综合了上述两种算法的优点</li>
+</ul>
+</li>
+<li>时间片轮转（RR）：分时、进程专属版FCFS！
+<ul>
+<li>规则：大家轮流上3秒厕所</li>
+<li>是否可抢占：YES，和涉及到时间片的算法都是抢占式的，屎拉到一半都得夹断出来</li>
+<li>优：公平，适用于分时系统</li>
+<li>缺：资源开销大，不能处理紧急任务</li>
+<li>补充：时间片太大，退化成FCFS；时间片太小，开销太大</li>
+</ul>
+</li>
+<li>优先级调度（有抢占式和非抢占式的）
+<ul>
+<li>规则：优先调度优先级最高的作业 / 进程</li>
+<li>是否可抢占：NO or YES</li>
+<li>优：可处理紧急任务，适用于实时系统</li>
+</ul>
+</li>
+<li>多级反馈队列：进程专属的完美算法
+<ul>
+<li>规则
+<ul>
+<li>􏶆􏵘􏰝􏴪􏱎􏵂􏵭􏲲􏱏􏲮􏴪􏵭􏲲􏲳􏱶􏴪􏰜􏶇􏱑􏰦􏱏􏴊􏵩􏴵􏰜􏱍􏱑􏲈设置多级就绪队列，各级队列优先级从高到低，时间片从小到大</li>
+<li>新进程到达时先进入第1级队列，按FCFS原则排队等待被分配时间片，若用完时间片进程还未结束，则进程进入下一级队列队尾（如果此时已经是在最下级的队列，则重新放回该队列队尾）</li>
+<li>只有第k级队列为空时，才会为k+1级队头的进程分配时间片</li>
+</ul>
+</li>
+<li>是否可抢占：YES</li>
+<li>优点
+<ul>
+<li>对各类型进程相对公平（FCFS的优点）</li>
+<li>每个新到达的进程都可以很快就得到响应（RR的优点）</li>
+<li>短进程只用较少的时间就可完成（SPF的优点）</li>
+<li>不必实现估计进程的运行时间（避免用户作假）</li>
+<li>可灵活地调整对各类进程的偏好程度，比如CPU密集型进程、I / 0密集型进程（拓展：可以将因I / 0而阻塞的进程重新放回原队列，这样I / 0型进程就可以保持较高优先级）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-2/" class="post-title gt-a-link">
+                    操作系统知识点总结 - 2
+                </a>
+            </div>
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">be static</div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://glidea.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+    hljs.initHighlightingOnLoad()
+</script>
+
+
+    </div>
+</div>
+</body>
+</html>

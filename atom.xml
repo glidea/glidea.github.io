@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://glidea.github.io</id>
     <title>Glidea&apos;s Blog</title>
-    <updated>2020-04-21T14:08:18.756Z</updated>
+    <updated>2020-04-27T13:26:52.983Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://glidea.github.io"/>
     <link rel="self" href="https://glidea.github.io/atom.xml"/>
@@ -10,6 +10,134 @@
     <logo>https://glidea.github.io/images/avatar.png</logo>
     <icon>https://glidea.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Glidea&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[操作系统知识点总结 - 3]]></title>
+        <id>https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-3/</id>
+        <link href="https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-3/">
+        </link>
+        <updated>2020-04-27T13:26:33.000Z</updated>
+        <content type="html"><![CDATA[<h4 id="一-处理机调度的三个层次">一、处理机调度的三个层次</h4>
+<ul>
+<li>作业调度：从后备队列中选择合适的作业将其从外存调入内存，并为其创建进程</li>
+<li>内存调度：从挂起队列中选择合适的进程将其数据从外存调回内存（内存不足时，某些进程会被挂起到外存）</li>
+<li>进程调度：从就绪队列中选择一个进程为其分配处理机</li>
+</ul>
+<h4 id="二-进程调度">二、进程调度</h4>
+<ul>
+<li>什么时候需要调度进程
+<ul>
+<li>运行中的进程主动放弃处理机资源
+<ul>
+<li>进程正常终止</li>
+<li>发生异常终止</li>
+<li>主动阻塞（如 等待I / O）</li>
+</ul>
+</li>
+<li>运行中的进程被动放弃处理机资源
+<ul>
+<li>分配的时间片用完</li>
+<li>有更紧急的事（如 I / O中断）</li>
+<li>有更高优先级的进程进入就绪队列</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>什么时候一定不能进行进程调度
+<ul>
+<li>处理中断的时候</li>
+<li>进程在操作系统内核程序临界区中（进程运行到锁里的代码，这时要让进程尽快执行完）</li>
+<li>原子操作过程中</li>
+</ul>
+</li>
+<li>进程调度和进程切换
+<ul>
+<li>狭义进程调度：从就绪队列选择一个要运行的进程</li>
+<li>进程切换：保存原来进程的运行环境，恢复新进程的运行环境</li>
+<li>广义进程调度：狭义进程调度 + 进程切换</li>
+</ul>
+</li>
+</ul>
+<h4 id="三-调度算法的评价指标">三、调度算法的评价指标</h4>
+<ul>
+<li>CPU利用率：忙碌时间 / 总时间</li>
+<li>系统吐出量：完成作业数 / 总时间 （作业完成效率）</li>
+<li>周转时间
+<ul>
+<li>周转时间：作业完成时间 - 作业提交时间 （等待 + 运行）</li>
+<li>平均周转时间：各作业周转时间之和 / 作业数</li>
+<li>带权周转时间：作业周转时间 / 作业运行时间 （越小越好）</li>
+<li>平均带权周转时间：各作业带权周转时间之和 / 作业数</li>
+</ul>
+</li>
+<li>等待时间</li>
+<li>响应时间：从用户提交请求到首次产生响应的时间</li>
+</ul>
+<h4 id="四-调度算法">四、调度算法</h4>
+<ul>
+<li>先来先服务（FCFS）：只考虑进程的等待时间
+<ul>
+<li>规则：按照作业 / 进程到达的先后顺序进行服务</li>
+<li>是否可抢占：NO</li>
+<li>优：公平</li>
+<li>缺：短作业 / 进程不爽，自己就是撒泡尿，还要等个拉屎的</li>
+</ul>
+</li>
+<li>短作业优先（SJF）：只考虑进程的运行时间
+<ul>
+<li>规则：先服务要求服务时间最短的作业 / 进程</li>
+<li>是否可抢占：NO or YES</li>
+<li>优：“最短的”平均等待 / 周转时间</li>
+<li>缺：长作业 / 进程不爽，自己就是拉个屎，撒尿的抢着来</li>
+<li>补充：SJF的抢占式版本SRNT算法：只考虑剩余运行时间，优点和缺点都更极端</li>
+</ul>
+</li>
+<li>高响应比优先（HRRN）：考虑了进程的等待和运行时间
+<ul>
+<li>规则：响应比高的作业 / 进程优先，响应比 =（等待时间+运行时间）/ 运行时间</li>
+<li>是否可抢占：NO</li>
+<li>优：综合了上述两种算法的优点</li>
+</ul>
+</li>
+<li>时间片轮转（RR）：分时、进程专属版FCFS！
+<ul>
+<li>规则：大家轮流上3秒厕所</li>
+<li>是否可抢占：YES，和涉及到时间片的算法都是抢占式的，屎拉到一半都得夹断出来</li>
+<li>优：公平，适用于分时系统</li>
+<li>缺：资源开销大，不能处理紧急任务</li>
+<li>补充：时间片太大，退化成FCFS；时间片太小，开销太大</li>
+</ul>
+</li>
+<li>优先级调度（有抢占式和非抢占式的）
+<ul>
+<li>规则：优先调度优先级最高的作业 / 进程</li>
+<li>是否可抢占：NO or YES</li>
+<li>优：可处理紧急任务，适用于实时系统</li>
+</ul>
+</li>
+<li>多级反馈队列：进程专属的完美算法
+<ul>
+<li>规则
+<ul>
+<li>􏶆􏵘􏰝􏴪􏱎􏵂􏵭􏲲􏱏􏲮􏴪􏵭􏲲􏲳􏱶􏴪􏰜􏶇􏱑􏰦􏱏􏴊􏵩􏴵􏰜􏱍􏱑􏲈设置多级就绪队列，各级队列优先级从高到低，时间片从小到大</li>
+<li>新进程到达时先进入第1级队列，按FCFS原则排队等待被分配时间片，若用完时间片进程还未结束，则进程进入下一级队列队尾（如果此时已经是在最下级的队列，则重新放回该队列队尾）</li>
+<li>只有第k级队列为空时，才会为k+1级队头的进程分配时间片</li>
+</ul>
+</li>
+<li>是否可抢占：YES</li>
+<li>优点
+<ul>
+<li>对各类型进程相对公平（FCFS的优点）</li>
+<li>每个新到达的进程都可以很快就得到响应（RR的优点）</li>
+<li>短进程只用较少的时间就可完成（SPF的优点）</li>
+<li>不必实现估计进程的运行时间（避免用户作假）</li>
+<li>可灵活地调整对各类进程的偏好程度，比如CPU密集型进程、I / 0密集型进程（拓展：可以将因I / 0而阻塞的进程重新放回原队列，这样I / 0型进程就可以保持较高优先级）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[操作系统知识点总结 - 2]]></title>
         <id>https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-2/</id>

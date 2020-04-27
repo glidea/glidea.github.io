@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://glidea.github.io</id>
     <title>Glidea&apos;s Blog</title>
-    <updated>2020-04-27T13:26:52.983Z</updated>
+    <updated>2020-04-27T13:35:22.819Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://glidea.github.io"/>
     <link rel="self" href="https://glidea.github.io/atom.xml"/>
@@ -118,7 +118,7 @@
 <ul>
 <li>规则
 <ul>
-<li>􏶆􏵘􏰝􏴪􏱎􏵂􏵭􏲲􏱏􏲮􏴪􏵭􏲲􏲳􏱶􏴪􏰜􏶇􏱑􏰦􏱏􏴊􏵩􏴵􏰜􏱍􏱑􏲈设置多级就绪队列，各级队列优先级从高到低，时间片从小到大</li>
+<li>设置多级就绪队列，各级队列优先级从高到低，时间片从小到大</li>
 <li>新进程到达时先进入第1级队列，按FCFS原则排队等待被分配时间片，若用完时间片进程还未结束，则进程进入下一级队列队尾（如果此时已经是在最下级的队列，则重新放回该队列队尾）</li>
 <li>只有第k级队列为空时，才会为k+1级队头的进程分配时间片</li>
 </ul>

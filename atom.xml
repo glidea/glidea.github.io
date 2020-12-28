@@ -2,46 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://glidea.github.io</id>
     <title>Glidea&apos;s Note</title>
-    <updated>2020-12-28T11:42:48.730Z</updated>
+    <updated>2020-12-28T12:03:42.513Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://glidea.github.io"/>
     <link rel="self" href="https://glidea.github.io/atom.xml"/>
     <logo>https://glidea.github.io/images/avatar.png</logo>
     <icon>https://glidea.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Glidea&apos;s Note</rights>
-    <entry>
-        <title type="html"><![CDATA[JVM - 内存结构]]></title>
-        <id>https://glidea.github.io/post/jvm-nei-cun-jie-gou/</id>
-        <link href="https://glidea.github.io/post/jvm-nei-cun-jie-gou/">
-        </link>
-        <updated>2020-12-28T09:27:26.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[操作系统知识点总结 - 3]]></title>
-        <id>https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-3/</id>
-        <link href="https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-3/">
-        </link>
-        <updated>2020-04-27T13:26:33.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[操作系统知识点总结 - 2]]></title>
-        <id>https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-2/</id>
-        <link href="https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-2/">
-        </link>
-        <updated>2020-04-21T13:32:54.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[三门问题]]></title>
-        <id>https://glidea.github.io/post/san-men-wen-ti/</id>
-        <link href="https://glidea.github.io/post/san-men-wen-ti/">
-        </link>
-        <updated>2020-04-19T02:50:36.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[操作系统知识点总结 - 1]]></title>
-        <id>https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-1/</id>
-        <link href="https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-1/">
-        </link>
-        <updated>2020-04-17T12:17:13.000Z</updated>
-    </entry>
 </feed>

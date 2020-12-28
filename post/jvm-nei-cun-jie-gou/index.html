@@ -3,7 +3,7 @@
     <meta charset="utf-8"/>
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>操作系统知识点总结 - 2 | Glidea&#39;s Blog</title>
+<title>JVM - 内存结构 | Glidea&#39;s Blog</title>
 <link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1609147722570">
 <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.css" rel="stylesheet">
 <link rel="stylesheet" href="https://glidea.github.io/styles/main.css">
@@ -71,101 +71,127 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    操作系统知识点总结 - 2
+                    JVM - 内存结构
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2020-04-21 ·
+                        · 2020-12-28 ·
                     </time>
-                    
-                        <a href="https://glidea.github.io/tag/eYyARY70R/" class="post-tags">
-                            # 操作系统
-                        </a>
                     
                 </div>
                 <div class="post-content">
-                    <h4 id="一-进程和程序有什么区别">一、进程和程序有什么区别</h4>
+                    <h3 id="虚拟机栈和本地方法栈"><strong>虚拟机栈和本地方法栈</strong></h3>
 <ul>
-<li>程序是静态的，是存储在硬盘的可执行文件，是一系列指令的集合</li>
-<li>进程是动态的，是存储在内存中的实体，是程序的一次执行过程</li>
-</ul>
-<h4 id="二-进程的组成">二、进程的组成</h4>
+<li>
+<p><a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.6">栈帧的组成</a></p>
 <ul>
-<li>PCB：存放操作系统管理进程所需的信息（进程描述信息、进程控制管理信息、资源分配清单、处理机相关信息）
-<ul>
-<li>PCB是进程存在的唯一标志</li>
-</ul>
+<li>
+<p>局部变量表：存放方法参数、局部变量</p>
+<blockquote>
+<p>表item可复用（注意对gc的影响）</p>
+<p>这玩意是创建时从运行时常量池弄过来的</p>
+</blockquote>
 </li>
-<li>程序段：程序代码（指令集合）</li>
-<li>数据段：运行过程中所产生的数据（代码中定义的变量）</li>
-</ul>
-<h4 id="三-进程的特征">三、进程的特征</h4>
-<ul>
-<li>动态性（基本特征）</li>
-<li>独立性（独立获得资源，独立接受调度的基本单位）</li>
-<li>并发性</li>
-<li>异步性</li>
-<li>结构性</li>
-</ul>
-<h4 id="四-进程的组织方式">四、进程的组织方式</h4>
-<ul>
-<li>链接方式：按照进程状态将PCB分为多个队列</li>
-<li>索引方式：按照进程状态将PCB分为多个索引表</li>
-</ul>
-<h4 id="五-进程的状态与转换">五、进程的状态与转换</h4>
-<ul>
-<li>状态：创建、就绪、运行、阻塞、终止</li>
-<li>基本状态之间的转换（原语实现转换的过程）
-<ul>
-<li>就绪 --》运行：进程被调度</li>
-<li>运行 --》就绪：时间片用完，或CPU被高优先级进程抢占</li>
-<li>运行 --》阻塞：进程用系统调用的方式，申请系统资源，或者请求等待某个事情的发生（比如其它进程的执行结果）</li>
-<li>阻塞 --》就绪：资源已经分配，或者等待的事情发生（被动）</li>
-</ul>
+<li>
+<p>操作数栈：类似于数据寄存器，存储临时计算结果</p>
+</li>
+<li>
+<p>动态连接：当前方法所在类在运行时常量池中的引用</p>
+<blockquote>
+<p>The reference points to the constant pool for the class of the method being executed for that frame</p>
+</blockquote>
+</li>
+<li>
+<p>方法返回值和返回地址</p>
+</li>
+<li>
+<p>异常处理表</p>
 </li>
 </ul>
-<h4 id="六-原语实现进程状态转换要干的事情">六、原语实现进程状态转换要干的事情</h4>
-<ul>
-<li>更新PCB的信息
-<ul>
-<li>所有进程控制原语一定会修改进程状态标记</li>
-<li>剥夺当前运行进程的CPU使用权，要先保存运行环境，相反进程开始运行前，要恢复运行环境</li>
-</ul>
 </li>
-<li>将PCB插入合适的队列</li>
-<li>分配 / 回收资源</li>
-</ul>
-<h4 id="七-进程通信的方式">七、进程通信的方式</h4>
-<ul>
-<li>共享存储：互斥访问一块共享空间
-<ul>
-<li>共享存储的实现可以基于存储区或者数据结构</li>
-</ul>
+<li>
+<p>栈上分配</p>
+<pre><code>开启逃逸分析和标量替换后，非逃逸对象可以在栈上分配，但大对象还需要在堆上分配
+</code></pre>
 </li>
-<li>管道通信：互斥访问一个共享文件（缓冲区）
-<ul>
-<li>一个管道只能实现半双工通信</li>
-<li>写满时，不能再写，读空时，不能再读</li>
-<li>没写满，不能读，没读空，不能写</li>
-</ul>
-</li>
-<li>消息传递：进程通过发送 / 接收原语来 发送 / 接收结构化的消息（消息头/消息体）
-<ul>
-<li>直接通信：消息直接挂到接收线程的消息队列里</li>
-<li>间接通信：消息发送到公共信箱</li>
-</ul>
+<li>
+<p>异常情况</p>
+<pre><code>StackOverflow：栈帧太多
+OOM：内存不足，无法申请新的栈帧
+</code></pre>
 </li>
 </ul>
-<h4 id="八-线程和进程">八、线程和进程</h4>
+<h3 id="程序计数器"><strong>程序计数器</strong></h3>
 <ul>
-<li>多个线程从属于一个进程</li>
-<li>线程是处理机调度的单位，进程是资源分配的单位</li>
-<li>同一进程内的线程切换不会导致进程的切换，运行环境也就无需改变，系统开销从而降低</li>
+<li>
+<p>作用：记住线程下一条 “JVM指令” 的地址（指令在方法区中）</p>
+<pre><code>是实现分支、循环、跳转、异常处理的基础设施
+以及保存上下文切换的执行进度
+</code></pre>
+</li>
+<li>
+<p>补充</p>
+<pre><code>JVM的计数器是软件方法实现的，并非物理上的计数器（寄存器）
+执行native方法的时候，JVM计数器的值为undefined，下一条指令的地址在物理计数器上
+唯一不存在OOM的区域
+</code></pre>
+</li>
 </ul>
-<h4 id="九-线程的实现方式">九、线程的实现方式</h4>
+<h3 id="堆"><strong>堆</strong></h3>
 <ul>
-<li>应用通过线程库实现用户级线程并自主管理，操作系统不知道</li>
-<li>将m个用户级线程映射到n个内核级线程（多对多模型）</li>
+<li>
+<p>StringTable</p>
+<ul>
+<li>
+<p>入池原理</p>
+<blockquote>
+<p>字符串变量拼接原理是StringBuilder //需主动入池<br>
+字符串常量拼接原理是编译期优化	 //被动入池<br>
+被动入池：懒加载<br>
+主动入池：str.intern()<br>
+1.6中，若StringTable中有str.value，则不放入；若没有，则放入str的副本<br>
+1.7以后，直接放入str本体（可能和StringTable从元空间剥离，逻辑上放在了堆上有关）</p>
+</blockquote>
+</li>
+<li>
+<p>调优</p>
+<blockquote>
+<p>因为StringTable是哈希表结构，所以可以通过调节桶数量进行调优，桶数量通过虚拟机参数调节</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="方法区"><strong><a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.5.4">方法区</a></strong></h3>
+<pre><code>The Java Virtual Machine has a method area that is shared among all Java Virtual Machine threads. The method area is analogous to the storage area for compiled code of a conventional language or analogous to the &quot;text&quot; segment in an operating system process. It stores per-class structures such as the run-time constant pool, field and method data, and the code for methods and constructors, including the special methods used in class and instance initialization and interface initialization.
+</code></pre>
+<ul>
+<li>
+<p>组成</p>
+<ul>
+<li>
+<p>类信息：包含类的字段，方法，特殊方法</p>
+</li>
+<li>
+<p>运行时常量池：就是一张数组结构的表，虚拟机指令根据这张常量表找到要执行的类名、方法名、参数类型、对象地址等信息</p>
+<blockquote>
+<p>逻辑包含字符串常量池，1.7后StringTable继续待在堆中，方法区别的玩意放到了本地内存的元空间</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="直接内存"><strong>直接内存</strong></h3>
+<pre><code>性能好，直接分配在Native堆，减少了Java堆和Native堆之间的copy
+</code></pre>
+<h3 id="参考"><strong>参考</strong></h3>
+<ul>
+<li>
+<p>https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html</p>
+</li>
+<li>
+<p>https://blog.jamesdbloom.com/JVMInternals.html</p>
+</li>
 </ul>
 
                 </div>
@@ -175,8 +201,8 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://glidea.github.io/post/san-men-wen-ti/" class="post-title gt-a-link">
-                    三门问题
+                <a href="https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-3/" class="post-title gt-a-link">
+                    操作系统知识点总结 - 3
                 </a>
             </div>
         

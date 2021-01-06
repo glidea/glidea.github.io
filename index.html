@@ -9,7 +9,7 @@
 <meta name="description" content="">
 <meta name="theme-color" content="#000">
 <title>Glidea&#39;s Note</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1609157020106">
+<link rel="shortcut icon" href="/favicon.ico?v=1609924584894">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -89,8 +89,8 @@
             <li class="nav-item ">
               
               
-                <a href="/tags/" target="_self">
-                  <i class="fa fa-tags"></i> 分类
+                <a href="/category/" target="_self">
+                  <i class="fa fa-globe"></i> 分类
                 </a>
               
             </li>
@@ -158,7 +158,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">0</span>
+        <span class="site-item-stat-count">1</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -200,13 +200,93 @@
   </script>
         <div class="section-box pisces">
           <section class="section bg-color posts-expand slide-down-in">
+            
+  <article class="post-list-box  post box-shadow-wrapper">
+    <div class="article-wrapper bg-color">
+      <section class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://glidea.github.io/post/vwp0rgIpw/">
+      JVM - 内存结构
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span class="language" data-lan="publish">发布于</span>
+      <span class="publish-time" data-t="2021-01-06 17:15:37">2021-01-06</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>4<span class="language" data-lan="minute">分钟</span></span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>785<span class="pc-show language" data-lan="words">字数</span></span>
+    </span>
+    
+  </div>
+</section>
+      <div class="post-body">
+        
+        
+          
+            <!-- 没有手动摘要切开启了自动摘要,则根据配置筛除摘要内容 -->
+            
+            
               
+              
+              
+            
+              
+              
+              
+            
+              
+              
+              
+            
+            
+              <p><h3 id="虚拟机栈和本地方法栈"><strong>虚拟机栈和本地方法栈</strong></h3>
+<ul>
+<li>
+
+                
+              <p>
+            
+          
+        
+        
+        <div class="post-button text-center">
+          <a class="btn language" data-lan="read-more" href="https://glidea.github.io/post/vwp0rgIpw/" rel="contents">
+            阅读全文 »
+          </a>
+        </div>
+        
+      </div>
+      
+        <footer class="post-footer">
+          <div class="post-eof"></div>
+        </footer>
+      
+    </div>
+  </article>
+  
             
             
 <div class="page bg-color">
   <ul class="pagination-ul">
     
     
+      
+        <li class="pagination-li pagination-active">
+            <a href="/page/../">
+              1
+            </a>
+        </li>
       
     
     
@@ -436,6 +516,144 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://glidea.github.io/post/vwp0rgIpw/"" data-c="
+          &lt;h3 id=&#34;虚拟机栈和本地方法栈&#34;&gt;&lt;strong&gt;虚拟机栈和本地方法栈&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.6&#34;&gt;栈帧的组成&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;局部变量表：存放方法参数、局部变量&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;表item可复用（注意对gc的影响）&lt;/p&gt;
+&lt;p&gt;这玩意是创建时从运行时常量池弄过来的&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;操作数栈：类似于数据寄存器，存储临时计算结果&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;动态连接：当前方法所在类在运行时常量池中的引用&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The reference points to the constant pool for the class of the method being executed for that frame&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;方法返回值和返回地址&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;异常处理表&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;栈上分配&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;开启逃逸分析和标量替换后，非逃逸对象可以在栈上分配，但大对象还需要在堆上分配&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;异常情况&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;StackOverflow：栈帧太多&lt;br&gt;
+OOM：内存不足，无法申请新的栈帧&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;程序计数器&#34;&gt;&lt;strong&gt;程序计数器&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;作用：记住线程下一条 “JVM指令” 的地址（指令在方法区中）&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;是实现分支、循环、跳转、异常处理的基础设施&lt;br&gt;
+以及保存上下文切换的执行进度&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;补充&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;JVM的计数器是软件方法实现的，并非物理上的计数器（寄存器）&lt;br&gt;
+执行native方法的时候，JVM计数器的值为undefined，下一条指令的地址在物理计数器上&lt;br&gt;
+唯一不存在OOM的区域&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;堆&#34;&gt;&lt;strong&gt;堆&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;年轻代与老年代&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;G1 不再完全基于传统分代模型，而是采用基于 Region 的动态分代策略&lt;/p&gt;
+&lt;p&gt;ZGC 目前不分代，ZGC 分代实现仍在探索中&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;StringTable&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;入池原理&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;字符串变量拼接原理是StringBuilder   //需主动入池&lt;br&gt;
+字符串常量拼接原理是编译期优化	 //被动入池&lt;br&gt;
+被动入池：懒加载&lt;br&gt;
+主动入池：str.intern()&lt;br&gt;
+1.6中，若StringTable中有str.value，则不放入；若没有，则放入str的副本&lt;br&gt;
+1.7以后，直接放入str本体（可能和StringTable从元空间剥离，逻辑上放在了堆上有关）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;调优&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;因为StringTable是哈希表结构，所以可以通过调节桶数量进行调优，桶数量通过虚拟机参数调节&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;思考题&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对象从创建到被回收的过程是怎样的？&lt;/p&gt;
+&lt;p&gt;什么是空间担保？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;方法区&#34;&gt;&lt;strong&gt;&lt;a href=&#34;https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.5.4&#34;&gt;方法区&lt;/a&gt;&lt;/strong&gt;&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The Java Virtual Machine has a method area that is shared among all Java Virtual Machine threads. The method area is analogous to the storage area for compiled code of a conventional language or analogous to the &amp;quot;text&amp;quot; segment in an operating system process. It stores per-class structures such as the run-time constant pool, field and method data, and the code for methods and constructors, including the special methods used in class and instance initialization and interface initialization.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;组成&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;类信息：包含类的字段，方法，特殊方法。但注意 Class 对象在堆中&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;运行时常量池：就是一张数组结构的表，虚拟机指令根据这张常量表找到要执行的类名、方法名、参数类型、对象地址等信息&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;逻辑包含字符串常量池，1.7后StringTable继续待在堆中，方法区别的玩意放到了本地内存的元空间&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;直接内存&#34;&gt;&lt;strong&gt;直接内存&lt;/strong&gt;&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;性能好，直接分配在Native堆，减少了Java堆和Native堆之间的copy&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;参考&#34;&gt;&lt;strong&gt;参考&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;https://blog.jamesdbloom.com/JVMInternals.html&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+">JVM - 内存结构</a>
+      </div>
       
     </div>
     <div class="page">

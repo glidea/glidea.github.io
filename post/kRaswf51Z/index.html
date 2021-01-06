@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>JVM - 内存结构 | Glidea&#39;s Note</title>
+<title>JVM - 垃圾回收 | Glidea&#39;s Note</title>
 
 <link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1609925026831">
 
@@ -186,7 +186,7 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    JVM - 内存结构
+                    JVM - 垃圾回收
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
@@ -199,144 +199,160 @@
                     
                 </div>
                 <div class="post-content">
-                    <h3 id="虚拟机栈和本地方法栈"><strong>虚拟机栈和本地方法栈</strong></h3>
+                    <h3 id="对象间的四种引用"><strong>对象间的四种引用</strong></h3>
 <ul>
 <li>
-<p><a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.6">栈帧的组成</a></p>
-<ul>
+<p>强引用：只要 GC Roots 强引用的到，就不会被 GC 回收</p>
+</li>
 <li>
-<p>局部变量表：存放方法参数、局部变量</p>
+<p>软引用：某次 GC 后内存还不够，就把只有软引用的 obj 列入再次 GC 的回收范围</p>
+</li>
+<li>
+<p>弱引用：如果只有软引用，一旦 GC，就会被回收</p>
+</li>
+<li>
+<p>虚引用：和弱引用一样不会对 obj 的生存时间造成影响。虚引用对象在引用的 obj 被回收的时候，会自动加入引用队列等待扫描线程，从而起到通知系统的作用</p>
+</li>
+</ul>
 <blockquote>
-<p>表item可复用（注意对gc的影响）</p>
-<p>这玩意是创建时从运行时常量池弄过来的</p>
+<p>软弱引用可以关联引用队列，obj 回收后软弱引用对象会自动加入引用队列，便于回收软弱引用对象</p>
+<p>虚引用关联了默认的引用队列</p>
+<p>软弱引用可以用于缓存的实现</p>
+<p>虚引用的用途之一是 NIO 的实现，通知系统释放 Buffer 对象对应的本地内存</p>
+</blockquote>
+<h3 id="判断对象是否可达"><strong>判断对象是否可达</strong></h3>
+<blockquote>
+<p>沿着 GC Roots 的强引用链搜索，找不到的都是不可达对象</p>
+</blockquote>
+<ul>
+<li>可以作为 GC Roots 的对象
+<ul>
+<li>虚拟机栈中所有栈帧使用到的对象，譬如各个线程的栈使用到的局部变量，方法参数等</li>
+<li>被拿来当锁的对象</li>
+<li>方法区中类静态属性引用的对象，譬如引用类型的静态变量</li>
+<li>Native 方法引用的 Java 对象</li>
+<li>异常对象，类加载器，基本类型的 Class 对象</li>
+<li>......</li>
+</ul>
+</li>
+</ul>
+<h3 id="判断对象是否可以回收"><strong>判断对象是否可以回收</strong></h3>
+<blockquote>
+<p>先判断是否可达，不可达的对象还要在看看有没有软引用。</p>
+<p>若有软引用，则先不着急回收该对象，在进行一次 GC 后，若空间还不足，再回收</p>
+</blockquote>
+<h3 id="回收算法"><strong>回收算法</strong></h3>
+<ul>
+<li>
+<p>标记复制 O(k)</p>
+<blockquote>
+<p>标记存活对象，然后将其复制到另一块内存</p>
+</blockquote>
+<ul>
+<li>优点：快，只需要标记 + 复制</li>
+<li>缺点：浪费空间</li>
+<li>用途：回收存活率低的新生代</li>
+</ul>
+</li>
+<li>
+<p>标记清除 O(n)</p>
+<blockquote>
+<p>标记存活对象，然后扫描整个空间，统一回收未被标记的对象</p>
+</blockquote>
+<ul>
+<li>优点：作为老年代回收算法，延迟低</li>
+<li>缺点：有内存碎片，吞吐量不行</li>
+<li>用途：用于注重延迟的老年代收集器</li>
+</ul>
+</li>
+<li>
+<p>标记整理 O(n)</p>
+<blockquote>
+<p>标记存活对象，然后扫描整个空间，同时把标记对象往前挪</p>
+</blockquote>
+<ul>
+<li>优点：作为老年代回收算法，吞吐量高</li>
+<li>缺点：需要移动对象，并更改引用。速度慢，延迟高</li>
+<li>用途：用于注重吞吐量的老年代收集器</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>标记清除和标记整理结合使用。如 CMS 平时使用标记清除，碎片过多时，采用标记整理</p>
+</blockquote>
+<h3 id="垃圾收集器"><strong>垃圾收集器</strong></h3>
+<ul>
+<li>
+<p>Serial / Serial Old</p>
+<ul>
+<li>比其他收集器的单线程快</li>
+<li>是客户端模式的默认组合（串行）</li>
+</ul>
+</li>
+<li>
+<p>Parallel Scavenge / Parallel Old</p>
+<ul>
+<li>注重吞吐量的收集组合，也是 1.8 默认组合</li>
+</ul>
+<blockquote>
+<p>-XX:MaxGCPauseMillis：保证每次 GC 不会超过这个时间，调低会降低新生代空间，增加回收垃圾所需的总时间，从而导致吞吐量下降（控制延迟常数）</p>
+<p>-XX:GCTimeRatio：设置 GC 时间可占用总时间的最大比率（控制延迟比例）</p>
+<p>-XX:+UseAdaotiveSizePolicy：让收集器自调节性能参数</p>
 </blockquote>
 </li>
 <li>
-<p>操作数栈：类似于数据寄存器，存储临时计算结果</p>
+<p>ParNew：多线程版本的 Serial</p>
+<ul>
+<li>CMS 最佳的新生代可用收集器</li>
+<li>JDK9 后 ParNew 并入 CMS，但至此 G1 替代 ParNew + CMS 成为首选方案</li>
+</ul>
 </li>
 <li>
-<p>动态连接：当前方法所在类在运行时常量池中的引用</p>
+<p>CMS：响应优先</p>
+<ul>
+<li>
+<p>运作过程</p>
 <blockquote>
-<p>The reference points to the constant pool for the class of the method being executed for that frame</p>
+<p>初始标记：标记 GC Roots 能直接关联的对象（耗时很短，只开了单线程）</p>
+<p>并发标记：在初始标记的基础上继续标记</p>
+<p>重新标记：修正标记，处理在并发标记的时候，先被标记为垃圾，后面重新被引用的情况</p>
+<p>并发清除：清理垃圾对象，不需要移动存活对象</p>
 </blockquote>
 </li>
 <li>
-<p>方法返回值和返回地址</p>
-</li>
-<li>
-<p>异常处理表</p>
+<p>缺点</p>
+<blockquote>
+<p>并发期间开启的回收线程数量是 (核心数 + 3) / 4，在核少的服务器上，会挤占过多的 CPU 资源</p>
+<p>由于无法处理浮动垃圾，清理前需要预留部分空间，即老年代占用达到预设百分比后就触发 CMS（Old GC），而不是像别的收集器等到快满的时候才收集</p>
+<p>如果预留空间无法容纳浮动垃圾（并发失败），则启用 Serial Old（为啥不整个多线程的收集器当备胎？）</p>
+<p>由于使用标记 - 清除，当内存碎片太多时，启用 Full GC （为啥不只是 Old GC）</p>
+</blockquote>
 </li>
 </ul>
 </li>
 <li>
-<p>栈上分配</p>
-<blockquote>
-<p>开启逃逸分析和标量替换后，非逃逸对象可以在栈上分配，但大对象还需要在堆上分配</p>
-</blockquote>
-</li>
-<li>
-<p>异常情况</p>
-<blockquote>
-<p>StackOverflow：栈帧太多<br>
-OOM：内存不足，无法申请新的栈帧</p>
-</blockquote>
+<p>G1</p>
 </li>
 </ul>
-<h3 id="程序计数器"><strong>程序计数器</strong></h3>
-<ul>
-<li>
-<p>作用：记住线程下一条 “JVM指令” 的地址（指令在方法区中）</p>
+<h3 id="思考题"><strong>思考题</strong></h3>
 <blockquote>
-<p>是实现分支、循环、跳转、异常处理的基础设施<br>
-以及保存上下文切换的执行进度</p>
+<p>怎么解决并发标记时产生的标记错误</p>
+<p>卡表什么作用，怎么实现 YGC 在标记过程的剪枝</p>
+<p>写屏障和卡表更新的关系</p>
+<p>OopMap 与安全区域的关系</p>
 </blockquote>
-</li>
-<li>
-<p>补充</p>
-<blockquote>
-<p>JVM的计数器是软件方法实现的，并非物理上的计数器（寄存器）<br>
-执行native方法的时候，JVM计数器的值为undefined，下一条指令的地址在物理计数器上<br>
-唯一不存在OOM的区域</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="堆"><strong>堆</strong></h3>
-<ul>
-<li>
-<p>年轻代与老年代</p>
-<blockquote>
-<p>G1 不再完全基于传统分代模型，而是采用基于 Region 的动态分代策略</p>
-<p>ZGC 目前不分代，ZGC 分代实现仍在探索中</p>
-</blockquote>
-</li>
-<li>
-<p>StringTable</p>
-<ul>
-<li>
-<p>入池原理</p>
-<blockquote>
-<p>字符串变量拼接原理是StringBuilder   //需主动入池<br>
-字符串常量拼接原理是编译期优化	 //被动入池<br>
-被动入池：懒加载<br>
-主动入池：str.intern()<br>
-1.6中，若StringTable中有str.value，则不放入；若没有，则放入str的副本<br>
-1.7以后，直接放入str本体（可能和StringTable从元空间剥离，逻辑上放在了堆上有关）</p>
-</blockquote>
-</li>
-<li>
-<p>调优</p>
-<blockquote>
-<p>因为StringTable是哈希表结构，所以可以通过调节桶数量进行调优，桶数量通过虚拟机参数调节</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li>
-<p>思考题</p>
-<blockquote>
-<p>对象从创建到被回收的过程是怎样的？</p>
-<p>什么是空间担保？</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="方法区"><strong><a href="https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.5.4">方法区</a></strong></h3>
-<blockquote>
-<p>The Java Virtual Machine has a method area that is shared among all Java Virtual Machine threads. The method area is analogous to the storage area for compiled code of a conventional language or analogous to the &quot;text&quot; segment in an operating system process. It stores per-class structures such as the run-time constant pool, field and method data, and the code for methods and constructors, including the special methods used in class and instance initialization and interface initialization.</p>
-</blockquote>
-<ul>
-<li>
-<p>组成</p>
-<ul>
-<li>
-<p>类信息：包含类的字段，方法，特殊方法。但注意 Class 对象在堆中</p>
-</li>
-<li>
-<p>运行时常量池：就是一张数组结构的表，虚拟机指令根据这张常量表找到要执行的类名、方法名、参数类型、对象地址等信息</p>
-<blockquote>
-<p>逻辑包含字符串常量池，1.7后StringTable继续待在堆中，方法区别的玩意放到了本地内存的元空间</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="直接内存"><strong>直接内存</strong></h3>
-<blockquote>
-<p>性能好，直接分配在Native堆，减少了Java堆和Native堆之间的copy</p>
-</blockquote>
-<h3 id="参考"><strong>参考</strong></h3>
-<ul>
-<li>
-<p>https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html</p>
-</li>
-<li>
-<p>https://blog.jamesdbloom.com/JVMInternals.html</p>
-</li>
-</ul>
 
                 </div>
             </article>
         </div>
 
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://glidea.github.io/post/vwp0rgIpw/" class="post-title gt-a-link">
+                    JVM - 内存结构
+                </a>
+            </div>
         
 
         

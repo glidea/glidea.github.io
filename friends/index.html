@@ -1,893 +1,242 @@
-<!DOCTYPE html>
 <html>
 
 <head>
-  <meta charset="UTF-8" />
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta name="keywords" content="Gridea静态个人博客">
-<meta name="description" content="">
-<meta name="theme-color" content="#000">
-<title>Glidea&#39;s Note</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1609924584894">
-<link rel="stylesheet" href="/media/css/pisces.css">
-<link rel="stylesheet" href="/media/fonts/font-awesome.css">
-<link
-  href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"
-  rel="stylesheet" type="text/css">
+<title>友情链接 | Glidea&#39;s Note</title>
 
-<link href="/media/hljs/styles/default.css"
-  rel="stylesheet">
+<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1609925026831">
 
-<link rel="stylesheet" href="/styles/main.css">
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://glidea.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
 
-<script src="/media/hljs/highlight.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.ui.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
-  integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
 
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
 
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
-  integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
-  integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
-  onload="renderMathInElement(document.body);"></script>
-
-
-
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
 
 
 </head>
 
 <body>
-  <div class="head-top-line"></div>
-  <div class="header-box">
-    
-<div class="pisces">
-  <header class="header  ">
-    <div class="blog-header box-shadow-wrapper bg-color " id="header">
-      <div class="nav-toggle" id="nav_toggle">
-        <div class="toggle-box">
-          <div class="line line-top"></div>
-          <div class="line line-center"></div>
-          <div class="line line-bottom"></div>
-        </div>
-      </div>
-      <div class="site-meta">       
-        <div class="site-title">
-          
-            <a href="/" class="brand">
-              <span>Glidea&#39;s Note</span>
-            </a>  
-          
-        </div>
-        
-          <p class="subtitle">笔记向，非博客</p>
-        
-      </div>
-      <nav class="site-nav" id="site_nav">
-        <ul id="nav_ul">
-          
-            
-            
-              
-            
-            <li class="nav-item ">
-              
-              
-                <a href="/" target="_self">
-                  <i class="fa fa-home"></i> 文章
-                </a>
-              
-            </li>
-          
-            
-            
-              
-            
-            <li class="nav-item ">
-              
-              
-                <a href="/category/" target="_self">
-                  <i class="fa fa-globe"></i> 分类
-                </a>
-              
-            </li>
-          
-          
-            
-              <li class="nav-item ">
-                <a href="/friends/" target="_self">
-                  
-                    <i class="fa fa-address-book"></i> 友情链接
-                  
-                </a>
-              </li>
-            
-          
-          
-            <li id="fa_search" class="nav-item">
-              <a href="javascript:void(0);">
-                <i class="fa fa-search"></i> <span class="language" data-lan="search">搜索</span>
-              </a>
-            </li>
-          
-        </ul>
-      </nav>
-    </div>
-  </header>
-</div>
-
-<script type="text/javascript"> 
- 
-  let showNav = true;
-
-  let navToggle = document.querySelector('#nav_toggle'),
-  siteNav = document.querySelector('#site_nav');
-  
-  function navClick() {
-    let sideBar = document.querySelector('.sidebar');
-    let navUl = document.querySelector('#nav_ul');
-    navToggle.classList.toggle('nav-toggle-active');
-    siteNav.classList.toggle('nav-menu-active');
-    if (siteNav.classList.contains('nav-menu-active')) {
-      siteNav.style = "height: " + (navUl.children.length * 42) +"px !important";
-    } else {
-      siteNav.style = "";
-    }
-  }
-
-  navToggle.addEventListener('click',navClick);  
-</script>
-  </div>
-  <div class="main-continer">
-    
-    <div
-      class="section-layout pisces ">
-      <div class="section-layout-wrapper">
-        <div id="sidebarMeta" class="sidebar">
-    
-<div class="sidebar-wrapper box-shadow-wrapper bg-color">
-  <div class="sidebar-item">
-    <img class="site-author-image right-motion" src="/images/avatar.png"/>
-    <p class="site-author-name">glidea</p>
-    
-  </div>
-  <div class="sidebar-item side-item-stat right-motion">
-    <div class="sidebar-item-box">
-      <a href="/archives/">
-        
-        <span class="site-item-stat-count">1</span>
-        <span class="site-item-stat-name language" data-lan="article">文章</span>
-      </a>
-    </div>
-    <div class="sidebar-item-box">
-      <a href="">
-        <span class="site-item-stat-count">0</span>
-        <span class="site-item-stat-name language" data-lan="category">分类</span>
-      </a>
-    </div>
-    <div class="sidebar-item-box">
-      <a href="/tags/">
-        <span class="site-item-stat-count">0</span>
-        <span class="site-item-stat-name language" data-lan="tag">标签</span>
-      </a>
-    </div>
-  </div>
-  
-    
-  
-  
-
-
-
-</div>
-</div>
-<script>
-  let sidebarMeta = document.querySelector('#sidebarMeta');
-  let scheme = 'pisces';
-  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
-  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
-    document.addEventListener('scroll', function(e) {
-      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
-        sidebarWrapper.classList.add('home-sidebar-fixed')
-      } else {
-        sidebarWrapper.classList.remove('home-sidebar-fixed')
-      }
-    });
-  }
-  </script>
-        <div class="section-box pisces box-shadow-wrapper">
-          <section class="friends-section bg-color slide-down-in">
-            <div class="firends-box">
-              <h1 class="firends-title" itemprop="name headline">友情链接</h1>
-              
-              
-              
-            </div>
-            <hr>
-            <div style="text-align:center">
-              <span class="with-love">
-                <i class="fa fa-heart"></i>
-              </span>
-              <span class="language" data-lan="leave-message">留言添加友链</span>
-              <span class="with-love">
-                <i class="fa fa-heart"></i>
-              </span>
-            </div>
-            <hr>
-            <div class="friends-note">
-              <p><strong class="language" data-lan="format">友链格式：</strong></p>
-              <ul>
-                <li><span class="language" data-lan="site-name">网站名称：</span>Glidea&#39;s Note</li>
-                <li><span class="language" data-lan="site-link">网站地址：</span><a href="https://glidea.github.io" data-pjax-state="">https://glidea.github.io</a></li>
-                <li><span class="language" data-lan="site-desc">网站描述：</span></li>
-                <li><span class="language" data-lan="site-img">网站头像：</span>
-                  <a href="https://glidea.github.io/images/avatar.png">https://glidea.github.io/images/avatar.png</a>
-                </li>
-              </ul>
-            </div>
-            
-  
-
-          </section>
-        </div>
-      </div>
-    </div>
-    <div class="footer-box">
-  <footer class="footer">
-    <div class="copyright">
-      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | © 2019-2020 Theme By <a
-        href="https://github.com/hsxyhao/gridea-theme-next" target="_blank">HsxyHao</a>
-    </div>
-    <div class="poweredby">
-      
-    </div>
-  </footer>
-  
-  
-  <div class="pisces back-to-top" id="back_to_top">
-    <i class="fa fa-arrow-up"></i>
-    
-    <span class="scrollpercent">
-      <span id="back_to_top_text">0</span>%
-    </span>
-    
-  </div>
-  
-  
-  
-</div>
-<script>
-
-  let sideBarOpen = 'sidebar-open';
-  let body = document.body;
-  let back2Top = document.querySelector('#back_to_top'),
-    back2TopText = document.querySelector('#back_to_top_text'),
-    drawerBox = document.querySelector('#drawer_box'),
-    rightSideBar = document.querySelector('.sidebar'),
-    viewport = document.querySelector('body');
-
-  function scrollAnimation(currentY, targetY) {
-
-    let needScrollTop = targetY - currentY
-    let _currentY = currentY
-    setTimeout(() => {
-      const dist = Math.ceil(needScrollTop / 10)
-      _currentY += dist
-      window.scrollTo(_currentY, currentY)
-      if (needScrollTop > 10 || needScrollTop < -10) {
-        scrollAnimation(_currentY, targetY)
-      } else {
-        window.scrollTo(_currentY, targetY)
-      }
-    }, 1)
-  }
-
-  back2Top.addEventListener("click", function (e) {
-    scrollAnimation(document.scrollingElement.scrollTop, 0);
-    e.stopPropagation();
-    return false;
-  });
-
-  window.addEventListener('scroll', function (e) {
-    let percent = document.scrollingElement.scrollTop / (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight) * 100;
-    if (percent > 1 && !back2Top.classList.contains('back-top-active')) {
-      back2Top.classList.add('back-top-active');
-    }
-    if (percent == 0) {
-      back2Top.classList.remove('back-top-active');
-    }
-    if (back2TopText) {
-      back2TopText.textContent = Math.floor(percent);
-    }
-  });
-
-
-  let hasCacu = false;
-  window.onresize = function () {
-    calcuHeight();
-  }
-
-  function calcuHeight() {
-    // 动态调整站点概览高度
-    if (!hasCacu && back2Top.classList.contains('pisces') || back2Top.classList.contains('gemini')) {
-      let sideBar = document.querySelector('.sidebar');
-      let navUl = document.querySelector('#site_nav');
-      sideBar.style = 'margin-top:' + (navUl.offsetHeight + navUl.offsetTop + 15) + 'px;';
-      hasCacu = true;
-    }
-  }
-  calcuHeight();
-
-  let open = false, MOTION_TIME = 300, RIGHT_MOVE_DIS = '320px';
-
-  if (drawerBox) {
-    let rightMotions = document.querySelectorAll('.right-motion');
-    let right = drawerBox.classList.contains('right');
-
-    let transitionDir = right ? "transition.slideRightIn" : "transition.slideLeftIn";
-
-    let openProp, closeProp;
-    if (right) {
-      openProp = {
-        paddingRight: RIGHT_MOVE_DIS
-      };
-      closeProp = {
-        paddingRight: '0px'
-      };
-    } else {
-      openProp = {
-        paddingLeft: RIGHT_MOVE_DIS
-      };
-      closeProp = {
-        paddingLeft: '0px'
-      };
+<div class="main gt-bg-theme-color-first">
+        <div class="main-content">
+            <style>
+    /* 导航栏样式 */
+    .navbar {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
     }
 
-    drawerBox.onclick = function () {
-      open = !open;
-      window.Velocity(rightSideBar, 'stop');
-      window.Velocity(viewport, 'stop');
-      window.Velocity(rightMotions, 'stop');
-      if (open) {
-        window.Velocity(rightSideBar, {
-          width: RIGHT_MOVE_DIS
-        }, {
-          duration: MOTION_TIME,
-          begin: function () {
-            window.Velocity(rightMotions, transitionDir, {});
-          }
-        })
-        window.Velocity(viewport, openProp, {
-          duration: MOTION_TIME
-        });
-      } else {
-        window.Velocity(rightSideBar, {
-          width: '0px'
-        }, {
-          duration: MOTION_TIME,
-          begin: function () {
-            window.Velocity(rightMotions, {
-              opacity: 0
-            });
-          }
-        })
-        window.Velocity(viewport, closeProp, {
-          duration: MOTION_TIME
-        });
-      }
-      for (let i = 0; i < drawerBox.children.length; i++) {
-        drawerBox.children[i].classList.toggle('muse-line');
-      }
-      drawerBox.classList.toggle(sideBarOpen);
-    }
-  }
-
-  // 链接跳转
-  let newWindow = 'true'
-  if (newWindow === 'true') {
-    let links = document.querySelectorAll('.post-body a')
-    links.forEach(item => {
-      if (!item.classList.contains('btn')) {
-        item.setAttribute("target", "_blank");
-      }
-    })
-  }
-
-  let faSearch = document.querySelector('#fa_search');
-  faSearch.addEventListener('click', function () {
-    document.querySelector('#search_mask').style = ''
-  })
-
-  // 代码高亮
-  hljs.initHighlightingOnLoad();
-  
-  // 离开当前页title变化
-  var leaveTitle = "";
-  if (leaveTitle) {
-    document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState == 'hidden') {
-        normal_title = document.title;
-        document.title = leaveTitle;
-      } else {
-        document.title = normal_title;
-      }
-    });
-  }
-
-</script>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-
-<script>
-  let images = document.querySelectorAll('.section img');
-  console.log(images);
-  images.forEach(image => {
-    var parent = image.parentElement;
-    var next = image.nextElementSibling;
-    parent.removeChild(image);
-    var aelem = document.createElement('a');
-    aelem.href = image.src;
-    aelem.dataset['fancybox'] = 'images';
-    aelem.dataset['rel'] = 'fancybox-button';
-    aelem.classList.add('fancybox');
-    aelem.appendChild(image);
-    parent.insertBefore(aelem, next);
-  })
-</script>
-  </div>
-</body>
-
-<div class="search-mask" id="search_mask" style="display: none;">
-  <div class="search-box">
-    <div class="search-title">
-      <i class="fa fa-search"></i>
-      <div class="input-box">
-        <input id="search" type="text" class="language" data-lan="search" placeholder="搜索">
-      </div>
-      <i id="close" class="fa fa-times-circle"></i>
-    </div>
-    <div class="stat-box">
-      <span id="stat_count">0</span><span class="language" data-lan="stat">条相关条目，使用了</span><span id="stat_times">0</span><span class="language" data-lan="stat-time">毫秒</span>
-      <hr>
-    </div>
-    <div class="result" id="result">
-      
-      <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://glidea.github.io/post/vwp0rgIpw/"" data-c="
-          &lt;h3 id=&#34;虚拟机栈和本地方法栈&#34;&gt;&lt;strong&gt;虚拟机栈和本地方法栈&lt;/strong&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.6&#34;&gt;栈帧的组成&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;局部变量表：存放方法参数、局部变量&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;表item可复用（注意对gc的影响）&lt;/p&gt;
-&lt;p&gt;这玩意是创建时从运行时常量池弄过来的&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;操作数栈：类似于数据寄存器，存储临时计算结果&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;动态连接：当前方法所在类在运行时常量池中的引用&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;The reference points to the constant pool for the class of the method being executed for that frame&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;方法返回值和返回地址&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;异常处理表&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;栈上分配&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;开启逃逸分析和标量替换后，非逃逸对象可以在栈上分配，但大对象还需要在堆上分配&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;异常情况&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;StackOverflow：栈帧太多&lt;br&gt;
-OOM：内存不足，无法申请新的栈帧&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;程序计数器&#34;&gt;&lt;strong&gt;程序计数器&lt;/strong&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;作用：记住线程下一条 “JVM指令” 的地址（指令在方法区中）&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;是实现分支、循环、跳转、异常处理的基础设施&lt;br&gt;
-以及保存上下文切换的执行进度&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;补充&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;JVM的计数器是软件方法实现的，并非物理上的计数器（寄存器）&lt;br&gt;
-执行native方法的时候，JVM计数器的值为undefined，下一条指令的地址在物理计数器上&lt;br&gt;
-唯一不存在OOM的区域&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;堆&#34;&gt;&lt;strong&gt;堆&lt;/strong&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;年轻代与老年代&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;G1 不再完全基于传统分代模型，而是采用基于 Region 的动态分代策略&lt;/p&gt;
-&lt;p&gt;ZGC 目前不分代，ZGC 分代实现仍在探索中&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;StringTable&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;入池原理&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;字符串变量拼接原理是StringBuilder   //需主动入池&lt;br&gt;
-字符串常量拼接原理是编译期优化	 //被动入池&lt;br&gt;
-被动入池：懒加载&lt;br&gt;
-主动入池：str.intern()&lt;br&gt;
-1.6中，若StringTable中有str.value，则不放入；若没有，则放入str的副本&lt;br&gt;
-1.7以后，直接放入str本体（可能和StringTable从元空间剥离，逻辑上放在了堆上有关）&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;调优&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;因为StringTable是哈希表结构，所以可以通过调节桶数量进行调优，桶数量通过虚拟机参数调节&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;思考题&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;对象从创建到被回收的过程是怎样的？&lt;/p&gt;
-&lt;p&gt;什么是空间担保？&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;方法区&#34;&gt;&lt;strong&gt;&lt;a href=&#34;https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.5.4&#34;&gt;方法区&lt;/a&gt;&lt;/strong&gt;&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;The Java Virtual Machine has a method area that is shared among all Java Virtual Machine threads. The method area is analogous to the storage area for compiled code of a conventional language or analogous to the &amp;quot;text&amp;quot; segment in an operating system process. It stores per-class structures such as the run-time constant pool, field and method data, and the code for methods and constructors, including the special methods used in class and instance initialization and interface initialization.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;组成&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;类信息：包含类的字段，方法，特殊方法。但注意 Class 对象在堆中&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;运行时常量池：就是一张数组结构的表，虚拟机指令根据这张常量表找到要执行的类名、方法名、参数类型、对象地址等信息&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;逻辑包含字符串常量池，1.7后StringTable继续待在堆中，方法区别的玩意放到了本地内存的元空间&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;直接内存&#34;&gt;&lt;strong&gt;直接内存&lt;/strong&gt;&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;性能好，直接分配在Native堆，减少了Java堆和Native堆之间的copy&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;参考&#34;&gt;&lt;strong&gt;参考&lt;/strong&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;https://blog.jamesdbloom.com/JVMInternals.html&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-">JVM - 内存结构</a>
-      </div>
-      
-    </div>
-    <div class="page">
-      <div id="page_ul"></div>
-    </div>
-  </div>
-</div>
-<script>
-  !function () {
-    let searchMask = document.querySelector('#search_mask');
-    let result = document.querySelector('#result');
-    let items = document.querySelectorAll('.item');
-    let searchBox = document.querySelector('#search');
-    let statCount = document.querySelector('#stat_count');
-    let statTimes = document.querySelector('#stat_times');
-    let pageUl = document.querySelector('#page_ul');
-    let close = document.querySelector('#close');
-    
-    close.addEventListener('click', function() {
-      searchMask.style = 'display: none;'
-    })
-
-    let finds = [];
-    let contents = [];
-    let pageSize = 10;
-    items.forEach(item => {
-      let a = item.querySelector('a');
-      contents.push({
-        title: a.innerText,
-        details: a.dataset.c,
-        link: a.href
-      })
-      item.remove();
-    })
-
-    function insertStr(soure, start, count) {
-      let newStr = soure.substr(start, count);
-      return soure.slice(0, start) + '<em>' + newStr + '</em>' + soure.slice(start + count);
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
     }
 
-    pageUl.addEventListener('click', function(event) {
-      let target = event.target;
-      if (target.__proto__ === HTMLSpanElement.prototype) {
-        appendResults(parseInt(target.dataset.i));
-      }
-    })
-
-    function appendResults(index) {
-      let htmlResult = '';
-      let start = index || 0;
-      let end = Math.min(start + pageSize, finds.length);
-      for (let i = start; i < end; i++) {
-        const current = finds[i];
-        let html = current.title;
-        let sum = 0;
-        let positions = current.positions;
-        positions.forEach(position => {
-          html = insertStr(html, position.start + sum, position.count);
-          sum += 9;
-        })
-        htmlResult += `<div class="item"><a class="result-title" href="${current.link}">${html}</a></div>`;
-      }
-      result.innerHTML = htmlResult;
-      pageUl.innerHTML = '';
-      let count = finds.length / pageSize;
-      let lis = '';
-      if (start !== 0) {
-        lis += `<span class="fa fa-angle-left" data-i='${start - 1}'></span>`;
-      }
-      for (let i = 0; i < count; i++) {
-        lis += `<span class='${i === start?'current':''}' data-i='${i}'>${i+1}</span>`;     
-      }
-      if (start+1 < count) {
-        lis += `<span class="fa fa-angle-right" data-i='${start+1}'></span>`;  
-      }
-      pageUl.innerHTML = lis;
+    .navbar-brand:hover,
+    .navbar-brand:focus {
+        text-decoration: none;
     }
 
-    function search(delay) {
-      let timer = null
-      return function () {
-        clearTimeout(timer)
-        timer = setTimeout(() => {
-          let start = Date.now();
-          let segments = searchBox.value.split(' ').filter(c => c != '');
-          if (segments.length <= 0) {
-            return;
-          }
-          finds = [];
-          let htmlResult = '';
-          contents.forEach(content => {
-            let title = content.title;
-            let positions = [];
-            let find = false;
-            segments.forEach((segment) => {
-              if (content.title.includes(segment)) {
-                find = true;
-                positions.push({
-                  start: content.title.indexOf(segment),
-                  count: segment.length
-                })
-              } else if (content.details.includes(segment)) {
-                find = true;
-              }
-            });
-            if (find) {
-              finds.push({
-                title: content.title,
-                link: content.link,
-                positions
-              });
-            }
-          })
-          appendResults(0);
-          statCount.textContent = finds.length;
-          statTimes.textContent = Date.now() - start;
-        }, delay)
-      }
-    }
-    searchBox.addEventListener('input', search(200));
-  }()
-</script>
-
-<input hidden id="copy" />
-<script>
-  !function () {
-    let times = document.querySelectorAll('.publish-time');
-    for (let i = 0; i < times.length; i++) {
-      let date = times[i].dataset.t;
-      let time = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
-      if (time < 60) {
-        str = time + '秒之前';
-      } else if (time < 3600) {
-        str = Math.floor(time / 60) + '分钟之前';
-      } else if (time >= 3600 && time < 86400) {
-        str = Math.floor(time / 3600) + '小时之前';
-      } else if (time >= 86400 && time < 259200) {
-        str = Math.floor(time / 86400) + '天之前';
-      } else {
-        str = times[i].textContent;
-      }
-      times[i].textContent = str;
-    }
-  }();
-</script>
-
-<script>
-  let language = '';
-  if (language !== '') {
-    let map = new Map();
-    if (language === 'en') {
-      map.set('search', 'Search');
-      map.set('category', 'Categories');
-      map.set('article', 'Articles');
-      map.set('tag', 'Tags');
-      map.set('top', 'Top');
-      map.set('publish', 'published');
-      map.set('minute', ' minutes');
-      map.set('read-more', 'Read More');
-      map.set('view', 'View');
-      map.set('words', ' words');
-      map.set('category-in', 'category in');
-      map.set('preview', 'Meta');
-      map.set('index', 'Toc');
-      map.set('no-archives', "You haven't created yet");
-      map.set('archives', " articles in total");
-      map.set('cloud-tags', " tags in total");
-      map.set('copyright', "Copyright: ");
-      map.set('author', "Author: ");
-      map.set('link', "Link: ");
-      map.set('leave-message', "Leave a message");
-      map.set('format', "Links Format");
-      map.set('site-name', "Name: ");
-      map.set('site-link', "Link: ");
-      map.set('site-desc', "Desc: ");
-      map.set('stat', " related results, taking ");
-      map.set('stat-time', " ms");
-      map.set('site-img', "Image: ");
+    .navbar-nav {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
     }
 
-    if (map.size > 0) {
-      let lanElems = document.querySelectorAll('.language');
-      lanElems.forEach(elem => {
-        let lan = elem.dataset.lan, text = map.get(lan);
-        if (elem.__proto__ === HTMLInputElement.prototype) {
-          elem.placeholder = text
-        } else {
-          if (elem.dataset.count) {
-            text = elem.dataset.count + text;
-          }
-          elem.textContent = text;
+    .navbar-collapse {
+        -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .navbar-toggler {
+        padding: 0.25rem 0.75rem;
+        font-size: 1.25rem;
+        line-height: 1;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+    }
+
+    .navbar-toggler:hover,
+    .navbar-toggler:focus {
+        text-decoration: none;
+    }
+
+    @media (min-width: 992px) {
+        .navbar-expand-lg {
+            -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+            -ms-flex-pack: start;
+            justify-content: flex-start;
         }
-      })
-    }
-  }
-  //拿来主义(真香)^_^，Clipboard 实现摘自掘金 https://juejin.im/post/5aefeb6e6fb9a07aa43c20af
-  window.Clipboard = (function (window, document, navigator) {
-    var textArea,
-      copy;
 
-    // 判断是不是ios端
-    function isOS() {
-      return navigator.userAgent.match(/ipad|iphone/i);
-    }
-    //创建文本元素
-    function createTextArea(text) {
-      textArea = document.createElement('textArea');
-      textArea.value = text;
-      textArea.style.width = 0;
-      textArea.style.height = 0;
-      textArea.clientHeight = 0;
-      textArea.clientWidth = 0;
-      document.body.appendChild(textArea);
-    }
-    //选择内容
-    function selectText() {
-      var range,
-        selection;
+        .navbar-expand-lg .navbar-nav {
+            -ms-flex-direction: row;
+            flex-direction: row;
+        }
 
-      if (isOS()) {
-        range = document.createRange();
-        range.selectNodeContents(textArea);
-        selection = window.getSelection();
-        selection.removeAllRanges();
-        selection.addRange(range);
-        textArea.setSelectionRange(0, 999999);
-      } else {
-        textArea.select();
-      }
+        .navbar-expand-lg .navbar-collapse {
+            display: -ms-flexbox !important;
+            display: flex !important;
+            -ms-flex-preferred-size: auto;
+            flex-basis: auto;
+        }
+
+        .navbar-expand-lg .navbar-toggler {
+            display: none;
+        }
     }
 
-    //复制到剪贴板
-    function copyToClipboard() {
-      try {
-        document.execCommand("Copy")
-      } catch (err) {
-        alert("复制错误！请手动复制！")
-      }
-      document.body.removeChild(textArea);
+    @media (max-width: 991px) {
+        #navbarSupportedContent {
+            display: none;
+        }
     }
-
-    copy = function (text) {
-      createTextArea(text);
-      selectText();
-      copyToClipboard();
-    };
-
-    return {
-      copy: copy
-    };
-  })(window, document, navigator);
-
-  function copyCode(e) {
-    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
-      let code = e.currentTarget.querySelector('code');
-      var text = code.innerText;
-      if (e.srcElement.textContent === '复制成功') {
-        return;
-      }
-      e.srcElement.textContent = '复制成功';
-      (function (elem) {
-        setTimeout(() => {
-          if (elem.textContent === '复制成功') {
-            elem.textContent = '复制代码'
-          }
-        }, 1000);
-      })(e.srcElement)
-      Clipboard.copy(text);
-    }
-  }
-
-  let pres = document.querySelectorAll('pre');
-  pres.forEach(pre => {
-    let code = pre.querySelector('code');
-    let copyElem = document.createElement('span');
-    copyElem.classList.add('copy-code');
-    copyElem.textContent = '复制代码';
-    pre.appendChild(copyElem);
-    pre.onclick = copyCode
-  })
-
-</script>
-<script src="/media/js/motion.js"></script>
-
-
-<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+</style>
+<nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Glidea&#39;s Note
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    文章
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/category" class="menu gt-a-link">
+                    分类
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1609925026831"
+                action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
 <script>
-  var scroll = new SmoothScroll('a[href*="#"]', {
-    speed: 200
-  });
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = function () {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+            <div class="post-container">
+                <div class="post-detail">
+                    <article>
+                        <!-- <div class="post-content-wrapper"> -->
+                            <div class="post-content">
+                                <div class="friends-desc">
+                                    
+                                </div>
+                                <h3 id="linklist">友链列表</h3>
+                                
+                                    
+                                
+                            </div>
+                        <!-- </div> -->
+                    </article>
+                </div>
+                
+            </div>
+
+
+
+            <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://glidea.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
 </script>
 
-
-
-
-
+        </div>
+    </div>
+</body>
 
 </html>

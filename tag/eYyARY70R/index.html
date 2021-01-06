@@ -1,1362 +1,283 @@
-<!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset="UTF-8" />
+    <meta charset="utf-8" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<meta name="keywords" content="Gridea静态个人博客">
-<meta name="description" content="">
-<meta name="theme-color" content="#000">
-<title>Glidea&#39;s Note</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1609155767064">
-<link rel="stylesheet" href="/media/css/pisces.css">
-<link rel="stylesheet" href="/media/fonts/font-awesome.css">
-<link
-  href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"
-  rel="stylesheet" type="text/css">
+<title>JVM | Glidea&#39;s Note</title>
 
-<link href="/media/hljs/styles/default.css"
-  rel="stylesheet">
+<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1609925026831">
 
-<link rel="stylesheet" href="/styles/main.css">
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://glidea.github.io/styles/main.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"> -->
 
-<script src="/media/hljs/highlight.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.ui.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
-  integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+<style>
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+</style>
 
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
 
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
-  integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
-  integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
-  onload="renderMathInElement(document.body);"></script>
-
-
-
+<!-- <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script> -->
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
 
 
 </head>
-
 <body>
-  <div class="head-top-line"></div>
-  <div class="header-box">
-    
-<div class="pisces">
-  <header class="header  ">
-    <div class="blog-header box-shadow-wrapper bg-color " id="header">
-      <div class="nav-toggle" id="nav_toggle">
-        <div class="toggle-box">
-          <div class="line line-top"></div>
-          <div class="line line-center"></div>
-          <div class="line line-bottom"></div>
-        </div>
-      </div>
-      <div class="site-meta">       
-        <div class="site-title">
-          
-            <a href="/" class="brand">
-              <span>Glidea&#39;s Note</span>
-            </a>  
-          
-        </div>
-        
-          <p class="subtitle">笔记向，非博客</p>
-        
-      </div>
-      <nav class="site-nav" id="site_nav">
-        <ul id="nav_ul">
-          
-            
-            
-              
-            
-            <li class="nav-item ">
-              
-              
-                <a href="/" target="_self">
-                  <i class="fa fa-home"></i> 文章
-                </a>
-              
-            </li>
-          
-            
-            
-              
-            
-            <li class="nav-item ">
-              
-              
-                <a href="/tags/" target="_self">
-                  <i class="fa fa-tags"></i> 分类
-                </a>
-              
-            </li>
-          
-          
-            
-              <li class="nav-item ">
-                <a href="/friends/" target="_self">
-                  
-                    <i class="fa fa-address-book"></i> 友情链接
-                  
-                </a>
-              </li>
-            
-          
-          
-            <li id="fa_search" class="nav-item">
-              <a href="javascript:void(0);">
-                <i class="fa fa-search"></i> <span class="language" data-lan="search">搜索</span>
-              </a>
-            </li>
-          
-        </ul>
-      </nav>
-    </div>
-  </header>
-</div>
-
-<script type="text/javascript"> 
- 
-  let showNav = true;
-
-  let navToggle = document.querySelector('#nav_toggle'),
-  siteNav = document.querySelector('#site_nav');
-  
-  function navClick() {
-    let sideBar = document.querySelector('.sidebar');
-    let navUl = document.querySelector('#nav_ul');
-    navToggle.classList.toggle('nav-toggle-active');
-    siteNav.classList.toggle('nav-menu-active');
-    if (siteNav.classList.contains('nav-menu-active')) {
-      siteNav.style = "height: " + (navUl.children.length * 42) +"px !important";
-    } else {
-      siteNav.style = "";
+<div class="main gt-bg-theme-color-first">
+    <div class="main-content">
+        <style>
+    /* 导航栏样式 */
+    .navbar {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding: 0.5rem 1rem;
     }
-  }
 
-  navToggle.addEventListener('click',navClick);  
-</script>
-  </div>
-  <div class="main-continer">
-    
-    <div
-      class="section-layout  pisces">
-      <div class="section-layout-wrapper">
-        <div id="sidebarMeta" class="sidebar">
-    
-<div class="sidebar-wrapper box-shadow-wrapper bg-color">
-  <div class="sidebar-item">
-    <img class="site-author-image right-motion" src="/images/avatar.png"/>
-    <p class="site-author-name">glidea</p>
-    
-  </div>
-  <div class="sidebar-item side-item-stat right-motion">
-    <div class="sidebar-item-box">
-      <a href="/archives/">
-        
-        <span class="site-item-stat-count">5</span>
-        <span class="site-item-stat-name language" data-lan="article">文章</span>
-      </a>
+    .navbar-brand {
+        display: inline-block;
+        padding-top: 0.3125rem;
+        padding-bottom: 0.3125rem;
+        margin-right: 1rem;
+        font-size: 1.25rem;
+        line-height: inherit;
+        white-space: nowrap;
+    }
+
+    .navbar-brand:hover,
+    .navbar-brand:focus {
+        text-decoration: none;
+    }
+
+    .navbar-nav {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding-left: 0;
+        margin-bottom: 0;
+        list-style: none;
+    }
+
+    .navbar-collapse {
+        -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .navbar-toggler {
+        padding: 0.25rem 0.75rem;
+        font-size: 1.25rem;
+        line-height: 1;
+        background-color: transparent;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+    }
+
+    .navbar-toggler:hover,
+    .navbar-toggler:focus {
+        text-decoration: none;
+    }
+
+    @media (min-width: 992px) {
+        .navbar-expand-lg {
+            -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+            -ms-flex-pack: start;
+            justify-content: flex-start;
+        }
+
+        .navbar-expand-lg .navbar-nav {
+            -ms-flex-direction: row;
+            flex-direction: row;
+        }
+
+        .navbar-expand-lg .navbar-collapse {
+            display: -ms-flexbox !important;
+            display: flex !important;
+            -ms-flex-preferred-size: auto;
+            flex-basis: auto;
+        }
+
+        .navbar-expand-lg .navbar-toggler {
+            display: none;
+        }
+    }
+
+    @media (max-width: 991px) {
+        #navbarSupportedContent {
+            display: none;
+        }
+    }
+</style>
+<nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            Glidea&#39;s Note
+        </div>
     </div>
-    <div class="sidebar-item-box">
-      <a href="">
-        <span class="site-item-stat-count">3</span>
-        <span class="site-item-stat-name language" data-lan="category">分类</span>
-      </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+            <div class="nav-item">
+                
+                <a href="/" class="menu gt-a-link">
+                    文章
+                </a>
+                
+            </div>
+            
+            <div class="nav-item">
+                
+                <a href="/category" class="menu gt-a-link">
+                    分类
+                </a>
+                
+            </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1609925026831"
+                action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
     </div>
-    <div class="sidebar-item-box">
-      <a href="/tags/">
-        <span class="site-item-stat-count">3</span>
-        <span class="site-item-stat-name language" data-lan="tag">标签</span>
-      </a>
-    </div>
-  </div>
-  
-    
-  
-  
-
-
-
-</div>
-</div>
+</nav>
 <script>
-  let sidebarMeta = document.querySelector('#sidebarMeta');
-  let scheme = 'pisces';
-  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
-  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
-    document.addEventListener('scroll', function(e) {
-      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
-        sidebarWrapper.classList.add('home-sidebar-fixed')
-      } else {
-        sidebarWrapper.classList.remove('home-sidebar-fixed')
-      }
-    });
-  }
-  </script>
-        <div class="section-box tag-line box-shadow-wrapper">
-          <section class="section tags-section posts-expand bg-color">
-            <div class="padding-wrapper">
-  <div class="tag-timeline-box">
-    <div class="tag-timeline-wrapper">
-      <div class="tag-timeline-title">
-        <h2>
-          操作系统
-          <small class="language" data-lan="tag">标签</small>
-        </h2>
-      </div>
-      
-      
-      
-      
-      
-      <a href="https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-3/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              04-27
-              <small>操作系统知识点总结 - 3</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      <a href="https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-2/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              04-21
-              <small>操作系统知识点总结 - 2</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <a href="https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-1/">
-        <div class="motion-warpper">
-          <div class="tag-post-node">
-            <h1>
-              04-17
-              <small>操作系统知识点总结 - 1</small>
-            </h1>
-          </div>
-        </div>
-      </a>
-      
-      
-      
-    </div>
-  </div>
-</div>
-          </section>
-        </div>
-      </div>
-    </div>
-    <div class="footer-box">
-  <footer class="footer">
-    <div class="copyright">
-      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | © 2019-2020 Theme By <a
-        href="https://github.com/hsxyhao/gridea-theme-next" target="_blank">HsxyHao</a>
-    </div>
-    <div class="poweredby">
-      
-    </div>
-  </footer>
-  
-  
-  <div class="pisces back-to-top" id="back_to_top">
-    <i class="fa fa-arrow-up"></i>
-    
-    <span class="scrollpercent">
-      <span id="back_to_top_text">0</span>%
-    </span>
-    
-  </div>
-  
-  
-  
-</div>
-<script>
-
-  let sideBarOpen = 'sidebar-open';
-  let body = document.body;
-  let back2Top = document.querySelector('#back_to_top'),
-    back2TopText = document.querySelector('#back_to_top_text'),
-    drawerBox = document.querySelector('#drawer_box'),
-    rightSideBar = document.querySelector('.sidebar'),
-    viewport = document.querySelector('body');
-
-  function scrollAnimation(currentY, targetY) {
-
-    let needScrollTop = targetY - currentY
-    let _currentY = currentY
-    setTimeout(() => {
-      const dist = Math.ceil(needScrollTop / 10)
-      _currentY += dist
-      window.scrollTo(_currentY, currentY)
-      if (needScrollTop > 10 || needScrollTop < -10) {
-        scrollAnimation(_currentY, targetY)
-      } else {
-        window.scrollTo(_currentY, targetY)
-      }
-    }, 1)
-  }
-
-  back2Top.addEventListener("click", function (e) {
-    scrollAnimation(document.scrollingElement.scrollTop, 0);
-    e.stopPropagation();
-    return false;
-  });
-
-  window.addEventListener('scroll', function (e) {
-    let percent = document.scrollingElement.scrollTop / (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight) * 100;
-    if (percent > 1 && !back2Top.classList.contains('back-top-active')) {
-      back2Top.classList.add('back-top-active');
+    /* 移动端导航栏展开/收起切换 */
+    document.getElementById('changeNavbar').onclick = function () {
+        var element = document.getElementById('navbarSupportedContent');
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
     }
-    if (percent == 0) {
-      back2Top.classList.remove('back-top-active');
-    }
-    if (back2TopText) {
-      back2TopText.textContent = Math.floor(percent);
-    }
-  });
-
-
-  let hasCacu = false;
-  window.onresize = function () {
-    calcuHeight();
-  }
-
-  function calcuHeight() {
-    // 动态调整站点概览高度
-    if (!hasCacu && back2Top.classList.contains('pisces') || back2Top.classList.contains('gemini')) {
-      let sideBar = document.querySelector('.sidebar');
-      let navUl = document.querySelector('#site_nav');
-      sideBar.style = 'margin-top:' + (navUl.offsetHeight + navUl.offsetTop + 15) + 'px;';
-      hasCacu = true;
-    }
-  }
-  calcuHeight();
-
-  let open = false, MOTION_TIME = 300, RIGHT_MOVE_DIS = '320px';
-
-  if (drawerBox) {
-    let rightMotions = document.querySelectorAll('.right-motion');
-    let right = drawerBox.classList.contains('right');
-
-    let transitionDir = right ? "transition.slideRightIn" : "transition.slideLeftIn";
-
-    let openProp, closeProp;
-    if (right) {
-      openProp = {
-        paddingRight: RIGHT_MOVE_DIS
-      };
-      closeProp = {
-        paddingRight: '0px'
-      };
-    } else {
-      openProp = {
-        paddingLeft: RIGHT_MOVE_DIS
-      };
-      closeProp = {
-        paddingLeft: '0px'
-      };
-    }
-
-    drawerBox.onclick = function () {
-      open = !open;
-      window.Velocity(rightSideBar, 'stop');
-      window.Velocity(viewport, 'stop');
-      window.Velocity(rightMotions, 'stop');
-      if (open) {
-        window.Velocity(rightSideBar, {
-          width: RIGHT_MOVE_DIS
-        }, {
-          duration: MOTION_TIME,
-          begin: function () {
-            window.Velocity(rightMotions, transitionDir, {});
-          }
-        })
-        window.Velocity(viewport, openProp, {
-          duration: MOTION_TIME
-        });
-      } else {
-        window.Velocity(rightSideBar, {
-          width: '0px'
-        }, {
-          duration: MOTION_TIME,
-          begin: function () {
-            window.Velocity(rightMotions, {
-              opacity: 0
-            });
-          }
-        })
-        window.Velocity(viewport, closeProp, {
-          duration: MOTION_TIME
-        });
-      }
-      for (let i = 0; i < drawerBox.children.length; i++) {
-        drawerBox.children[i].classList.toggle('muse-line');
-      }
-      drawerBox.classList.toggle(sideBarOpen);
-    }
-  }
-
-  // 链接跳转
-  let newWindow = 'true'
-  if (newWindow === 'true') {
-    let links = document.querySelectorAll('.post-body a')
-    links.forEach(item => {
-      if (!item.classList.contains('btn')) {
-        item.setAttribute("target", "_blank");
-      }
-    })
-  }
-
-  let faSearch = document.querySelector('#fa_search');
-  faSearch.addEventListener('click', function () {
-    document.querySelector('#search_mask').style = ''
-  })
-
-  // 代码高亮
-  hljs.initHighlightingOnLoad();
-  
-  // 离开当前页title变化
-  var leaveTitle = "";
-  if (leaveTitle) {
-    document.addEventListener('visibilitychange', function () {
-      if (document.visibilityState == 'hidden') {
-        normal_title = document.title;
-        document.title = leaveTitle;
-      } else {
-        document.title = normal_title;
-      }
-    });
-  }
-
 </script>
+        <div class="current-tag-container">
+            <h2 class="title gt-c-content-color-first">
+                #JVM
+            </h2>
+        </div>
+        <div class="post-list-container">
+    <div class="post-inner">
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://glidea.github.io/post/kRaswf51Z/">
+                            <span class="post-title gt-c-content-color-first">JVM - 垃圾回收</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2021-01-06 ·
+                        </time>
+                        
+                            <a href="https://glidea.github.io/tag/eYyARY70R/" class="post-tag">
+                                # JVM
+                            </a>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://glidea.github.io/post/vwp0rgIpw/">
+                            <span class="post-title gt-c-content-color-first">JVM - 内存结构</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2021-01-06 ·
+                        </time>
+                        
+                            <a href="https://glidea.github.io/tag/eYyARY70R/" class="post-tag">
+                                # JVM
+                            </a>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        
+    </div>
+</div>
+        <div class="pagination-container">
+    
+    
+</div>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"></div>
+    <div class="social-container">
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://glidea.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
 
 <script>
-  let images = document.querySelectorAll('.section img');
-  console.log(images);
-  images.forEach(image => {
-    var parent = image.parentElement;
-    var next = image.nextElementSibling;
-    parent.removeChild(image);
-    var aelem = document.createElement('a');
-    aelem.href = image.src;
-    aelem.dataset['fancybox'] = 'images';
-    aelem.dataset['rel'] = 'fancybox-button';
-    aelem.classList.add('fancybox');
-    aelem.appendChild(image);
-    parent.insertBefore(aelem, next);
-  })
+  hljs.initHighlightingOnLoad()
 </script>
-  </div>
+
+    </div>
+</div>
 </body>
-
-<div class="search-mask" id="search_mask" style="display: none;">
-  <div class="search-box">
-    <div class="search-title">
-      <i class="fa fa-search"></i>
-      <div class="input-box">
-        <input id="search" type="text" class="language" data-lan="search" placeholder="搜索">
-      </div>
-      <i id="close" class="fa fa-times-circle"></i>
-    </div>
-    <div class="stat-box">
-      <span id="stat_count">0</span><span class="language" data-lan="stat">条相关条目，使用了</span><span id="stat_times">0</span><span class="language" data-lan="stat-time">毫秒</span>
-      <hr>
-    </div>
-    <div class="result" id="result">
-      
-      <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://glidea.github.io/post/jvm-nei-cun-jie-gou/"" data-c="
-          &lt;h3 id=&#34;虚拟机栈和本地方法栈&#34;&gt;&lt;strong&gt;虚拟机栈和本地方法栈&lt;/strong&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.6&#34;&gt;栈帧的组成&lt;/a&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;局部变量表：存放方法参数、局部变量&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;表item可复用（注意对gc的影响）&lt;/p&gt;
-&lt;p&gt;这玩意是创建时从运行时常量池弄过来的&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;操作数栈：类似于数据寄存器，存储临时计算结果&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;动态连接：当前方法所在类在运行时常量池中的引用&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;The reference points to the constant pool for the class of the method being executed for that frame&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;方法返回值和返回地址&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;异常处理表&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;栈上分配&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;开启逃逸分析和标量替换后，非逃逸对象可以在栈上分配，但大对象还需要在堆上分配
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;异常情况&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;StackOverflow：栈帧太多
-OOM：内存不足，无法申请新的栈帧
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;程序计数器&#34;&gt;&lt;strong&gt;程序计数器&lt;/strong&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;作用：记住线程下一条 “JVM指令” 的地址（指令在方法区中）&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;是实现分支、循环、跳转、异常处理的基础设施
-以及保存上下文切换的执行进度
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;补充&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;JVM的计数器是软件方法实现的，并非物理上的计数器（寄存器）
-执行native方法的时候，JVM计数器的值为undefined，下一条指令的地址在物理计数器上
-唯一不存在OOM的区域
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;堆&#34;&gt;&lt;strong&gt;堆&lt;/strong&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;StringTable&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;入池原理&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;字符串变量拼接原理是StringBuilder //需主动入池&lt;br&gt;
-字符串常量拼接原理是编译期优化	 //被动入池&lt;br&gt;
-被动入池：懒加载&lt;br&gt;
-主动入池：str.intern()&lt;br&gt;
-1.6中，若StringTable中有str.value，则不放入；若没有，则放入str的副本&lt;br&gt;
-1.7以后，直接放入str本体（可能和StringTable从元空间剥离，逻辑上放在了堆上有关）&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;调优&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;因为StringTable是哈希表结构，所以可以通过调节桶数量进行调优，桶数量通过虚拟机参数调节&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;方法区&#34;&gt;&lt;strong&gt;&lt;a href=&#34;https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.5.4&#34;&gt;方法区&lt;/a&gt;&lt;/strong&gt;&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;The Java Virtual Machine has a method area that is shared among all Java Virtual Machine threads. The method area is analogous to the storage area for compiled code of a conventional language or analogous to the &amp;quot;text&amp;quot; segment in an operating system process. It stores per-class structures such as the run-time constant pool, field and method data, and the code for methods and constructors, including the special methods used in class and instance initialization and interface initialization.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;组成&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;类信息：包含类的字段，方法，特殊方法&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;运行时常量池：就是一张数组结构的表，虚拟机指令根据这张常量表找到要执行的类名、方法名、参数类型、对象地址等信息&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;逻辑包含字符串常量池，1.7后StringTable继续待在堆中，方法区别的玩意放到了本地内存的元空间&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;直接内存&#34;&gt;&lt;strong&gt;直接内存&lt;/strong&gt;&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;性能好，直接分配在Native堆，减少了Java堆和Native堆之间的copy
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;参考&#34;&gt;&lt;strong&gt;参考&lt;/strong&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;https://blog.jamesdbloom.com/JVMInternals.html&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-">JVM - 内存结构</a>
-      </div>
-      
-      <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-3/"" data-c="
-          &lt;h4 id=&#34;一-处理机调度的三个层次&#34;&gt;一、处理机调度的三个层次&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;作业调度：从后备队列中选择合适的作业将其从外存调入内存，并为其创建进程&lt;/li&gt;
-&lt;li&gt;内存调度：从挂起队列中选择合适的进程将其数据从外存调回内存（内存不足时，某些进程会被挂起到外存）&lt;/li&gt;
-&lt;li&gt;进程调度：从就绪队列中选择一个进程为其分配处理机&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;二-进程调度&#34;&gt;二、进程调度&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;什么时候需要调度进程
-&lt;ul&gt;
-&lt;li&gt;运行中的进程主动放弃处理机资源
-&lt;ul&gt;
-&lt;li&gt;进程正常终止&lt;/li&gt;
-&lt;li&gt;发生异常终止&lt;/li&gt;
-&lt;li&gt;主动阻塞（如 等待I / O）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;运行中的进程被动放弃处理机资源
-&lt;ul&gt;
-&lt;li&gt;分配的时间片用完&lt;/li&gt;
-&lt;li&gt;有更紧急的事（如 I / O中断）&lt;/li&gt;
-&lt;li&gt;有更高优先级的进程进入就绪队列&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;什么时候一定不能进行进程调度
-&lt;ul&gt;
-&lt;li&gt;处理中断的时候&lt;/li&gt;
-&lt;li&gt;进程在操作系统内核程序临界区中（进程运行到锁里的代码，这时要让进程尽快执行完）&lt;/li&gt;
-&lt;li&gt;原子操作过程中&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;进程调度和进程切换
-&lt;ul&gt;
-&lt;li&gt;狭义进程调度：从就绪队列选择一个要运行的进程&lt;/li&gt;
-&lt;li&gt;进程切换：保存原来进程的运行环境，恢复新进程的运行环境&lt;/li&gt;
-&lt;li&gt;广义进程调度：狭义进程调度 + 进程切换&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;三-调度算法的评价指标&#34;&gt;三、调度算法的评价指标&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;CPU利用率：忙碌时间 / 总时间&lt;/li&gt;
-&lt;li&gt;系统吐出量：完成作业数 / 总时间 （作业完成效率）&lt;/li&gt;
-&lt;li&gt;周转时间
-&lt;ul&gt;
-&lt;li&gt;周转时间：作业完成时间 - 作业提交时间 （等待 + 运行）&lt;/li&gt;
-&lt;li&gt;平均周转时间：各作业周转时间之和 / 作业数&lt;/li&gt;
-&lt;li&gt;带权周转时间：作业周转时间 / 作业运行时间 （越小越好）&lt;/li&gt;
-&lt;li&gt;平均带权周转时间：各作业带权周转时间之和 / 作业数&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;等待时间&lt;/li&gt;
-&lt;li&gt;响应时间：从用户提交请求到首次产生响应的时间&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;四-调度算法&#34;&gt;四、调度算法&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;先来先服务（FCFS）：只考虑进程的等待时间
-&lt;ul&gt;
-&lt;li&gt;规则：按照作业 / 进程到达的先后顺序进行服务&lt;/li&gt;
-&lt;li&gt;是否可抢占：NO&lt;/li&gt;
-&lt;li&gt;优：公平&lt;/li&gt;
-&lt;li&gt;缺：短作业 / 进程不爽，自己就是撒泡尿，还要等个拉屎的&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;短作业优先（SJF）：只考虑进程的运行时间
-&lt;ul&gt;
-&lt;li&gt;规则：先服务要求服务时间最短的作业 / 进程&lt;/li&gt;
-&lt;li&gt;是否可抢占：NO or YES&lt;/li&gt;
-&lt;li&gt;优：“最短的”平均等待 / 周转时间&lt;/li&gt;
-&lt;li&gt;缺：长作业 / 进程不爽，自己就是拉个屎，撒尿的抢着来&lt;/li&gt;
-&lt;li&gt;补充：SJF的抢占式版本SRNT算法：只考虑剩余运行时间，优点和缺点都更极端&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;高响应比优先（HRRN）：考虑了进程的等待和运行时间
-&lt;ul&gt;
-&lt;li&gt;规则：响应比高的作业 / 进程优先，响应比 =（等待时间+运行时间）/ 运行时间&lt;/li&gt;
-&lt;li&gt;是否可抢占：NO&lt;/li&gt;
-&lt;li&gt;优：综合了上述两种算法的优点&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;时间片轮转（RR）：分时、进程专属版FCFS！
-&lt;ul&gt;
-&lt;li&gt;规则：大家轮流上3秒厕所&lt;/li&gt;
-&lt;li&gt;是否可抢占：YES，和涉及到时间片的算法都是抢占式的，屎拉到一半都得夹断出来&lt;/li&gt;
-&lt;li&gt;优：公平，适用于分时系统&lt;/li&gt;
-&lt;li&gt;缺：资源开销大，不能处理紧急任务&lt;/li&gt;
-&lt;li&gt;补充：时间片太大，退化成FCFS；时间片太小，开销太大&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;优先级调度（有抢占式和非抢占式的）
-&lt;ul&gt;
-&lt;li&gt;规则：优先调度优先级最高的作业 / 进程&lt;/li&gt;
-&lt;li&gt;是否可抢占：NO or YES&lt;/li&gt;
-&lt;li&gt;优：可处理紧急任务，适用于实时系统&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;多级反馈队列：进程专属的完美算法
-&lt;ul&gt;
-&lt;li&gt;规则
-&lt;ul&gt;
-&lt;li&gt;设置多级就绪队列，各级队列优先级从高到低，时间片从小到大&lt;/li&gt;
-&lt;li&gt;新进程到达时先进入第1级队列，按FCFS原则排队等待被分配时间片，若用完时间片进程还未结束，则进程进入下一级队列队尾（如果此时已经是在最下级的队列，则重新放回该队列队尾）&lt;/li&gt;
-&lt;li&gt;只有第k级队列为空时，才会为k+1级队头的进程分配时间片&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;是否可抢占：YES&lt;/li&gt;
-&lt;li&gt;优点
-&lt;ul&gt;
-&lt;li&gt;对各类型进程相对公平（FCFS的优点）&lt;/li&gt;
-&lt;li&gt;每个新到达的进程都可以很快就得到响应（RR的优点）&lt;/li&gt;
-&lt;li&gt;短进程只用较少的时间就可完成（SPF的优点）&lt;/li&gt;
-&lt;li&gt;不必实现估计进程的运行时间（避免用户作假）&lt;/li&gt;
-&lt;li&gt;可灵活地调整对各类进程的偏好程度，比如CPU密集型进程、I / 0密集型进程（拓展：可以将因I / 0而阻塞的进程重新放回原队列，这样I / 0型进程就可以保持较高优先级）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-">操作系统知识点总结 - 3</a>
-      </div>
-      
-      <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-2/"" data-c="
-          &lt;h4 id=&#34;一-进程和程序有什么区别&#34;&gt;一、进程和程序有什么区别&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;程序是静态的，是存储在硬盘的可执行文件，是一系列指令的集合&lt;/li&gt;
-&lt;li&gt;进程是动态的，是存储在内存中的实体，是程序的一次执行过程&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;二-进程的组成&#34;&gt;二、进程的组成&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;PCB：存放操作系统管理进程所需的信息（进程描述信息、进程控制管理信息、资源分配清单、处理机相关信息）
-&lt;ul&gt;
-&lt;li&gt;PCB是进程存在的唯一标志&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;程序段：程序代码（指令集合）&lt;/li&gt;
-&lt;li&gt;数据段：运行过程中所产生的数据（代码中定义的变量）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;三-进程的特征&#34;&gt;三、进程的特征&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;动态性（基本特征）&lt;/li&gt;
-&lt;li&gt;独立性（独立获得资源，独立接受调度的基本单位）&lt;/li&gt;
-&lt;li&gt;并发性&lt;/li&gt;
-&lt;li&gt;异步性&lt;/li&gt;
-&lt;li&gt;结构性&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;四-进程的组织方式&#34;&gt;四、进程的组织方式&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;链接方式：按照进程状态将PCB分为多个队列&lt;/li&gt;
-&lt;li&gt;索引方式：按照进程状态将PCB分为多个索引表&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;五-进程的状态与转换&#34;&gt;五、进程的状态与转换&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;状态：创建、就绪、运行、阻塞、终止&lt;/li&gt;
-&lt;li&gt;基本状态之间的转换（原语实现转换的过程）
-&lt;ul&gt;
-&lt;li&gt;就绪 --》运行：进程被调度&lt;/li&gt;
-&lt;li&gt;运行 --》就绪：时间片用完，或CPU被高优先级进程抢占&lt;/li&gt;
-&lt;li&gt;运行 --》阻塞：进程用系统调用的方式，申请系统资源，或者请求等待某个事情的发生（比如其它进程的执行结果）&lt;/li&gt;
-&lt;li&gt;阻塞 --》就绪：资源已经分配，或者等待的事情发生（被动）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;六-原语实现进程状态转换要干的事情&#34;&gt;六、原语实现进程状态转换要干的事情&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;更新PCB的信息
-&lt;ul&gt;
-&lt;li&gt;所有进程控制原语一定会修改进程状态标记&lt;/li&gt;
-&lt;li&gt;剥夺当前运行进程的CPU使用权，要先保存运行环境，相反进程开始运行前，要恢复运行环境&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;将PCB插入合适的队列&lt;/li&gt;
-&lt;li&gt;分配 / 回收资源&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;七-进程通信的方式&#34;&gt;七、进程通信的方式&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;共享存储：互斥访问一块共享空间
-&lt;ul&gt;
-&lt;li&gt;共享存储的实现可以基于存储区或者数据结构&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;管道通信：互斥访问一个共享文件（缓冲区）
-&lt;ul&gt;
-&lt;li&gt;一个管道只能实现半双工通信&lt;/li&gt;
-&lt;li&gt;写满时，不能再写，读空时，不能再读&lt;/li&gt;
-&lt;li&gt;没写满，不能读，没读空，不能写&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;消息传递：进程通过发送 / 接收原语来 发送 / 接收结构化的消息（消息头/消息体）
-&lt;ul&gt;
-&lt;li&gt;直接通信：消息直接挂到接收线程的消息队列里&lt;/li&gt;
-&lt;li&gt;间接通信：消息发送到公共信箱&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;八-线程和进程&#34;&gt;八、线程和进程&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;多个线程从属于一个进程&lt;/li&gt;
-&lt;li&gt;线程是处理机调度的单位，进程是资源分配的单位&lt;/li&gt;
-&lt;li&gt;同一进程内的线程切换不会导致进程的切换，运行环境也就无需改变，系统开销从而降低&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&#34;九-线程的实现方式&#34;&gt;九、线程的实现方式&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;应用通过线程库实现用户级线程并自主管理，操作系统不知道&lt;/li&gt;
-&lt;li&gt;将m个用户级线程映射到n个内核级线程（多对多模型）&lt;/li&gt;
-&lt;/ul&gt;
-">操作系统知识点总结 - 2</a>
-      </div>
-      
-      <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://glidea.github.io/post/san-men-wen-ti/"" data-c="
-          &lt;h4 id=&#34;一-什么是三门问题&#34;&gt;一、什么是三门问题&lt;/h4&gt;
-&lt;p&gt;​		三门问题出自美国的电视游戏节目Let&#39;s Make a Deal。参赛者会看见三扇关闭了的门，其中一扇的后面有一辆汽车，选中后面有车的那扇门可赢得该汽车，另外两扇门后面则各藏有一只山羊。当参赛者选定了一扇门，但未去开启它的时候，节目主持人开启剩下两扇门的其中一扇，露出其中一只山羊。主持人其后会问参赛者要不要换另一扇仍然关上的门。&lt;/p&gt;
-&lt;p&gt;​		&lt;strong&gt;问题是换门后会不会增加中奖概率？&lt;/strong&gt;&lt;/p&gt;
-&lt;h4 id=&#34;二-答案是个啥&#34;&gt;二、答案是个啥？&lt;/h4&gt;
-&lt;p&gt;​		相信你直觉上的答案是 “换门不会增加中奖概率”&lt;/p&gt;
-&lt;p&gt;​		但是&lt;strong&gt;正确答案是换门可以增加中奖概率&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;​		你是不是觉得这个答案很奇怪，很反直觉，内心有一万个不服？&lt;/p&gt;
-&lt;p&gt;​		于是你去看了下这个问题的数学证明&lt;/p&gt;
-&lt;p&gt;​		心想，好像是这样子哦！&lt;/p&gt;
-&lt;p&gt;​		但是你眉头一皱，总感觉哪里不对劲&lt;/p&gt;
-&lt;p&gt;​		对数学证明的态度在好像明白和质疑之间反复横跳&lt;/p&gt;
-&lt;p&gt;​		那既然你对直觉和数学证明都不太相信的话，那我们就用另外的方式去求解一下这个答案！&lt;/p&gt;
-&lt;h4 id=&#34;三-计算机模拟求解的思路&#34;&gt;三、计算机模拟求解的思路&lt;/h4&gt;
-&lt;p&gt;​		用程序怎么解决这个问题呢？&lt;/p&gt;
-&lt;p&gt;​		直接套概率公式，让计算机给你解计算题？？这样的话不就是相当于我们把上面的正确答案，用计算机复述了一遍吗&lt;/p&gt;
-&lt;p&gt;​		正确思路是，我们要假设自个参加了一百万次这个节目，并面临了同样的选择，并且并且我一定要换门。看看我这一百万次，能中多少次奖，进而求出换门的中奖率。然后我又参加一百万次，但这一百万次我要坚持不换门，看看我这一百万次，能中多少次奖，进而求出不换门的中奖率。&lt;/p&gt;
-&lt;p&gt;​		讲到这里思路很明显了，我们要用计算机模拟数百万次这种场景，进而得出答案。&lt;/p&gt;
-&lt;h4 id=&#34;四-计算机模拟的代码&#34;&gt;四、计算机模拟的代码&lt;/h4&gt;
-&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class Solution {
-    private static int N = 100000;// 模拟场景的次数
-
-    // 计算选择N次 换门或者不换门 的整体中奖概率
-    private static double getProbability(boolean changeDoor) {
-        int winTimeCount = 0;
-
-        for (int i = 0; i &amp;lt; N; i++)
-            if (choice(changeDoor))
-                winTimeCount++;
-
-        return (double) winTimeCount / N;
-    }
-
-    // 模拟 选择换门或者不换门 是否能中奖
-    private static boolean choice(boolean changeDoor) {
-        int firstChoice = (int) (Math.random() * 3);
-        int prizeDoor = (int) (Math.random() * 3);
-
-        // 要理解这里，需要明白，本来只有三个门，主持人已经把一个没有奖品的门给开了
-        // 只剩下两个门给你选，如果你本来选的门没有奖品，换门一定拿奖，反之亦然
-        if (firstChoice == prizeDoor) {
-            return changeDoor ? false : true;
-            // 上面的语句可以写成：return !changeDoor;
-            // 为了语义清晰，写成了三目表达式的形式，下面else里的return语句也是类似的
-        } else {
-            return changeDoor ? true : false;
-        }
-    }
-
-    public static void main(String[] args) {
-        System.out.println(&amp;quot;换门 - 中奖的概率：&amp;quot; + getProbability(true));
-        System.out.println(&amp;quot;不换门 - 中奖的概率：&amp;quot; + getProbability(false));
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;运行结果：&lt;/strong&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;换门 - 中奖的概率：0.66731
-不换门 - 中奖的概率：0.33346
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h4 id=&#34;五-为什么答案是会增加中奖概率呢&#34;&gt;五、为什么答案是会增加中奖概率呢&lt;/h4&gt;
-&lt;p&gt;​		至此，答案已经很明显了，但是你可能还是不太明白这个答案，所以在此我给出一个不严谨的解释&lt;/p&gt;
-&lt;p&gt;​		假设选择换门，而现在选择的门后面没有奖品，所以必定中奖（只有一个门可以换）&lt;/p&gt;
-&lt;p&gt;​		假设选择换门，而现在选择的门后面有奖品，所以必定不中奖&lt;/p&gt;
-&lt;p&gt;​		而选择的门后没有奖品的概率是2 / 3&lt;/p&gt;
-">三门问题</a>
-      </div>
-      
-      <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://glidea.github.io/post/cao-zuo-xi-tong-zhi-shi-dian-zong-jie-1/"" data-c="
-          &lt;h3 id=&#34;一-操作系统的功能是什么&#34;&gt;一、操作系统的功能是什么&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;管理软硬资源
-&lt;ul&gt;
-&lt;li&gt;处理机管理&lt;/li&gt;
-&lt;li&gt;存储器管理&lt;/li&gt;
-&lt;li&gt;文件管理&lt;/li&gt;
-&lt;li&gt;设备管理&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;向上层提供服务
-&lt;ul&gt;
-&lt;li&gt;向用户提供GUI，单命令（联机命令接口），批处理（脱机命令接口）&lt;/li&gt;
-&lt;li&gt;向应用程序提供程序接口（系统调用）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;对底层功能进行拓展&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;二-操作系统的特征是什么&#34;&gt;二、操作系统的特征是什么&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;并发：一个时间段内，多件事情在宏观上同时发生，在微观上交替发生&lt;/li&gt;
-&lt;li&gt;共享（并发的条件）
-&lt;ul&gt;
-&lt;li&gt;互斥共享：一个资源，一个时间段内只允许一个进程访问&lt;/li&gt;
-&lt;li&gt;同时共享：一个资源，一个时间段内允许多个进程访问&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;虚拟：一个物理实体（硬盘）--》若干个虚拟逻辑体（C盘、D盘...）&lt;/li&gt;
-&lt;li&gt;异步：在资源有限的情况下，并发执行的多个程序的执行，总是走走停停的（不按代码的顺序执行）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;三-操作系统的特征之间的关系&#34;&gt;三、操作系统的特征之间的关系&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;并发和共享互为存在条件
-&lt;ul&gt;
-&lt;li&gt;没有共享，无法实现并发&lt;/li&gt;
-&lt;li&gt;没用并发，共享就没有意义&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;并发和共享是虚拟的前提条件
-&lt;ul&gt;
-&lt;li&gt;共享是并发的前提，而并发是虚拟性&lt;strong&gt;存在意义的前提&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;并发和共享必然导致异步&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;四-操作系统的发展背景和分类&#34;&gt;四、操作系统的发展背景和分类&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;手工操作阶段（手工输入一条条指令）
-&lt;ul&gt;
-&lt;li&gt;缺：人机速度矛盾（人工太tm慢了，机器等得很不耐烦）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;批处理阶段
-&lt;ul&gt;
-&lt;li&gt;单道批处理系统（引入脱机输入输出技术）
-&lt;ul&gt;
-&lt;li&gt;优：缓解了人机速度矛盾&lt;/li&gt;
-&lt;li&gt;缺：内存中只有一道程序执行，资源利用率还是很低（每次只有一个进程走流程，没走到的部分只能干等着）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;多道批处理系统（操作系统开始出现）
-&lt;ul&gt;
-&lt;li&gt;优：提高了资源利用率，多道程序可并发执行&lt;/li&gt;
-&lt;li&gt;缺：没有人机交互（给操作系统执行一堆命令，你只能选择等待或终止命令）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;操作系统阶段
-&lt;ul&gt;
-&lt;li&gt;分时操作系统
-&lt;ul&gt;
-&lt;li&gt;优：提供人机交互&lt;/li&gt;
-&lt;li&gt;缺：不能优先处理紧急任务（对普通用户可忽略，现代分时系统也有程序的优先级之分）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;实时操作系统（分软硬实时系统）
-&lt;ul&gt;
-&lt;li&gt;优：能优先处理紧急任务&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;两种系统的缺点在其应用领域都不算缺点&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;五-操作系统大内核的功能组成&#34;&gt;五、操作系统大内核的功能组成&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;时钟管理（分配时间片...）&lt;/li&gt;
-&lt;li&gt;中断处理（并发的前提：不必等到程序运行结束，才能切换程序）&lt;/li&gt;
-&lt;li&gt;原语（一种不可中断的程序，底层的CPU切换，进程通信...）&lt;/li&gt;
-&lt;li&gt;对资源进行管理的功能（不直接涉及硬件的功能，微内核不包含）
-&lt;ul&gt;
-&lt;li&gt;进程管理&lt;/li&gt;
-&lt;li&gt;存储器管理&lt;/li&gt;
-&lt;li&gt;设备管理&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;六-运行态和中断机制&#34;&gt;六、运行态和中断机制&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;CPU的运行态
-&lt;ul&gt;
-&lt;li&gt;内核程序在核心态中执行特权指令和非特权指令（陷入指令除外）&lt;/li&gt;
-&lt;li&gt;应用程序在用户态中执行非特权指令&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;操作系统的中断机制
-&lt;ul&gt;
-&lt;li&gt;作用：中断当前运行的应用程序，CPU由用户态变成核心态，系统内核收回控制权&lt;/li&gt;
-&lt;li&gt;意义：中断是实现程序并发的前提（微观上，不用等到内存中的程序执行完，就可以切换别的程序）&lt;/li&gt;
-&lt;li&gt;分类
-&lt;ul&gt;
-&lt;li&gt;内中断（异常）：与当前执行的指令有关，中断信号源自CPU内部
-&lt;ul&gt;
-&lt;li&gt;陷入，陷阱&lt;/li&gt;
-&lt;li&gt;故障&lt;/li&gt;
-&lt;li&gt;终止&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;外中断（狭义中断）：与当前执行的指令无关，中断信号源自CPU外部
-&lt;ul&gt;
-&lt;li&gt;时钟中断（当前程序的时间片用完的时候）&lt;/li&gt;
-&lt;li&gt;I/O中断请求&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;执行原理
-&lt;ul&gt;
-&lt;li&gt;检查中断信号
-&lt;ul&gt;
-&lt;li&gt;内中断：CPU在执行指令时会检查异常&lt;/li&gt;
-&lt;li&gt;外中断：每个指令周期末尾，CPU会检查是否有外中断信号待处理&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;为中断信号找到相应的中断处理程序
-&lt;ul&gt;
-&lt;li&gt;根据中断信号类型，通过中断向量表，找到处理程序的指针&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;七-系统调用一种特殊的异常&#34;&gt;七、系统调用（一种特殊的异常）&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;系统调用与库函数的区别
-&lt;ul&gt;
-&lt;li&gt;有的库函数不包含系统调用&lt;/li&gt;
-&lt;li&gt;有的库函数是对系统调用的封装&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;什么功能要用系统调用实现
-&lt;ul&gt;
-&lt;li&gt;涉及共享资源的有关操作&lt;/li&gt;
-&lt;li&gt;会直接影响其它进程的操作&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;系统调用的过程
-&lt;ul&gt;
-&lt;li&gt;传递系统调用参数&lt;/li&gt;
-&lt;li&gt;用户态下发送系统调用请求：执行陷入指令（trap，访管指令），引起内中断，进入核心态&lt;/li&gt;
-&lt;li&gt;核心态下处理系统调用&lt;/li&gt;
-&lt;li&gt;返回应用程序，执行后续指令&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-">操作系统知识点总结 - 1</a>
-      </div>
-      
-    </div>
-    <div class="page">
-      <div id="page_ul"></div>
-    </div>
-  </div>
-</div>
-<script>
-  !function () {
-    let searchMask = document.querySelector('#search_mask');
-    let result = document.querySelector('#result');
-    let items = document.querySelectorAll('.item');
-    let searchBox = document.querySelector('#search');
-    let statCount = document.querySelector('#stat_count');
-    let statTimes = document.querySelector('#stat_times');
-    let pageUl = document.querySelector('#page_ul');
-    let close = document.querySelector('#close');
-    
-    close.addEventListener('click', function() {
-      searchMask.style = 'display: none;'
-    })
-
-    let finds = [];
-    let contents = [];
-    let pageSize = 10;
-    items.forEach(item => {
-      let a = item.querySelector('a');
-      contents.push({
-        title: a.innerText,
-        details: a.dataset.c,
-        link: a.href
-      })
-      item.remove();
-    })
-
-    function insertStr(soure, start, count) {
-      let newStr = soure.substr(start, count);
-      return soure.slice(0, start) + '<em>' + newStr + '</em>' + soure.slice(start + count);
-    }
-
-    pageUl.addEventListener('click', function(event) {
-      let target = event.target;
-      if (target.__proto__ === HTMLSpanElement.prototype) {
-        appendResults(parseInt(target.dataset.i));
-      }
-    })
-
-    function appendResults(index) {
-      let htmlResult = '';
-      let start = index || 0;
-      let end = Math.min(start + pageSize, finds.length);
-      for (let i = start; i < end; i++) {
-        const current = finds[i];
-        let html = current.title;
-        let sum = 0;
-        let positions = current.positions;
-        positions.forEach(position => {
-          html = insertStr(html, position.start + sum, position.count);
-          sum += 9;
-        })
-        htmlResult += `<div class="item"><a class="result-title" href="${current.link}">${html}</a></div>`;
-      }
-      result.innerHTML = htmlResult;
-      pageUl.innerHTML = '';
-      let count = finds.length / pageSize;
-      let lis = '';
-      if (start !== 0) {
-        lis += `<span class="fa fa-angle-left" data-i='${start - 1}'></span>`;
-      }
-      for (let i = 0; i < count; i++) {
-        lis += `<span class='${i === start?'current':''}' data-i='${i}'>${i+1}</span>`;     
-      }
-      if (start+1 < count) {
-        lis += `<span class="fa fa-angle-right" data-i='${start+1}'></span>`;  
-      }
-      pageUl.innerHTML = lis;
-    }
-
-    function search(delay) {
-      let timer = null
-      return function () {
-        clearTimeout(timer)
-        timer = setTimeout(() => {
-          let start = Date.now();
-          let segments = searchBox.value.split(' ').filter(c => c != '');
-          if (segments.length <= 0) {
-            return;
-          }
-          finds = [];
-          let htmlResult = '';
-          contents.forEach(content => {
-            let title = content.title;
-            let positions = [];
-            let find = false;
-            segments.forEach((segment) => {
-              if (content.title.includes(segment)) {
-                find = true;
-                positions.push({
-                  start: content.title.indexOf(segment),
-                  count: segment.length
-                })
-              } else if (content.details.includes(segment)) {
-                find = true;
-              }
-            });
-            if (find) {
-              finds.push({
-                title: content.title,
-                link: content.link,
-                positions
-              });
-            }
-          })
-          appendResults(0);
-          statCount.textContent = finds.length;
-          statTimes.textContent = Date.now() - start;
-        }, delay)
-      }
-    }
-    searchBox.addEventListener('input', search(200));
-  }()
-</script>
-
-<input hidden id="copy" />
-<script>
-  !function () {
-    let times = document.querySelectorAll('.publish-time');
-    for (let i = 0; i < times.length; i++) {
-      let date = times[i].dataset.t;
-      let time = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
-      if (time < 60) {
-        str = time + '秒之前';
-      } else if (time < 3600) {
-        str = Math.floor(time / 60) + '分钟之前';
-      } else if (time >= 3600 && time < 86400) {
-        str = Math.floor(time / 3600) + '小时之前';
-      } else if (time >= 86400 && time < 259200) {
-        str = Math.floor(time / 86400) + '天之前';
-      } else {
-        str = times[i].textContent;
-      }
-      times[i].textContent = str;
-    }
-  }();
-</script>
-
-<script>
-  let language = '';
-  if (language !== '') {
-    let map = new Map();
-    if (language === 'en') {
-      map.set('search', 'Search');
-      map.set('category', 'Categories');
-      map.set('article', 'Articles');
-      map.set('tag', 'Tags');
-      map.set('top', 'Top');
-      map.set('publish', 'published');
-      map.set('minute', ' minutes');
-      map.set('read-more', 'Read More');
-      map.set('view', 'View');
-      map.set('words', ' words');
-      map.set('category-in', 'category in');
-      map.set('preview', 'Meta');
-      map.set('index', 'Toc');
-      map.set('no-archives', "You haven't created yet");
-      map.set('archives', " articles in total");
-      map.set('cloud-tags', " tags in total");
-      map.set('copyright', "Copyright: ");
-      map.set('author', "Author: ");
-      map.set('link', "Link: ");
-      map.set('leave-message', "Leave a message");
-      map.set('format', "Links Format");
-      map.set('site-name', "Name: ");
-      map.set('site-link', "Link: ");
-      map.set('site-desc', "Desc: ");
-      map.set('stat', " related results, taking ");
-      map.set('stat-time', " ms");
-      map.set('site-img', "Image: ");
-    }
-
-    if (map.size > 0) {
-      let lanElems = document.querySelectorAll('.language');
-      lanElems.forEach(elem => {
-        let lan = elem.dataset.lan, text = map.get(lan);
-        if (elem.__proto__ === HTMLInputElement.prototype) {
-          elem.placeholder = text
-        } else {
-          if (elem.dataset.count) {
-            text = elem.dataset.count + text;
-          }
-          elem.textContent = text;
-        }
-      })
-    }
-  }
-  //拿来主义(真香)^_^，Clipboard 实现摘自掘金 https://juejin.im/post/5aefeb6e6fb9a07aa43c20af
-  window.Clipboard = (function (window, document, navigator) {
-    var textArea,
-      copy;
-
-    // 判断是不是ios端
-    function isOS() {
-      return navigator.userAgent.match(/ipad|iphone/i);
-    }
-    //创建文本元素
-    function createTextArea(text) {
-      textArea = document.createElement('textArea');
-      textArea.value = text;
-      textArea.style.width = 0;
-      textArea.style.height = 0;
-      textArea.clientHeight = 0;
-      textArea.clientWidth = 0;
-      document.body.appendChild(textArea);
-    }
-    //选择内容
-    function selectText() {
-      var range,
-        selection;
-
-      if (isOS()) {
-        range = document.createRange();
-        range.selectNodeContents(textArea);
-        selection = window.getSelection();
-        selection.removeAllRanges();
-        selection.addRange(range);
-        textArea.setSelectionRange(0, 999999);
-      } else {
-        textArea.select();
-      }
-    }
-
-    //复制到剪贴板
-    function copyToClipboard() {
-      try {
-        document.execCommand("Copy")
-      } catch (err) {
-        alert("复制错误！请手动复制！")
-      }
-      document.body.removeChild(textArea);
-    }
-
-    copy = function (text) {
-      createTextArea(text);
-      selectText();
-      copyToClipboard();
-    };
-
-    return {
-      copy: copy
-    };
-  })(window, document, navigator);
-
-  function copyCode(e) {
-    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
-      let code = e.currentTarget.querySelector('code');
-      var text = code.innerText;
-      if (e.srcElement.textContent === '复制成功') {
-        return;
-      }
-      e.srcElement.textContent = '复制成功';
-      (function (elem) {
-        setTimeout(() => {
-          if (elem.textContent === '复制成功') {
-            elem.textContent = '复制代码'
-          }
-        }, 1000);
-      })(e.srcElement)
-      Clipboard.copy(text);
-    }
-  }
-
-  let pres = document.querySelectorAll('pre');
-  pres.forEach(pre => {
-    let code = pre.querySelector('code');
-    let copyElem = document.createElement('span');
-    copyElem.classList.add('copy-code');
-    copyElem.textContent = '复制代码';
-    pre.appendChild(copyElem);
-    pre.onclick = copyCode
-  })
-
-</script>
-<script src="/media/js/motion.js"></script>
-
-
-<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
-<script>
-  var scroll = new SmoothScroll('a[href*="#"]', {
-    speed: 200
-  });
-</script>
-
-
-
-
-
-
 </html>

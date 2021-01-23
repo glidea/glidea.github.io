@@ -6,7 +6,7 @@
 
 <title>事务 | Glidea&#39;s Note</title>
 
-<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1611389700034">
+<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1611389825674">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://glidea.github.io/styles/main.css">
@@ -163,7 +163,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1611389700034"
+            <form id="gridea-search-form" style="position: relative" data-update="1611389825674"
                 action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -201,21 +201,21 @@
                 <div class="post-content">
                     <h4 id="事务的特性">事务的特性</h4>
 <ul>
-<li>**原子性：**事务是由一组SQL组成的逻辑处理单元，要么一起成功，要么一起失败。有undo log(逻辑日志)保证</li>
-<li>**持久性：**事务一旦提交，最终一定会持久化到硬盘（数据先写到内存），不会因为宕机而丢失。有redo log保证</li>
-<li>**隔离性：**保证事务执行时尽可能不受其它事务的影响，事务的隔离分为不同级别</li>
-<li>**一致性：**事务执行后的到的是正确的数据状态，完整性约束不被破坏（数据库的各种约束，以及业务完整性），是事务所要追求的目标，是基于其它三点的</li>
+<li>原子性：事务是由一组SQL组成的逻辑处理单元，要么一起成功，要么一起失败。有undo log(逻辑日志)保证</li>
+<li>持久性：事务一旦提交，最终一定会持久化到硬盘（数据先写到内存），不会因为宕机而丢失。有redo log保证</li>
+<li>隔离性：保证事务执行时尽可能不受其它事务的影响，事务的隔离分为不同级别</li>
+<li>一致性：事务执行后的到的是正确的数据状态，完整性约束不被破坏（数据库的各种约束，以及业务完整性），是事务所要追求的目标，是基于其它三点的</li>
 </ul>
 <h4 id="事务并发产生的问题">事务并发产生的问题</h4>
 <ul>
 <li>
-<p>**脏读：**读到别的事务未提交的数据</p>
+<p>脏读：读到别的事务未提交的数据</p>
 </li>
 <li>
-<p>**不可重复读：**多次查询同一记录得到不同的结果</p>
+<p>不可重复读：多次查询同一记录得到不同的结果</p>
 </li>
 <li>
-<p>**幻读：**多次查询某一范围的记录，会凭空出现或消失一些记录</p>
+<p>幻读：多次查询某一范围的记录，会凭空出现或消失一些记录</p>
 <blockquote>
 <p>上述问题主要是一个事务的写对另一个事务的读产生的影响</p>
 <p>除此之外还有多个事务对同一资源写操作的并发安全问题，此问题通过锁机制解决，与隔离级别无关</p>
@@ -225,16 +225,16 @@
 <h4 id="为了解决并发读所设置的隔离级别">为了解决并发读，所设置的隔离级别</h4>
 <ul>
 <li>
-<p>**读未提交：**啥隔离措施都没有</p>
+<p>读未提交：啥隔离措施都没有</p>
 </li>
 <li>
-<p>**读已提交：**解决脏读。一个事务读取数据时总是读这个数据最近一次被commit的版本</p>
+<p>读已提交：解决脏读。一个事务读取数据时总是读这个数据最近一次被commit的版本</p>
 </li>
 <li>
-<p>**可重复读：**解决脏读，不可重复读，部分幻读问题。一个事务读取数据时总是读取当前事务第一次查询出的版本（注意是第一次，而不是事务开始时）</p>
+<p>可重复读：解决脏读，不可重复读，部分幻读问题。一个事务读取数据时总是读取当前事务第一次查询出的版本（注意是第一次，而不是事务开始时）</p>
 </li>
 <li>
-<p>**串行化：**解决幻读</p>
+<p>串行化：解决幻读</p>
 <blockquote>
 <p>隔离级别越高，隔离性越强，一致性也因此更好，但是性能就越差</p>
 <p>MySQL解决脏读，不可重复读，幻读，用的是MVCC（Multi-Version Concurrency Control）</p>

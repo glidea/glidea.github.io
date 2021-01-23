@@ -6,7 +6,7 @@
 
 <title>事务 | Glidea&#39;s Note</title>
 
-<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1611389825674">
+<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1611392428458">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://glidea.github.io/styles/main.css">
@@ -163,7 +163,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1611389825674"
+            <form id="gridea-search-form" style="position: relative" data-update="1611392428458"
                 action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -212,10 +212,10 @@
 <p>脏读：读到别的事务未提交的数据</p>
 </li>
 <li>
-<p>不可重复读：多次查询同一记录得到不同的结果</p>
+<p>不可重复读：多次查询同一记录得到不同的结果（读取到别的事务已提交的修改结果）</p>
 </li>
 <li>
-<p>幻读：多次查询某一范围的记录，会凭空出现或消失一些记录</p>
+<p>幻读：多次查询某一范围的记录，会凭空出现或消失一些记录（读取到别的事务已提交的插入或删除结果）</p>
 <blockquote>
 <p>上述问题主要是一个事务的写对另一个事务的读产生的影响</p>
 <p>除此之外还有多个事务对同一资源写操作的并发安全问题，此问题通过锁机制解决，与隔离级别无关</p>
@@ -243,28 +243,21 @@
 </blockquote>
 </li>
 </ul>
-<h4 id="为了解决并发修改所设置的锁机制">为了解决并发修改，所设置的锁机制</h4>
+<h4 id="为了解决并发更新所设置的锁机制">为了解决并发更新，所设置的锁机制</h4>
 <ul>
-<li>
-<p>MySQL的锁只有悲观锁，分为读锁和写锁，每种锁又可以细分为行锁和表锁</p>
-</li>
-<li>
-<p>并发锁队列，读锁不阻塞后头的锁，写锁会阻塞后头。据此可推导出锁的读写规则</p>
-</li>
-<li>
-<p>执行更新SQL，自动为当前事务拿写锁；执行查询SQL，不会加任何锁，但可以通过<code>for update</code>或<code>lock in share mode</code> 手动加写锁或读锁（用于在应用层实现大粒度的悲观锁）</p>
-</li>
-<li>
-<p>InnoDB中SQL如果用上了索引，加行锁，反之拿表锁</p>
-<blockquote>
-<p>思考题：</p>
-<p>​	哪行锁和表锁的区别是什么？</p>
-<p>​	如何解决因使用行锁导致的死锁？</p>
-<p>​	顺序加锁，设置合适的锁超时时间，开死锁检测，尽量晚加锁，金额拆行累加（参考LongAdder）</p>
-<p>​	行锁的间隙锁？</p>
-</blockquote>
-</li>
+<li>MySQL的锁只有悲观锁，分为读锁和写锁，每种锁又可以细分为行锁和表锁</li>
+<li>并发锁队列，读锁不阻塞后头的锁，写锁会阻塞后头。据此可推导出锁的读写规则</li>
+<li>执行更新SQL，自动为当前事务拿写锁；执行查询SQL，不会加任何锁，但可以通过<code>for update</code>或<code>lock in share mode</code> 手动加写锁或读锁（用于在应用层实现大粒度的悲观锁）</li>
+<li>InnoDB中SQL如果用上了索引，加行锁，反之拿表锁</li>
 </ul>
+<h4 id="思考题">思考题</h4>
+<blockquote>
+<p>哪行锁和表锁的区别是什么？</p>
+<p>如何解决因使用行锁导致的死锁？</p>
+<p>​	顺序加锁，设置合适的锁超时时间，开死锁检测，尽量晚加锁，金额拆行累加（参考LongAdder）</p>
+<p>行锁的间隙锁？</p>
+<p>MVCC的细节？</p>
+</blockquote>
 
                 </div>
             </article>

@@ -6,7 +6,7 @@
 
 <title>并发基础 | Glidea&#39;s Note</title>
 
-<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1612767955967">
+<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1612769131442">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://glidea.github.io/styles/main.css">
@@ -163,7 +163,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1612767955967"
+            <form id="gridea-search-form" style="position: relative" data-update="1612769131442"
                 action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -215,7 +215,12 @@
 <blockquote>
 <p>第三种方式只是在第二种方式上做的拓展，使其具有直接返回线程执行结果的能力，原理是一样的</p>
 <p>第四种则完全和第三种一样，在<code>submit()</code>内部，一样会把 Callable 实例变成 Runnable 实例</p>
-<p>这样看来本质上的方法只有两种方法，Oracle 官方文档也写两种</p>
+<p>这样看来本质上只有两种方法创建线程，Oracle 官方文档也写两种</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>不过认为只有一种，个人觉得也是一种可行的方法，因为这些方法都可以归纳为创建了 Thread 实例</p>
 </blockquote>
 <blockquote>
 <p>实现 Runnable 接口的优势</p>
@@ -225,8 +230,6 @@
 <li>此外由于单继承机制，实现 Runnable 接口的实现类有更好的拓展性</li>
 </ul>
 </blockquote>
-</li>
-</ul>
 <h4 id="启动线程"><strong>启动线程</strong></h4>
 <p>调用<code>start()</code>启动线程，而非<code>run()</code>。run 方法只是一个普通方法，而 start 方法会创建线程环境，并调用 run 方法执行</p>
 <h4 id="停止线程"><strong>停止线程</strong></h4>
@@ -241,10 +244,10 @@
 <p>当线程处于阻塞状态时，接收到中断信号，一般会被自动唤醒，并抛出<code>InterruptedException</code>。同时其中断标志被重置，需要在<code>catch</code>内重新发送中断信号，外部的轮询才能感知到</p>
 <p>但线程也可能不会被唤醒，最直观的原因就是：线程不去捕获<code>InterruptedException</code>（这取决于以何种方式进入这些状态）。如线程在等待<code>synchronize</code>锁（<code>BLOCKED</code>），或在使用不可打断方式等待<code>Lock</code>锁（<code>WAITING</code>），都无法响应中断</p>
 <blockquote>
-<p>所有强制停止线程，不留给线程善后的余地的方式都是不推荐的</p>
+<p>所有强制停止线程，不留给线程善后的余地的方式都是不推荐的（<code>stop()</code>、<code>suspend()</code>）</p>
 </blockquote>
 <h4 id="线程状态"><strong>线程状态</strong></h4>
-<figure data-type="image" tabindex="1"><a href="https://imgchr.com/i/y9OWnK"><img src="https://s3.ax1x.com/2021/01/28/y9OWnK.png" alt="y9OWnK.png" loading="lazy"></a></figure>
+<figure data-type="image" tabindex="1"><a href="https://imgchr.com/i/yET8rq"><img src="https://s3.ax1x.com/2021/01/31/yET8rq.png" alt="yET8rq.png" loading="lazy"></a></figure>
 <ul>
 <li>NEW：Thread state for a thread which has not yet started</li>
 <li>BLOCKED：Thread state for a thread blocked waiting for a monitor lock. A thread in the blocked state is waiting for a monitor lock to enter a synchronized block/method or reenter a synchronized block/method after calling <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#wait()"><code>Object.wait</code></a></li>
@@ -252,11 +255,12 @@
 <li>TIMED_WAITING：Thread state for a waiting thread with a specified waiting time</li>
 <li>TERMINATED：Thread state for a terminated thread. The thread has completed execution.</li>
 </ul>
-<h4 id="阅后余思"><strong>阅后余思</strong></h4>
+<h4 id="思考题"><strong>思考题</strong></h4>
 <blockquote>
 <p>线程相关的方法？</p>
 <p>线程的属性？</p>
 <p>多线程在带来 CPU 高利用率的同时，也带来了哪些问题？</p>
+<p>多线程和高并发什么关系？</p>
 </blockquote>
 
                 </div>

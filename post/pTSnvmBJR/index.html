@@ -6,7 +6,7 @@
 
 <title>并发基础 | Glidea&#39;s Note</title>
 
-<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1612769131442">
+<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1612779991107">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://glidea.github.io/styles/main.css">
@@ -163,7 +163,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1612769131442"
+            <form id="gridea-search-form" style="position: relative" data-update="1612779991107"
                 action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -211,16 +211,12 @@
 <p>创建实现 Callable 接口的实例，注入 FutureTask 类，此时这就变成了一个 Runnable 实例，创建线程的方式跟第二点一样</p>
 </li>
 <li>
-<p>创建实现 Callable 接口的实例，直接丢给<code>Future submit(Callable task)</code>执行</p>
+<p>创建实现 Callable 接口的实例，直接丢给线程池的<code>Future submit(Callable task)</code>执行</p>
 <blockquote>
 <p>第三种方式只是在第二种方式上做的拓展，使其具有直接返回线程执行结果的能力，原理是一样的</p>
 <p>第四种则完全和第三种一样，在<code>submit()</code>内部，一样会把 Callable 实例变成 Runnable 实例</p>
 <p>这样看来本质上只有两种方法创建线程，Oracle 官方文档也写两种</p>
-</blockquote>
-</li>
-</ul>
-<blockquote>
-<p>不过认为只有一种，个人觉得也是一种可行的方法，因为这些方法都可以归纳为创建了 Thread 实例</p>
+<p>不过认为只有一种，个人觉得也是一种可行的说法，因为这些方法都可以归纳为创建了 Thread 实例</p>
 </blockquote>
 <blockquote>
 <p>实现 Runnable 接口的优势</p>
@@ -230,6 +226,8 @@
 <li>此外由于单继承机制，实现 Runnable 接口的实现类有更好的拓展性</li>
 </ul>
 </blockquote>
+</li>
+</ul>
 <h4 id="启动线程"><strong>启动线程</strong></h4>
 <p>调用<code>start()</code>启动线程，而非<code>run()</code>。run 方法只是一个普通方法，而 start 方法会创建线程环境，并调用 run 方法执行</p>
 <h4 id="停止线程"><strong>停止线程</strong></h4>

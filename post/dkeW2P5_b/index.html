@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>类加载 | Glidea&#39;s Note</title>
+<title>操作系统 - 进程 | Glidea&#39;s Note</title>
 
 <link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1612767921934">
 
@@ -186,105 +186,102 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    类加载
+                    操作系统 - 进程
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2021-01-23 ·
+                        · 2020-06-10 ·
                     </time>
                     
-                        <a href="https://glidea.github.io/tag/eYyARY70R/" class="post-tags">
-                            # JVM
+                        <a href="https://glidea.github.io/tag/rNF1iRjtF/" class="post-tags">
+                            # 操作系统
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <h3 id="类加载装载的过程"><strong>类加载（装载）的过程</strong></h3>
+                    <h4 id="一-进程和程序有什么区别">一、进程和程序有什么区别</h4>
 <ul>
-<li>
-<p>加载：找到并加载类的二进制流至方法区，并在堆中创建 Class 对象代理，以对方法区对应数据的访问（此阶段由类加载器完成）</p>
-</li>
-<li>
-<p>链接</p>
+<li>程序是静态的，是存储在硬盘的可执行文件，是一系列指令的集合</li>
+<li>进程是动态的，是存储在内存中的实体，是程序的一次执行过程</li>
+</ul>
+<h4 id="二-进程的组成">二、进程的组成</h4>
 <ul>
-<li>验证：校验类是否符合虚拟机的约束</li>
-<li>准备：为静态变量分配空间并设置默认值，为所有常量分配空间并赋值（对于引用变量或常量只是预设了引用本身）</li>
-<li>解析：将类或接口，字段，方法的符号引用（<code>java/lang/Object</code>） -&gt; 直接引用（内存中的地址）</li>
+<li>PCB：存放操作系统管理进程所需的信息（进程描述信息、进程控制管理信息、资源分配清单、处理机相关信息）
+<ul>
+<li>PCB是进程存在的唯一标志</li>
 </ul>
 </li>
-<li>
-<p>初始化：把 <strong>static变量、static引用常量的赋值动作、static代码块</strong>合并成 <code>&lt;cinit&gt;()</code> 方法，并执行。主要是为了完成赋值</p>
-<blockquote>
-<p>类加载步骤只是按顺序开始，并非按顺序结束，也就是说不同阶段可能交叉执行。</p>
-<p>但解析不一定按顺序执行，可能在初始化后执行</p>
-</blockquote>
-</li>
+<li>程序段：程序代码（指令集合）</li>
+<li>数据段：运行过程中所产生的数据（代码中定义的变量）</li>
 </ul>
-<h3 id="类初始化的时机"><strong>类初始化的时机</strong></h3>
+<h4 id="三-进程的特征">三、进程的特征</h4>
 <ul>
-<li>
-<p>首次被 new 了（或者反射，反序列化）</p>
-<ul>
-<li>子类要初始化，父类要是还没初始化，就会引发</li>
+<li>动态性（基本特征）</li>
+<li>独立性（资源调度的基本单位）</li>
+<li>并发性</li>
+<li>异步性</li>
+<li>结构性</li>
 </ul>
-</li>
-<li>
-<p>静态变量，静态方法，引用类型的静态常量首次被调用</p>
+<h4 id="四-进程的组织方式">四、进程的组织方式</h4>
 <ul>
-<li>
-<p>main 方法所在的类，第一时间就被初始化</p>
-</li>
-<li>
-<p>通过子类访问父类的静态变量，只会导致父类初始化</p>
-<blockquote>
-<p>但子类已经被加载，只是还没初始化</p>
-</blockquote>
-</li>
-<li>
-<p>如果 A 类调用了 B 类的基本类型的静态常量 C，B类不会被初始化</p>
-<blockquote>
-<p>因为基本类型的静态常量的内容是不变的，所以 C 已经直接被放到了 A 类的常量池中</p>
-</blockquote>
-</li>
+<li>链接方式：按照进程状态将PCB分为多个队列</li>
+<li>索引方式：按照进程状态将PCB分为多个索引表</li>
+</ul>
+<h4 id="五-进程的状态与转换">五、进程的状态与转换</h4>
+<ul>
+<li>状态：创建、就绪、运行、阻塞、终止</li>
+<li>基本状态之间的转换（原语实现转换的过程）
+<ul>
+<li>就绪 --》运行：进程被调度</li>
+<li>运行 --》就绪：时间片用完，或CPU被高优先级进程抢占</li>
+<li>运行 --》阻塞：进程用系统调用的方式，申请系统资源，或者请求等待某个事情的发生（比如其它进程的执行结果）</li>
+<li>阻塞 --》就绪：资源已经分配，或者等待的事情发生（被动）</li>
 </ul>
 </li>
 </ul>
-<h3 id="类加载器"><strong>类加载器</strong></h3>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>加载哪的类</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Bootstrap ClassLoader</td>
-<td>JAVA_HOME/jre/lib</td>
-<td>C语言编写，无法直接访问</td>
-</tr>
-<tr>
-<td>Extension ClassLoader</td>
-<td>JAVA_HOME/jre/lib/ext</td>
-<td>双亲是 Bootstrap</td>
-</tr>
-<tr>
-<td>Application ClassLoader</td>
-<td>classpath</td>
-<td>双亲是 Extension</td>
-</tr>
-<tr>
-<td>自定义加载器</td>
-<td>自定义</td>
-<td>双亲是 Application</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>ClassLoader 之间的协作关系是双亲委派机制</p>
-<p>SPI 机制实现了上层加载器对下层加载器的委托</p>
-</blockquote>
+<h4 id="六-原语实现进程状态转换要干的事情">六、原语实现进程状态转换要干的事情</h4>
+<ul>
+<li>更新PCB的信息
+<ul>
+<li>所有进程控制原语一定会修改进程状态标记</li>
+<li>剥夺当前运行进程的CPU使用权，要先保存运行环境，相反进程开始运行前，要恢复运行环境</li>
+</ul>
+</li>
+<li>将PCB插入合适的队列</li>
+<li>分配 / 回收资源</li>
+</ul>
+<h4 id="七-进程通信的方式">七、进程通信的方式</h4>
+<ul>
+<li>共享存储：互斥访问一块共享空间
+<ul>
+<li>共享存储的实现可以基于存储区或者数据结构</li>
+</ul>
+</li>
+<li>管道通信：互斥访问一个共享文件（缓冲区）
+<ul>
+<li>一个管道只能实现半双工通信</li>
+<li>写满时，不能再写，读空时，不能再读</li>
+<li>没写满，不能读，没读空，不能写</li>
+</ul>
+</li>
+<li>消息传递：进程通过发送 / 接收原语来 发送 / 接收结构化的消息（消息头/消息体）
+<ul>
+<li>直接通信：消息直接挂到接收线程的消息队列里</li>
+<li>间接通信：消息发送到公共信箱</li>
+</ul>
+</li>
+</ul>
+<h4 id="八-线程和进程">八、线程和进程</h4>
+<ul>
+<li>多个线程从属于一个进程，线程是真正干事的，而进程是线程的容器</li>
+<li>线程是处理机调度的单位，进程是资源分配的单位</li>
+<li>同一进程内的线程切换不会导致进程的切换，运行环境也就无需改变，系统开销从而降低</li>
+</ul>
+<h4 id="九-线程的实现方式">九、线程的实现方式</h4>
+<ul>
+<li>应用通过线程库实现用户级线程并自主管理，操作系统不知道</li>
+<li>将m个用户级线程映射到n个内核级线程（多对多模型）</li>
+</ul>
 
                 </div>
             </article>
@@ -293,8 +290,8 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://glidea.github.io/post/h1icQUmLi/" class="post-title gt-a-link">
-                    事务
+                <a href="https://glidea.github.io/post/plMGqezrm/" class="post-title gt-a-link">
+                    操作系统 - 基本概念
                 </a>
             </div>
         

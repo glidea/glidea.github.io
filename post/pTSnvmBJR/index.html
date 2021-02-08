@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>类加载 | Glidea&#39;s Note</title>
+<title>并发基础 | Glidea&#39;s Note</title>
 
 <link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1612767921934">
 
@@ -186,104 +186,73 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    类加载
+                    并发基础
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2021-01-23 ·
+                        · 2021-01-28 ·
                     </time>
-                    
-                        <a href="https://glidea.github.io/tag/eYyARY70R/" class="post-tags">
-                            # JVM
-                        </a>
                     
                 </div>
                 <div class="post-content">
-                    <h3 id="类加载装载的过程"><strong>类加载（装载）的过程</strong></h3>
+                    <h4 id="创建线程"><strong>创建线程</strong></h4>
 <ul>
 <li>
-<p>加载：找到并加载类的二进制流至方法区，并在堆中创建 Class 对象代理，以对方法区对应数据的访问（此阶段由类加载器完成）</p>
+<p>创建继承 Thread 类的实例</p>
 </li>
 <li>
-<p>链接</p>
-<ul>
-<li>验证：校验类是否符合虚拟机的约束</li>
-<li>准备：为静态变量分配空间并设置默认值，为所有常量分配空间并赋值（对于引用变量或常量只是预设了引用本身）</li>
-<li>解析：将类或接口，字段，方法的符号引用（<code>java/lang/Object</code>） -&gt; 直接引用（内存中的地址）</li>
-</ul>
+<p>创建实现 Runnable 接口的实例，注入 Thread 类，或者丢给线程池处理（线程池内部自动创建线程，并启动）</p>
 </li>
 <li>
-<p>初始化：把 <strong>static变量、static引用常量的赋值动作、static代码块</strong>合并成 <code>&lt;cinit&gt;()</code> 方法，并执行。主要是为了完成赋值</p>
+<p>创建实现 Callable 接口的实例，注入 FutureTask 类，此时这就变成了一个 Runnable 实例，创建线程的方式跟第二点一样</p>
+</li>
+<li>
+<p>创建实现 Callable 接口的实例，直接丢给<code>Future submit(Callable task)</code>执行</p>
 <blockquote>
-<p>类加载步骤只是按顺序开始，并非按顺序结束，也就是说不同阶段可能交叉执行。</p>
-<p>但解析不一定按顺序执行，可能在初始化后执行</p>
+<p>第三种方式只是在第二种方式上做的拓展，使其具有直接返回线程执行结果的能力，原理是一样的</p>
+<p>第四种则完全和第三种一样，在<code>submit()</code>内部，一样会把 Callable 实例变成 Runnable 实例</p>
+<p>这样看来本质上的方法只有两种方法，Oracle 官方文档也写两种</p>
+</blockquote>
+<blockquote>
+<p>实现 Runnable 接口的优势</p>
+<ul>
+<li>实现了 <strong>具体任务</strong> 和 <strong>线程环境</strong> 的解耦</li>
+<li>基于上一点可以很好的实现线程的复用。比如线程池每个线程的<code>run()</code>都不断从 WorkQueue 中获取 Runnable 实例，并执行 Runnable 实例的<code>run()</code>（注意前后两个<code>run()</code>的区别）</li>
+<li>此外由于单继承机制，实现 Runnable 接口的实现类有更好的拓展性</li>
+</ul>
 </blockquote>
 </li>
 </ul>
-<h3 id="类初始化的时机"><strong>类初始化的时机</strong></h3>
+<h4 id="启动线程"><strong>启动线程</strong></h4>
+<p>调用<code>start()</code>启动线程，而非<code>run()</code>。run 方法只是一个普通方法，而 start 方法会创建线程环境，并调用 run 方法执行</p>
+<h4 id="停止线程"><strong>停止线程</strong></h4>
 <ul>
 <li>
-<p>首次被 new 了（或者反射，反序列化）</p>
-<ul>
-<li>子类要初始化，父类要是还没初始化，就会引发</li>
+<p>外部调用 <code>interrupt()</code> 向线程发送中断信号</p>
+</li>
+<li>
+<p>线程通过<code>isIntercepted()</code>轮询到中断信号后，开始善后工作</p>
+</li>
 </ul>
-</li>
-<li>
-<p>静态变量，静态方法，引用类型的静态常量首次被调用</p>
-<ul>
-<li>
-<p>main 方法所在的类，第一时间就被初始化</p>
-</li>
-<li>
-<p>通过子类访问父类的静态变量，只会导致父类初始化</p>
+<p>当线程处于阻塞状态时，接收到中断信号，一般会被自动唤醒，并抛出<code>InterruptedException</code>。同时其中断标志被重置，需要在<code>catch</code>内重新发送中断信号，外部的轮询才能感知到</p>
+<p>但线程也可能不会被唤醒，最直观的原因就是：线程不去捕获<code>InterruptedException</code>（这取决于以何种方式进入这些状态）。如线程在等待<code>synchronize</code>锁（<code>BLOCKED</code>），或在使用不可打断方式等待<code>Lock</code>锁（<code>WAITING</code>），都无法响应中断</p>
 <blockquote>
-<p>但子类已经被加载，只是还没初始化</p>
+<p>所有强制停止线程，不留给线程善后的余地的方式都是不推荐的</p>
 </blockquote>
-</li>
-<li>
-<p>如果 A 类调用了 B 类的基本类型的静态常量 C，B类不会被初始化</p>
-<blockquote>
-<p>因为基本类型的静态常量的内容是不变的，所以 C 已经直接被放到了 A 类的常量池中</p>
-</blockquote>
-</li>
+<h4 id="线程状态"><strong>线程状态</strong></h4>
+<figure data-type="image" tabindex="1"><a href="https://imgchr.com/i/y9OWnK"><img src="https://s3.ax1x.com/2021/01/28/y9OWnK.png" alt="y9OWnK.png" loading="lazy"></a></figure>
+<ul>
+<li>NEW：Thread state for a thread which has not yet started</li>
+<li>BLOCKED：Thread state for a thread blocked waiting for a monitor lock. A thread in the blocked state is waiting for a monitor lock to enter a synchronized block/method or reenter a synchronized block/method after calling <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#wait()"><code>Object.wait</code></a></li>
+<li>WAITING：A thread in the waiting state is waiting for another thread to perform a particular action. For example, a thread that has called <code>Object.wait()</code> on an object is waiting for another thread to call <code>Object.notify()</code> or <code>Object.notifyAll()</code> on that object. A thread that has called <code>Thread.join()</code> is waiting for a specified thread to terminate</li>
+<li>TIMED_WAITING：Thread state for a waiting thread with a specified waiting time</li>
+<li>TERMINATED：Thread state for a terminated thread. The thread has completed execution.</li>
 </ul>
-</li>
-</ul>
-<h3 id="类加载器"><strong>类加载器</strong></h3>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>加载哪的类</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Bootstrap ClassLoader</td>
-<td>JAVA_HOME/jre/lib</td>
-<td>C语言编写，无法直接访问</td>
-</tr>
-<tr>
-<td>Extension ClassLoader</td>
-<td>JAVA_HOME/jre/lib/ext</td>
-<td>双亲是 Bootstrap</td>
-</tr>
-<tr>
-<td>Application ClassLoader</td>
-<td>classpath</td>
-<td>双亲是 Extension</td>
-</tr>
-<tr>
-<td>自定义加载器</td>
-<td>自定义</td>
-<td>双亲是 Application</td>
-</tr>
-</tbody>
-</table>
+<h4 id="阅后余思"><strong>阅后余思</strong></h4>
 <blockquote>
-<p>ClassLoader 之间的协作关系是双亲委派机制</p>
-<p>SPI 机制实现了上层加载器对下层加载器的委托</p>
+<p>线程相关的方法？</p>
+<p>线程的属性？</p>
+<p>多线程在带来 CPU 高利用率的同时，也带来了哪些问题？</p>
 </blockquote>
 
                 </div>
@@ -293,8 +262,8 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://glidea.github.io/post/h1icQUmLi/" class="post-title gt-a-link">
-                    事务
+                <a href="https://glidea.github.io/post/6vzHvO2bs/" class="post-title gt-a-link">
+                    类加载
                 </a>
             </div>
         

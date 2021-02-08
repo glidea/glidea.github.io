@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>类加载 | Glidea&#39;s Note</title>
+<title>操作系统 | Glidea&#39;s Note</title>
 
 <link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1612767921934">
 
@@ -33,11 +33,11 @@
 <!--<script src="media/scripts/index.js"></script>-->
 
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
 <div class="main gt-bg-theme-color-first">
-    <style>
+    <div class="main-content">
+        <style>
     /* 导航栏样式 */
     .navbar {
         position: relative;
@@ -182,128 +182,145 @@
         }
     }
 </script>
-    <div class="post-container">
-        <div class="post-detail gt-bg-theme-color-second">
-            <article class="gt-post-content">
-                <h2 class="post-title">
-                    类加载
-                </h2>
-                <div class="post-info">
-                    <time class="post-time gt-c-content-color-first">
-                        · 2021-01-23 ·
-                    </time>
-                    
-                        <a href="https://glidea.github.io/tag/eYyARY70R/" class="post-tags">
-                            # JVM
-                        </a>
-                    
-                </div>
-                <div class="post-content">
-                    <h3 id="类加载装载的过程"><strong>类加载（装载）的过程</strong></h3>
-<ul>
-<li>
-<p>加载：找到并加载类的二进制流至方法区，并在堆中创建 Class 对象代理，以对方法区对应数据的访问（此阶段由类加载器完成）</p>
-</li>
-<li>
-<p>链接</p>
-<ul>
-<li>验证：校验类是否符合虚拟机的约束</li>
-<li>准备：为静态变量分配空间并设置默认值，为所有常量分配空间并赋值（对于引用变量或常量只是预设了引用本身）</li>
-<li>解析：将类或接口，字段，方法的符号引用（<code>java/lang/Object</code>） -&gt; 直接引用（内存中的地址）</li>
-</ul>
-</li>
-<li>
-<p>初始化：把 <strong>static变量、static引用常量的赋值动作、static代码块</strong>合并成 <code>&lt;cinit&gt;()</code> 方法，并执行。主要是为了完成赋值</p>
-<blockquote>
-<p>类加载步骤只是按顺序开始，并非按顺序结束，也就是说不同阶段可能交叉执行。</p>
-<p>但解析不一定按顺序执行，可能在初始化后执行</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="类初始化的时机"><strong>类初始化的时机</strong></h3>
-<ul>
-<li>
-<p>首次被 new 了（或者反射，反序列化）</p>
-<ul>
-<li>子类要初始化，父类要是还没初始化，就会引发</li>
-</ul>
-</li>
-<li>
-<p>静态变量，静态方法，引用类型的静态常量首次被调用</p>
-<ul>
-<li>
-<p>main 方法所在的类，第一时间就被初始化</p>
-</li>
-<li>
-<p>通过子类访问父类的静态变量，只会导致父类初始化</p>
-<blockquote>
-<p>但子类已经被加载，只是还没初始化</p>
-</blockquote>
-</li>
-<li>
-<p>如果 A 类调用了 B 类的基本类型的静态常量 C，B类不会被初始化</p>
-<blockquote>
-<p>因为基本类型的静态常量的内容是不变的，所以 C 已经直接被放到了 A 类的常量池中</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="类加载器"><strong>类加载器</strong></h3>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>加载哪的类</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Bootstrap ClassLoader</td>
-<td>JAVA_HOME/jre/lib</td>
-<td>C语言编写，无法直接访问</td>
-</tr>
-<tr>
-<td>Extension ClassLoader</td>
-<td>JAVA_HOME/jre/lib/ext</td>
-<td>双亲是 Bootstrap</td>
-</tr>
-<tr>
-<td>Application ClassLoader</td>
-<td>classpath</td>
-<td>双亲是 Extension</td>
-</tr>
-<tr>
-<td>自定义加载器</td>
-<td>自定义</td>
-<td>双亲是 Application</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>ClassLoader 之间的协作关系是双亲委派机制</p>
-<p>SPI 机制实现了上层加载器对下层加载器的委托</p>
-</blockquote>
-
-                </div>
-            </article>
+        <div class="current-tag-container">
+            <h2 class="title gt-c-content-color-first">
+                #操作系统
+            </h2>
         </div>
-
+        <div class="post-list-container">
+    <div class="post-inner">
         
-            <div class="next-post">
-                <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://glidea.github.io/post/h1icQUmLi/" class="post-title gt-a-link">
-                    事务
-                </a>
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://glidea.github.io/post/qxM2zyb0K/">
+                            <span class="post-title gt-c-content-color-first">操作系统 - 内存管理</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-06-30 ·
+                        </time>
+                        
+                            <a href="https://glidea.github.io/tag/rNF1iRjtF/" class="post-tag">
+                                # 操作系统
+                            </a>
+                        
+                    </div>
+                </div>
+                
             </div>
         
-
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://glidea.github.io/post/VuofrILmn/">
+                            <span class="post-title gt-c-content-color-first">操作系统 - 同步</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-06-22 ·
+                        </time>
+                        
+                            <a href="https://glidea.github.io/tag/rNF1iRjtF/" class="post-tag">
+                                # 操作系统
+                            </a>
+                        
+                    </div>
+                </div>
+                
+            </div>
         
-
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://glidea.github.io/post/4tq--pmpL/">
+                            <span class="post-title gt-c-content-color-first">操作系统 - 调度机制</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-06-14 ·
+                        </time>
+                        
+                            <a href="https://glidea.github.io/tag/rNF1iRjtF/" class="post-tag">
+                                # 操作系统
+                            </a>
+                        
+                    </div>
+                </div>
+                
+            </div>
         
-
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://glidea.github.io/post/dkeW2P5_b/">
+                            <span class="post-title gt-c-content-color-first">操作系统 - 进程</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-06-10 ·
+                        </time>
+                        
+                            <a href="https://glidea.github.io/tag/rNF1iRjtF/" class="post-tag">
+                                # 操作系统
+                            </a>
+                        
+                    </div>
+                </div>
+                
+            </div>
         
+            <div class="post gt-bg-theme-color-second">
+                <div class="post-left">
+                    <div>
+                        
+                        <a href="https://glidea.github.io/post/plMGqezrm/">
+                            <span class="post-title gt-c-content-color-first">操作系统 - 基本概念</span>
+                        </a>
+                    </div>
+                    <div class="gt-post-content post-abstract gt-c-content-color-second">
+                        
+                    </div>
+                    <div class="post-info">
+                        <time class="post-time gt-c-content-color-first">
+                            发布于 · 2020-06-05 ·
+                        </time>
+                        
+                            <a href="https://glidea.github.io/tag/rNF1iRjtF/" class="post-tag">
+                                # 操作系统
+                            </a>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        
+    </div>
+</div>
+        <div class="pagination-container">
+    
+    
+</div>
 
         <div class="site-footer gt-c-content-color-first">
     <div class="slogan gt-c-content-color-first"></div>

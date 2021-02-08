@@ -6,7 +6,7 @@
 
 <title>垃圾回收 | Glidea&#39;s Note</title>
 
-<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1611415013477">
+<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1612767921934">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://glidea.github.io/styles/main.css">
@@ -163,7 +163,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1611415013477"
+            <form id="gridea-search-form" style="position: relative" data-update="1612767921934"
                 action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -211,14 +211,15 @@
 <p>弱引用：如果只有软引用，一旦 GC，就会被回收</p>
 </li>
 <li>
-<p>虚引用：和弱引用一样不会对 obj 的生存时间造成影响。虚引用对象在引用的 obj 被回收的时候，会自动加入引用队列等待扫描线程，从而起到通知系统的作用</p>
+<p>虚引用：和弱引用一样不会对 obj 的生存时间造成影响，与弱引用不同的地方在于，其使用的时必须要配合引用队列使用</p>
 </li>
 </ul>
 <blockquote>
 <p>软弱引用可以关联引用队列，obj 回收后软弱引用对象会自动加入引用队列，便于回收软弱引用对象</p>
 <p>虚引用关联了默认的引用队列</p>
 <p>软弱引用可以用于缓存的实现</p>
-<p>虚引用的用途之一是 NIO 的实现，通知系统释放 Buffer 对象对应的本地内存</p>
+<p>虚引用对象在其引用的 obj 被回收的时候，会自动加入引用队列等待扫描线程，从而起到通知系统 obj 被回收的作用。你可能会对这个作用感到疑惑，系统自个回收的，系统会不知道？原因在于虚引用指向的是特殊的 obj，而系统回收 obj 时，从来都是“杀人不睁眼的”，又因为特殊的 obj 的“特殊”是指其在死后还需要处理一些善后工作，所以必需要有这么一个通知机制。</p>
+<p>虚引用具体用途是用于堆外内存的管理，拿 NIO 举例子，当 Buffer 对象被回收后，虚引用通知系统释放 Buffer 对象指向的本地内存</p>
 </blockquote>
 <h3 id="判断对象是否可达"><strong>判断对象是否可达</strong></h3>
 <blockquote>

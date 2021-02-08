@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>类加载 | Glidea&#39;s Note</title>
+<title>操作系统 - 基本概念 | Glidea&#39;s Note</title>
 
 <link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1612767921934">
 
@@ -186,117 +186,184 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    类加载
+                    操作系统 - 基本概念
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2021-01-23 ·
+                        · 2020-06-05 ·
                     </time>
                     
-                        <a href="https://glidea.github.io/tag/eYyARY70R/" class="post-tags">
-                            # JVM
+                        <a href="https://glidea.github.io/tag/rNF1iRjtF/" class="post-tags">
+                            # 操作系统
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <h3 id="类加载装载的过程"><strong>类加载（装载）的过程</strong></h3>
+                    <h3 id="一-操作系统的功能是什么">一、操作系统的功能是什么</h3>
 <ul>
-<li>
-<p>加载：找到并加载类的二进制流至方法区，并在堆中创建 Class 对象代理，以对方法区对应数据的访问（此阶段由类加载器完成）</p>
-</li>
-<li>
-<p>链接</p>
+<li>管理软硬资源：处理机、存储器、设备、文件的管理</li>
+<li>向上层提供服务
 <ul>
-<li>验证：校验类是否符合虚拟机的约束</li>
-<li>准备：为静态变量分配空间并设置默认值，为所有常量分配空间并赋值（对于引用变量或常量只是预设了引用本身）</li>
-<li>解析：将类或接口，字段，方法的符号引用（<code>java/lang/Object</code>） -&gt; 直接引用（内存中的地址）</li>
+<li>向用户提供GUI，联机命令接口（单命令），脱机命令接口（批处理bat）</li>
+<li>向应用程序提供程序接口（系统调用，广义指令）</li>
 </ul>
 </li>
-<li>
-<p>初始化：把 <strong>static变量、static引用常量的赋值动作、static代码块</strong>合并成 <code>&lt;cinit&gt;()</code> 方法，并执行。主要是为了完成赋值</p>
-<blockquote>
-<p>类加载步骤只是按顺序开始，并非按顺序结束，也就是说不同阶段可能交叉执行。</p>
-<p>但解析不一定按顺序执行，可能在初始化后执行</p>
-</blockquote>
-</li>
+<li>对底层功能进行拓展</li>
 </ul>
-<h3 id="类初始化的时机"><strong>类初始化的时机</strong></h3>
+<h3 id="二-操作系统的特征是什么">二、操作系统的特征是什么</h3>
 <ul>
-<li>
-<p>首次被 new 了（或者反射，反序列化）</p>
+<li>并发（并行的超集）：一个时间段内，多件事情在宏观上同时发生，在微观上交替发生</li>
+<li>共享（部分并发场景的条件）
 <ul>
-<li>子类要初始化，父类要是还没初始化，就会引发</li>
+<li>互斥共享：一个资源，<strong>一个时间段内</strong>只允许一个进程访问</li>
+<li>同时共享：一个资源，<strong>一个时间段内</strong>允许多个进程访问</li>
 </ul>
 </li>
-<li>
-<p>静态变量，静态方法，引用类型的静态常量首次被调用</p>
+<li>虚拟</li>
+<li>异步：在资源有限的情况下，并发环境下，进程的执行受到其它进程的制约，总是走走停停的</li>
+</ul>
+<h3 id="三-操作系统的特征之间的关系">三、操作系统的特征之间的关系</h3>
 <ul>
-<li>
-<p>main 方法所在的类，第一时间就被初始化</p>
+<li>并发和共享互为存在条件
+<ul>
+<li>没有共享，无法实现并发（可以实现非共享的并发）</li>
+<li>没用并发，共享就没有意义</li>
+</ul>
 </li>
-<li>
-<p>通过子类访问父类的静态变量，只会导致父类初始化</p>
-<blockquote>
-<p>但子类已经被加载，只是还没初始化</p>
-</blockquote>
+<li>并发和共享是虚拟的前提条件
+<ul>
+<li>共享是并发的重要基础要素，而并发是虚拟性<strong>存在意义的前提</strong></li>
+</ul>
 </li>
-<li>
-<p>如果 A 类调用了 B 类的基本类型的静态常量 C，B类不会被初始化</p>
-<blockquote>
-<p>因为基本类型的静态常量的内容是不变的，所以 C 已经直接被放到了 A 类的常量池中</p>
-</blockquote>
+<li>并发和共享必然导致异步</li>
+</ul>
+<h3 id="四-操作系统的发展背景和分类">四、操作系统的发展背景和分类</h3>
+<ul>
+<li>手工操作阶段（手工输入一条条指令）
+<ul>
+<li>缺：人机速度矛盾（人工太tm慢了，机器等得很不耐烦）</li>
+</ul>
+</li>
+<li>批处理阶段
+<ul>
+<li>单道批处理系统（引入脱机输入输出技术）
+<ul>
+<li>优：缓解了人机速度矛盾</li>
+<li>缺：内存中只有一道程序执行，资源利用率还是很低（每次只有一个进程走流程，没走到的部分只能干等着）</li>
+</ul>
+</li>
+<li>多道批处理系统（操作系统开始出现）
+<ul>
+<li>优：提高了资源利用率，多道程序可并发执行</li>
+<li>缺：没有人机交互（给操作系统执行一堆命令，你只能选择等待或终止命令）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>操作系统阶段
+<ul>
+<li>分时操作系统
+<ul>
+<li>优：提供人机交互</li>
+<li>缺：不能优先处理紧急任务</li>
+</ul>
+</li>
+<li>实时操作系统（分软硬实时系统）
+<ul>
+<li>优：能优先处理紧急任务</li>
+</ul>
+</li>
+<li>两种系统的缺点在其应用领域都不算缺点</li>
+</ul>
+</li>
+</ul>
+<h3 id="五-操作系统大内核的功能组成">五、操作系统大内核的功能组成</h3>
+<ul>
+<li>时钟管理（分配时间片...）</li>
+<li>中断处理（并发的前提：不必等到程序运行结束，才能切换程序）</li>
+<li>原语（一种不可中断的程序，例如底层的CPU切换，进程通信...）（通过开关中断实现原子性）</li>
+<li>对资源进行管理的功能（不直接涉及硬件的功能，微内核不包含）
+<ul>
+<li>进程管理</li>
+<li>存储器管理</li>
+<li>设备管理</li>
+</ul>
+</li>
+</ul>
+<h3 id="六-运行态和中断机制">六、运行态和中断机制</h3>
+<ul>
+<li>CPU的运行态
+<ul>
+<li>内核程序在核心态中执行特权指令和非特权指令（陷入指令除外）</li>
+<li>应用程序在用户态中执行非特权指令</li>
+</ul>
+</li>
+<li>操作系统的中断机制
+<ul>
+<li>作用：中断当前运行的应用程序，CPU由用户态变成核心态，系统内核收回控制权</li>
+<li>意义：中断是实现程序并发的前提</li>
+<li>分类
+<ul>
+<li>内中断（异常）：与当前执行的指令有关，中断信号源自CPU内部
+<ul>
+<li>陷入，陷阱</li>
+<li>故障</li>
+<li>终止</li>
+</ul>
+</li>
+<li>外中断（狭义中断）：与当前执行的指令无关，中断信号源自CPU外部
+<ul>
+<li>时钟中断（当前程序的时间片用完的时候）</li>
+<li>I/O中断请求</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>执行原理
+<ul>
+<li>检查中断信号
+<ul>
+<li>内中断：CPU在执行指令时会检查异常</li>
+<li>外中断：每个指令周期末尾，CPU会检查是否有外中断信号待处理</li>
+</ul>
+</li>
+<li>为中断信号找到相应的中断处理程序
+<ul>
+<li>根据中断信号类型，通过中断向量表，找到处理程序的指针</li>
+</ul>
+</li>
+</ul>
 </li>
 </ul>
 </li>
 </ul>
-<h3 id="类加载器"><strong>类加载器</strong></h3>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>加载哪的类</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Bootstrap ClassLoader</td>
-<td>JAVA_HOME/jre/lib</td>
-<td>C语言编写，无法直接访问</td>
-</tr>
-<tr>
-<td>Extension ClassLoader</td>
-<td>JAVA_HOME/jre/lib/ext</td>
-<td>双亲是 Bootstrap</td>
-</tr>
-<tr>
-<td>Application ClassLoader</td>
-<td>classpath</td>
-<td>双亲是 Extension</td>
-</tr>
-<tr>
-<td>自定义加载器</td>
-<td>自定义</td>
-<td>双亲是 Application</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>ClassLoader 之间的协作关系是双亲委派机制</p>
-<p>SPI 机制实现了上层加载器对下层加载器的委托</p>
-</blockquote>
+<h3 id="七-系统调用一种特殊的异常">七、系统调用（一种特殊的异常）</h3>
+<ul>
+<li>系统调用与库函数的区别
+<ul>
+<li>有的库函数不包含系统调用</li>
+<li>有的库函数是对系统调用的封装</li>
+</ul>
+</li>
+<li>什么功能要用系统调用实现
+<ul>
+<li>会直接影响其它进程的操作，比如涉及共享资源的有关操作</li>
+</ul>
+</li>
+<li>系统调用的过程
+<ul>
+<li>传递系统调用参数</li>
+<li>用户态下发送系统调用请求：执行陷入指令（trap，访管指令），引起内中断，进入核心态</li>
+<li>核心态下处理系统调用</li>
+<li>返回应用程序，执行后续指令</li>
+</ul>
+</li>
+</ul>
 
                 </div>
             </article>
         </div>
 
-        
-            <div class="next-post">
-                <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://glidea.github.io/post/h1icQUmLi/" class="post-title gt-a-link">
-                    事务
-                </a>
-            </div>
         
 
         

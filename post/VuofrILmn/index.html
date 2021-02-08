@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>类加载 | Glidea&#39;s Note</title>
+<title>操作系统 - 同步 | Glidea&#39;s Note</title>
 
 <link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1612767921934">
 
@@ -186,105 +186,123 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    类加载
+                    操作系统 - 同步
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2021-01-23 ·
+                        · 2020-06-22 ·
                     </time>
                     
-                        <a href="https://glidea.github.io/tag/eYyARY70R/" class="post-tags">
-                            # JVM
+                        <a href="https://glidea.github.io/tag/rNF1iRjtF/" class="post-tags">
+                            # 操作系统
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <h3 id="类加载装载的过程"><strong>类加载（装载）的过程</strong></h3>
+                    <h4 id="一-进程互斥">一、进程互斥</h4>
 <ul>
-<li>
-<p>加载：找到并加载类的二进制流至方法区，并在堆中创建 Class 对象代理，以对方法区对应数据的访问（此阶段由类加载器完成）</p>
-</li>
-<li>
-<p>链接</p>
+<li>实现进程互斥的代码分为
 <ul>
-<li>验证：校验类是否符合虚拟机的约束</li>
-<li>准备：为静态变量分配空间并设置默认值，为所有常量分配空间并赋值（对于引用变量或常量只是预设了引用本身）</li>
-<li>解析：将类或接口，字段，方法的符号引用（<code>java/lang/Object</code>） -&gt; 直接引用（内存中的地址）</li>
+<li>进入区</li>
+<li>临界区</li>
+<li>退出区</li>
+<li>剩余区</li>
 </ul>
 </li>
-<li>
-<p>初始化：把 <strong>static变量、static引用常量的赋值动作、static代码块</strong>合并成 <code>&lt;cinit&gt;()</code> 方法，并执行。主要是为了完成赋值</p>
-<blockquote>
-<p>类加载步骤只是按顺序开始，并非按顺序结束，也就是说不同阶段可能交叉执行。</p>
-<p>但解析不一定按顺序执行，可能在初始化后执行</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="类初始化的时机"><strong>类初始化的时机</strong></h3>
+<li>进程互斥遵循的原则
 <ul>
-<li>
-<p>首次被 new 了（或者反射，反序列化）</p>
-<ul>
-<li>子类要初始化，父类要是还没初始化，就会引发</li>
+<li>空闲让进</li>
+<li>忙则等待</li>
+<li>有限等待</li>
+<li>让权等待：进不了临界区的进程要先放弃处理机，不要干等</li>
 </ul>
 </li>
-<li>
-<p>静态变量，静态方法，引用类型的静态常量首次被调用</p>
+<li>进程互斥的软件实现方法
 <ul>
-<li>
-<p>main 方法所在的类，第一时间就被初始化</p>
+<li>单标志法：傻屌算法</li>
+<li>双标志先检查法：</li>
+<li>双标志后检查法</li>
+<li>Peterson算法（孔融让梨法）</li>
+</ul>
 </li>
-<li>
-<p>通过子类访问父类的静态变量，只会导致父类初始化</p>
-<blockquote>
-<p>但子类已经被加载，只是还没初始化</p>
-</blockquote>
+<li>进程互斥的硬件实现方法
+<ul>
+<li>中断屏蔽法
+<ul>
+<li>原理：开关中断</li>
+<li>优：简单高效</li>
+<li>缺：只适用于单核环境和内核进程</li>
+</ul>
 </li>
-<li>
-<p>如果 A 类调用了 B 类的基本类型的静态常量 C，B类不会被初始化</p>
-<blockquote>
-<p>因为基本类型的静态常量的内容是不变的，所以 C 已经直接被放到了 A 类的常量池中</p>
-</blockquote>
+<li>TS和Swap指令
+<ul>
+<li>原理：将检查和上锁变为原子操作</li>
+<li>优：简单，适用于多处理机</li>
+<li>缺：不满足“让权等待”</li>
+</ul>
 </li>
 </ul>
 </li>
 </ul>
-<h3 id="类加载器"><strong>类加载器</strong></h3>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>加载哪的类</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Bootstrap ClassLoader</td>
-<td>JAVA_HOME/jre/lib</td>
-<td>C语言编写，无法直接访问</td>
-</tr>
-<tr>
-<td>Extension ClassLoader</td>
-<td>JAVA_HOME/jre/lib/ext</td>
-<td>双亲是 Bootstrap</td>
-</tr>
-<tr>
-<td>Application ClassLoader</td>
-<td>classpath</td>
-<td>双亲是 Extension</td>
-</tr>
-<tr>
-<td>自定义加载器</td>
-<td>自定义</td>
-<td>双亲是 Application</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>ClassLoader 之间的协作关系是双亲委派机制</p>
-<p>SPI 机制实现了上层加载器对下层加载器的委托</p>
-</blockquote>
+<h4 id="二-进程互斥和进程同步的关系">二、进程互斥和进程同步的关系</h4>
+<ul>
+<li>互斥是特殊的同步，是进程访问资源的次序上的同步</li>
+<li>同步大多情况下基于互斥</li>
+</ul>
+<h4 id="三-信号量机制实现进程互斥和进程同步的终极底层方案">三、信号量机制：实现进程互斥和进程同步的终极底层方案</h4>
+<ul>
+<li>实现进程互斥
+<ul>
+<li>设置互斥信号量 = 1、2...（资源数量）</li>
+<li>临界区之前执行P操作（lock）</li>
+<li>临界区之后执行V操作（unlock）</li>
+</ul>
+</li>
+<li>实现进程同步
+<ul>
+<li>设置同步信号量 = 0</li>
+<li>在“前操作”之后执行V操作（notify）</li>
+<li>在“后操作”之前执行P操作（wait）</li>
+</ul>
+</li>
+</ul>
+<h4 id="四-经典进程同步和进程互斥问题">四、经典进程同步和进程互斥问题</h4>
+<ul>
+<li>生产者 - 消费者问题（lock不能在wait前面）</li>
+<li>多生产者 - 多消费者问题</li>
+<li>吸烟者问题（单生产者 - 多消费者问题）</li>
+<li>读者 - 写者问题（复杂互斥问题）</li>
+<li>哲学家进餐问题（一个进程需要同时持有多个临界资源）</li>
+</ul>
+<h4 id="五-死锁">五、死锁</h4>
+<ul>
+<li>定义：各个进程互相等待对方手里的资源，导致各个进程都阻塞，无法向前推进</li>
+<li>死锁产生的必要条件
+<ul>
+<li>互斥条件：争抢互斥非共享的资源才会导致死锁</li>
+<li>不剥夺条件：进程保持的资源只能主动释放，不可强行剥夺</li>
+<li>请求和保持条件：请求别的资源，同时可以保持某些资源不放</li>
+<li>循环等待条件：存在一种进程资源的循环等待链</li>
+</ul>
+</li>
+<li>在具备必要条件后，只有对不可剥夺资源的不合理分配才会导致死锁（实际上有五个条件）</li>
+<li>死锁的处理策略
+<ul>
+<li>预防：破坏产生死锁的必要条件</li>
+<li>避免：避免系统进入不安全的状态
+<ul>
+<li>银行家算法</li>
+</ul>
+</li>
+<li>死锁的检测和解除：允许死锁的发生，死锁负责检测出死锁并解除
+<ul>
+<li>检测：资源分配图是否可简化到无边可消</li>
+<li>解除：资源剥夺法、撤销进程法、进程回退法</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
                 </div>
             </article>
@@ -293,8 +311,8 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://glidea.github.io/post/h1icQUmLi/" class="post-title gt-a-link">
-                    事务
+                <a href="https://glidea.github.io/post/4tq--pmpL/" class="post-title gt-a-link">
+                    操作系统 - 调度机制
                 </a>
             </div>
         

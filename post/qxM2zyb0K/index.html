@@ -4,7 +4,7 @@
 <meta name="description" content="" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>类加载 | Glidea&#39;s Note</title>
+<title>操作系统 - 内存管理 | Glidea&#39;s Note</title>
 
 <link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1612767921934">
 
@@ -186,105 +186,137 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    类加载
+                    操作系统 - 内存管理
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2021-01-23 ·
+                        · 2020-06-30 ·
                     </time>
                     
-                        <a href="https://glidea.github.io/tag/eYyARY70R/" class="post-tags">
-                            # JVM
+                        <a href="https://glidea.github.io/tag/rNF1iRjtF/" class="post-tags">
+                            # 操作系统
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <h3 id="类加载装载的过程"><strong>类加载（装载）的过程</strong></h3>
+                    <h4 id="一-程序被装入内存运行前所执行的过程">一、程序被装入内存运行前所执行的过程</h4>
 <ul>
-<li>
-<p>加载：找到并加载类的二进制流至方法区，并在堆中创建 Class 对象代理，以对方法区对应数据的访问（此阶段由类加载器完成）</p>
-</li>
-<li>
-<p>链接</p>
+<li>编译：代码文件 -&gt; 目标模块（高级语言 -&gt; 机器语言）</li>
+<li>链接：目标模块 -&gt; 装入模块，此时形成了完整的<strong>逻辑地址</strong>
 <ul>
-<li>验证：校验类是否符合虚拟机的约束</li>
-<li>准备：为静态变量分配空间并设置默认值，为所有常量分配空间并赋值（对于引用变量或常量只是预设了引用本身）</li>
-<li>解析：将类或接口，字段，方法的符号引用（<code>java/lang/Object</code>） -&gt; 直接引用（内存中的地址）</li>
+<li>静态链接：全部无脑拼凑</li>
+<li>装入时动态链接：等到放入内存时，再进行拼凑</li>
+<li>运行时动态链接：等到放入内存，并需要时，再进行拼凑</li>
 </ul>
 </li>
-<li>
-<p>初始化：把 <strong>static变量、static引用常量的赋值动作、static代码块</strong>合并成 <code>&lt;cinit&gt;()</code> 方法，并执行。主要是为了完成赋值</p>
-<blockquote>
-<p>类加载步骤只是按顺序开始，并非按顺序结束，也就是说不同阶段可能交叉执行。</p>
-<p>但解析不一定按顺序执行，可能在初始化后执行</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="类初始化的时机"><strong>类初始化的时机</strong></h3>
+<li>装入：装入模块放入内存，<strong>并转换地址</strong>
 <ul>
-<li>
-<p>首次被 new 了（或者反射，反序列化）</p>
-<ul>
-<li>子类要初始化，父类要是还没初始化，就会引发</li>
-</ul>
-</li>
-<li>
-<p>静态变量，静态方法，引用类型的静态常量首次被调用</p>
-<ul>
-<li>
-<p>main 方法所在的类，第一时间就被初始化</p>
-</li>
-<li>
-<p>通过子类访问父类的静态变量，只会导致父类初始化</p>
-<blockquote>
-<p>但子类已经被加载，只是还没初始化</p>
-</blockquote>
-</li>
-<li>
-<p>如果 A 类调用了 B 类的基本类型的静态常量 C，B类不会被初始化</p>
-<blockquote>
-<p>因为基本类型的静态常量的内容是不变的，所以 C 已经直接被放到了 A 类的常量池中</p>
-</blockquote>
-</li>
+<li>绝对装入：编译时产生绝对地址（程序的内存地址固定，仅适用于单道程序环境）</li>
+<li>可重定位装入（静态重定位）：装入时根据 程序基地址 + 逻辑地址 -&gt; 绝对地址（适用于早期多道批处理阶段）</li>
+<li>动态运行时装入（动态重定位）：运行时根据 重定位寄存器中的程序地址 + 逻辑地址 -&gt; 绝对地址</li>
 </ul>
 </li>
 </ul>
-<h3 id="类加载器"><strong>类加载器</strong></h3>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>加载哪的类</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Bootstrap ClassLoader</td>
-<td>JAVA_HOME/jre/lib</td>
-<td>C语言编写，无法直接访问</td>
-</tr>
-<tr>
-<td>Extension ClassLoader</td>
-<td>JAVA_HOME/jre/lib/ext</td>
-<td>双亲是 Bootstrap</td>
-</tr>
-<tr>
-<td>Application ClassLoader</td>
-<td>classpath</td>
-<td>双亲是 Extension</td>
-</tr>
-<tr>
-<td>自定义加载器</td>
-<td>自定义</td>
-<td>双亲是 Application</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>ClassLoader 之间的协作关系是双亲委派机制</p>
-<p>SPI 机制实现了上层加载器对下层加载器的委托</p>
-</blockquote>
+<h4 id="二-操作系统管理内存哪些方面">二、操作系统管理内存哪些方面</h4>
+<ul>
+<li>内存空间分配与回收
+<ul>
+<li>连续分配：分配给进程的是一个连续的内存空间
+<ul>
+<li>单一连续分配（仅支持单道程序）</li>
+<li>固定分区分配：内存用户空间分为若干个固定大小的分区，每个分区只能装一道作业
+<ul>
+<li>缺：缺乏灵活性，内部碎片多</li>
+</ul>
+</li>
+<li>动态分区分配：在进程装入内存时，根据进程的大小动态地建立分区
+<ul>
+<li>动态分区的各内存分区大小不一致，使用情况也不一致，需要空闲分区表或链存储结构信息</li>
+<li>当多个空闲分区满足进程的需求的时候，要怎么选择分区？
+<ul>
+<li>首次适应
+<ul>
+<li>地址递增排序，从头到尾，找到装得下的就用</li>
+<li>优：性能好，可以保留高地址大分区</li>
+<li>缺：低地址会产生较多碎片</li>
+</ul>
+</li>
+<li>最佳适应
+<ul>
+<li>空间递增排序，从头到尾，找到装得下的就用</li>
+<li>优：保留大分区</li>
+<li>缺：性能差，完事需要重新排列</li>
+</ul>
+</li>
+<li>最坏适应
+<ul>
+<li>空间递减排序，从头到尾，找到装得下的就用</li>
+<li>优：减少外部碎片</li>
+<li>缺：性能差，完事需要重新排列</li>
+</ul>
+</li>
+<li>邻近适应（循环首次适应算法）（数据结构：空闲分区循环链表）
+<ul>
+<li>地址递增排序，从上次查找结束的位置开始，找到装得下的就用</li>
+<li>优：性能最好</li>
+<li>缺：导致大分区稀缺</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>缺：外部碎片多，虽然可以用紧凑技术解决，但是代价太高</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>非连续分配：分配给进程的可以是多个零散的内存空间
+<ul>
+<li>基本分页存储管理：进程分页装进固定分区的内存
+<ul>
+<li>地址转换：根据逻辑地址算出页号，偏移量 - 》根据PTR中的页表长度判断页号是否越界 - 》如果没越界，根据PTR的页表始址，页表项长度，页号算出该页号对应的地址，得到内存块号 - 》根据块号，页面大小，偏移量算出物理地址</li>
+<li>优：内存利用率高，只有少量页内碎片</li>
+<li>缺：不方便按照逻辑模块实现保护和共享</li>
+<li>PTR中的数据是进程被调度的时候由PCB整进来的</li>
+<li>上述地址转换过程引入快表机制，将最近用过的页表项放入快表（类似于缓存），由于快表在寄存器中，速度比内存快，所以能提高速度</li>
+<li>由于一个页表的页表项必须连续存储，所以页表需要很大的连续空间，而且一段时间内，很多页表项都用不到，没必要常驻内存，所以可以拆分成多个页表，再搞个页目录表管理多个页表</li>
+</ul>
+</li>
+<li>基本分段存储管理：进程分段装进不分区的内存（不定长，不分区的分页管理）
+<ul>
+<li>地址装换：和分页存储不同的是，需要根据 段表记录的段长 判断 段内地址是否越界</li>
+<li>优：容易实现共享和保护</li>
+<li>缺：段太大的话，又和连续分配一样容易产生外部碎片了</li>
+</ul>
+</li>
+<li>段页式存储管理：进程分段，段内再分页装进固定分区的内存</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>内存空间的扩充（基于局部性原理）
+<ul>
+<li>覆盖技术：将程序分成多个模块，热点模块装入一个固定区，其它模块根据需要换出换入某个覆盖区（调度单位：进程模块）
+<ul>
+<li>缺：程序覆盖结构必须由程序员指定，编程难度大，这种技术已成为历史</li>
+</ul>
+</li>
+<li>交换技术：内存紧张时，将挂起状态的进程换出到外存对换区，再换入文件区的某些进程（调度单位：进程）
+<ul>
+<li>缺：调度粒度大</li>
+</ul>
+</li>
+<li>虚拟内存：利用覆盖技术、交换技术动态换入换出页（覆盖和交换的调度单位：页或段）
+<ul>
+<li>特征：多次性（装入）、对换性（换出换入）、虚拟性</li>
+<li>前提：操作系统提供请求分页、或分段、或段页式存储管理功能</li>
+<li>运作机制：访问信息不再内存，通过请求调页功能，将信息换入到内存；内存不够用时，通过页面置换功能，将用不到的信息换出到外存</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>地址转换（如果使用绝对装入的方式，不需要操作系统干这活，当然这样连操作系统都不需要了，因为绝对装入只适用于单道程序环境）</li>
+<li>存储保护</li>
+</ul>
 
                 </div>
             </article>
@@ -293,8 +325,8 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://glidea.github.io/post/h1icQUmLi/" class="post-title gt-a-link">
-                    事务
+                <a href="https://glidea.github.io/post/VuofrILmn/" class="post-title gt-a-link">
+                    操作系统 - 同步
                 </a>
             </div>
         

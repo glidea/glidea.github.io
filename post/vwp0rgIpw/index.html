@@ -6,7 +6,7 @@
 
 <title>内存结构 | Glidea&#39;s Note</title>
 
-<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1611415013477">
+<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1612767921934">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://glidea.github.io/styles/main.css">
@@ -163,7 +163,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1611415013477"
+            <form id="gridea-search-form" style="position: relative" data-update="1612767921934"
                 action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -232,6 +232,7 @@
 <p>栈上分配</p>
 <blockquote>
 <p>开启逃逸分析和标量替换后，非逃逸对象可以在栈上分配，但大对象还需要在堆上分配</p>
+<p>栈上分配将极大提高性能，因为栈空间连续，方便利用CPU缓存</p>
 </blockquote>
 </li>
 <li>
@@ -239,6 +240,13 @@
 <blockquote>
 <p>StackOverflow：栈帧太多<br>
 OOM：内存不足，无法申请新的栈帧</p>
+</blockquote>
+</li>
+<li>
+<p>HotSpot 的实现</p>
+<blockquote>
+<p>实际上<code>VM Stack</code>和<code>Native Stack</code>并非要实现两个栈，HotSpot 是把两个合并成<code>Mixed Stack</code></p>
+<p>而 Java 线程与 Native 线程是一一对应的，<code>Mixed Stack</code>本身就可以认为是一个操作系统调用栈</p>
 </blockquote>
 </li>
 </ul>
@@ -255,8 +263,8 @@ OOM：内存不足，无法申请新的栈帧</p>
 <p>补充</p>
 <blockquote>
 <p>JVM的计数器是软件方法实现的，并非物理上的计数器（寄存器）<br>
-执行native方法的时候，JVM计数器的值为undefined，下一条指令的地址在物理计数器上<br>
-唯一不存在OOM的区域</p>
+执行native方法的时候，JVM计数器的值为undefined，物理PC存储的是CPU指令行号，JVM PC存储的是JVM指令行号</p>
+<p>唯一不存在OOM的区域</p>
 </blockquote>
 </li>
 </ul>
@@ -337,6 +345,13 @@ OOM：内存不足，无法申请新的栈帧</p>
             </article>
         </div>
 
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://glidea.github.io/post/qxM2zyb0K/" class="post-title gt-a-link">
+                    操作系统 - 内存管理
+                </a>
+            </div>
         
 
         

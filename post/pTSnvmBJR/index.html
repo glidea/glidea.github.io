@@ -6,7 +6,7 @@
 
 <title>并发基础 | Glidea&#39;s Note</title>
 
-<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1612779991107">
+<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1613530459143">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://glidea.github.io/styles/main.css">
@@ -163,7 +163,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1612779991107"
+            <form id="gridea-search-form" style="position: relative" data-update="1613530459143"
                 action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
@@ -203,23 +203,62 @@
 <ul>
 <li>
 <p>创建继承 Thread 类的实例</p>
+<pre><code class="language-java">Thread thread = new Thread() {
+    @Override
+    public void run() {
+        // working...
+    }
+};
+</code></pre>
 </li>
 <li>
-<p>创建实现 Runnable 接口的实例，注入 Thread 类，或者丢给线程池处理（线程池内部自动创建线程，并启动）</p>
+<p>创建实现 Runnable 接口的实例，注入 Thread 类，或者丢给线程池处理</p>
+<pre><code class="language-java">Runnable runnable = new Runnable() {
+    @Override
+    public void run() {
+        // working...
+    }
+};
+/**
+ * way1
+ */
+Thread thread = new Thread(runnable);
+/**
+ * way2
+ * 线程在线程池内部隐式创建（由于线程池的复用机制，也可能不创建）
+ */
+ExecutorService executorService = Executors.newFixedThreadPool(1);
+executorService.submit(runnable);
+// or executorService.execute(runnable);
+</code></pre>
 </li>
 <li>
 <p>创建实现 Callable 接口的实例，注入 FutureTask 类，此时这就变成了一个 Runnable 实例，创建线程的方式跟第二点一样</p>
+<pre><code class="language-java">Callable&lt;Object&gt; callable = new Callable&lt;Object&gt;() {
+    @Override
+    public Object call() throws Exception {
+        // working for result...
+        // return result
+    }
+};
+FutureTask&lt;Object&gt; futureTask = new FutureTask&lt;&gt;(callable);
+// ...
+// futureTask create thread same way as Runnable
+// 区别只在于 futureTask 可以直接通过 futureTask.get() 阻塞式获得线程执行结果
+</code></pre>
 </li>
 <li>
 <p>创建实现 Callable 接口的实例，直接丢给线程池的<code>Future submit(Callable task)</code>执行</p>
+<pre><code class="language-java">Future&lt;Object&gt; future = executorService.submit(callable);
+// get future to waiting result
+</code></pre>
 <blockquote>
-<p>第三种方式只是在第二种方式上做的拓展，使其具有直接返回线程执行结果的能力，原理是一样的</p>
-<p>第四种则完全和第三种一样，在<code>submit()</code>内部，一样会把 Callable 实例变成 Runnable 实例</p>
-<p>这样看来本质上只有两种方法创建线程，Oracle 官方文档也写两种</p>
-<p>不过认为只有一种，个人觉得也是一种可行的说法，因为这些方法都可以归纳为创建了 Thread 实例</p>
+<p><strong>创建线程到底有多少种方式？</strong></p>
+<p>​		表面上的方式其实是有很多种的，本质上呢？本质上也不好说，这取决于你的界定。我们可以认为只有一种，即都是<code>创建了 Thread 类</code>；也可以认为两种，三种甚至更多。而 Oracle <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Thread.html">官方答案</a>是两种：<code>继承 Thread 类</code>和<code>实现 Runnable 接口</code>。下面我对 Oracle 的答案稍作解释</p>
+<p>​		<code>实现 Callable 接口</code>这类方式，最终一定会把 Callable 实现类A注入到一个 Runnable 实现类B里，然后把B注入 Thread。<code>Thread.run</code>调用<code>B.run</code>，<code>B.run</code>调用<code>A.call</code>（可参考 FutureTask 源码）。所以这本质上就是<code>实现 Runnable 接口</code></p>
 </blockquote>
 <blockquote>
-<p>实现 Runnable 接口的优势</p>
+<p><strong>既然本质只有两种创建线程的方法，那<code>实现 Runnable 接口</code>的优势是什么</strong></p>
 <ul>
 <li>实现了 <strong>具体任务</strong> 和 <strong>线程环境</strong> 的解耦</li>
 <li>基于上一点可以很好的实现线程的复用。比如线程池每个线程的<code>run()</code>都不断从 WorkQueue 中获取 Runnable 实例，并执行 Runnable 实例的<code>run()</code>（注意前后两个<code>run()</code>的区别）</li>
@@ -232,14 +271,28 @@
 <p>调用<code>start()</code>启动线程，而非<code>run()</code>。run 方法只是一个普通方法，而 start 方法会创建线程环境，并调用 run 方法执行</p>
 <h4 id="停止线程"><strong>停止线程</strong></h4>
 <ul>
-<li>
-<p>外部调用 <code>interrupt()</code> 向线程发送中断信号</p>
-</li>
-<li>
-<p>线程通过<code>isIntercepted()</code>轮询到中断信号后，开始善后工作</p>
-</li>
+<li>外部调用 <code>interrupt()</code> 向线程发送中断信号</li>
+<li>线程通过<code>isIntercepted()</code>轮询到中断信号后，开始善后工作</li>
 </ul>
 <p>当线程处于阻塞状态时，接收到中断信号，一般会被自动唤醒，并抛出<code>InterruptedException</code>。同时其中断标志被重置，需要在<code>catch</code>内重新发送中断信号，外部的轮询才能感知到</p>
+<pre><code class="language-java">Thread thread = new Thread(() -&gt; {
+    while (!Thread.currentThread().isInterrupted()) {
+        // working...
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            // Thread.currentThread().isInterrupted() == false
+            Thread.currentThread().interrupt();
+        }
+    }
+    // 线程被打断，即将结束
+    // 准备善后工作
+});
+thread.start();
+
+Thread.sleep(1000);
+thread.interrupt();
+</code></pre>
 <p>但线程也可能不会被唤醒，最直观的原因就是：线程不去捕获<code>InterruptedException</code>（这取决于以何种方式进入这些状态）。如线程在等待<code>synchronize</code>锁（<code>BLOCKED</code>），或在使用不可打断方式等待<code>Lock</code>锁（<code>WAITING</code>），都无法响应中断</p>
 <blockquote>
 <p>所有强制停止线程，不留给线程善后的余地的方式都是不推荐的（<code>stop()</code>、<code>suspend()</code>）</p>
@@ -248,11 +301,17 @@
 <figure data-type="image" tabindex="1"><a href="https://imgchr.com/i/yET8rq"><img src="https://s3.ax1x.com/2021/01/31/yET8rq.png" alt="yET8rq.png" loading="lazy"></a></figure>
 <ul>
 <li>NEW：Thread state for a thread which has not yet started</li>
+<li>RUNNABLE：Thread state for a runnable thread. A thread in the runnable state is executing in the Java virtual machine but it may be waiting for other resources from the operating system such as processor.</li>
 <li>BLOCKED：Thread state for a thread blocked waiting for a monitor lock. A thread in the blocked state is waiting for a monitor lock to enter a synchronized block/method or reenter a synchronized block/method after calling <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#wait()"><code>Object.wait</code></a></li>
 <li>WAITING：A thread in the waiting state is waiting for another thread to perform a particular action. For example, a thread that has called <code>Object.wait()</code> on an object is waiting for another thread to call <code>Object.notify()</code> or <code>Object.notifyAll()</code> on that object. A thread that has called <code>Thread.join()</code> is waiting for a specified thread to terminate</li>
 <li>TIMED_WAITING：Thread state for a waiting thread with a specified waiting time</li>
 <li>TERMINATED：Thread state for a terminated thread. The thread has completed execution.</li>
 </ul>
+<blockquote>
+<p><strong>关于 RUNNABLE 包含 OS 阻塞状态的说明</strong></p>
+<p>​		很多人认为 RUNNABLE 仅包含运行、可运行状态，实际上是错误的。因访问 IO 出现的阻塞，仍属于 RUNNABLE 的范畴，可以参考上方 Oracle 官方的描述：<code>RUNNABLE -&gt; waiting for other resources from the operating system</code></p>
+<p>​		这个也可以通过实验证明，起线程读文件（文件 IO 都会阻塞式读取，无论 BIO，NIO，AIO），在主线程实时打印对应线程状态（或打线程级断点，在 Debuger 观察）</p>
+</blockquote>
 <h4 id="思考题"><strong>思考题</strong></h4>
 <blockquote>
 <p>线程相关的方法？</p>

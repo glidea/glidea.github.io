@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1613916743976">
+<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1613917113817">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://glidea.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="site-header">
     <div class="left">
       <a href="https://glidea.github.io">
-        <img class="avatar" src="https://glidea.github.io/images/avatar.png?v=1613916743976" alt="" width="32px" height="32px">
+        <img class="avatar" src="https://glidea.github.io/images/avatar.png?v=1613917113817" alt="" width="32px" height="32px">
       </a>
       <a href="https://glidea.github.io">
         <h1 class="site-title">Glidea&#39;s Note</h1>
@@ -138,7 +138,7 @@ OOM：内存不足，无法申请新的栈帧</p>
 <h3 id="程序计数器"><strong>程序计数器</strong></h3>
 <ul>
 <li>
-<p>作用：记住线程下一条 “JVM指令” 的地址（指令在方法区中）</p>
+<p>作用：记住线程当前执行的 “JVM指令” 的地址（指令在方法区中）</p>
 <blockquote>
 <p>是实现分支、循环、跳转、异常处理的基础设施<br>
 以及保存上下文切换的执行进度</p>
@@ -147,8 +147,9 @@ OOM：内存不足，无法申请新的栈帧</p>
 <li>
 <p>补充</p>
 <blockquote>
-<p>JVM的计数器是软件方法实现的，并非物理上的计数器（寄存器）<br>
-执行native方法的时候，JVM计数器的值为undefined，物理PC存储的是CPU指令行号，JVM PC存储的是JVM指令行号</p>
+<p>JVM的计数器是软件方法实现的，并非物理上的计数器（寄存器）</p>
+<p>执行native方法的时候，JVM计数器的值为undefined</p>
+<p>物理PC存储的是CPU指令行号，JVM PC存储的是JVM指令行号</p>
 <p>唯一不存在OOM的区域</p>
 </blockquote>
 </li>

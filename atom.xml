@@ -1,46 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://glidea.github.io</id>
+    <id>http://glidea.github.io</id>
     <title>Glidea&apos;s Note</title>
-    <updated>2021-02-24T10:39:39.620Z</updated>
+    <updated>2021-02-24T10:56:58.193Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://glidea.github.io"/>
-    <link rel="self" href="https://glidea.github.io/atom.xml"/>
-    <logo>https://glidea.github.io/images/avatar.png</logo>
-    <icon>https://glidea.github.io/favicon.ico</icon>
+    <link rel="alternate" href="http://glidea.github.io"/>
+    <link rel="self" href="http://glidea.github.io/atom.xml"/>
+    <logo>http://glidea.github.io/images/avatar.png</logo>
+    <icon>http://glidea.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Glidea&apos;s Note</rights>
     <entry>
         <title type="html"><![CDATA[原子性问题的来龙去脉]]></title>
-        <id>https://glidea.github.io/post/c_LApvKiV/</id>
-        <link href="https://glidea.github.io/post/c_LApvKiV/">
+        <id>http://glidea.github.io/post/c_LApvKiV/</id>
+        <link href="http://glidea.github.io/post/c_LApvKiV/">
         </link>
         <updated>2021-02-19T15:27:48.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[多线程基础]]></title>
-        <id>https://glidea.github.io/post/pTSnvmBJR/</id>
-        <link href="https://glidea.github.io/post/pTSnvmBJR/">
+        <id>http://glidea.github.io/post/pTSnvmBJR/</id>
+        <link href="http://glidea.github.io/post/pTSnvmBJR/">
         </link>
         <updated>2021-01-28T15:06:06.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[类加载]]></title>
-        <id>https://glidea.github.io/post/6vzHvO2bs/</id>
-        <link href="https://glidea.github.io/post/6vzHvO2bs/">
+        <id>http://glidea.github.io/post/6vzHvO2bs/</id>
+        <link href="http://glidea.github.io/post/6vzHvO2bs/">
         </link>
         <updated>2021-01-23T13:25:45.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[事务]]></title>
-        <id>https://glidea.github.io/post/h1icQUmLi/</id>
-        <link href="https://glidea.github.io/post/h1icQUmLi/">
+        <id>http://glidea.github.io/post/h1icQUmLi/</id>
+        <link href="http://glidea.github.io/post/h1icQUmLi/">
         </link>
         <updated>2021-01-23T08:12:03.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[垃圾回收]]></title>
-        <id>https://glidea.github.io/post/kRaswf51Z/</id>
-        <link href="https://glidea.github.io/post/kRaswf51Z/">
+        <id>http://glidea.github.io/post/kRaswf51Z/</id>
+        <link href="http://glidea.github.io/post/kRaswf51Z/">
         </link>
         <updated>2021-01-06T09:22:23.000Z</updated>
     </entry>

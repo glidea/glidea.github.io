@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1614156144172">
+<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1614156588280">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://glidea.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="site-header">
     <div class="left">
       <a href="https://glidea.github.io">
-        <img class="avatar" src="https://glidea.github.io/images/avatar.png?v=1614156144172" alt="" width="32px" height="32px">
+        <img class="avatar" src="https://glidea.github.io/images/avatar.png?v=1614156588280" alt="" width="32px" height="32px">
       </a>
       <a href="https://glidea.github.io">
         <h1 class="site-title">Glidea&#39;s Note</h1>
@@ -162,7 +162,7 @@ FutureTask&lt;Object&gt; futureTask = new FutureTask&lt;&gt;(callable);
 <p>如果你没用线程池，那创建线程后，如何启动？</p>
 <p>调用<code>start()</code>启动线程，而非<code>run()</code>。run 方法只是一个普通方法，而 start 方法会创建线程环境，并调用 run 方法执行</p>
 <blockquote>
-<p>Java 线程和 内核线程是一一对应的关系，也就是说我们可以直接把 Java 线程看做 内核线程，而创建内核线程这事得 native 方法才能干。所以我们可以在 <code>start()</code>的源码里寻觅到<code>native start0()</code>的踪影</p>
+<p>Java 线程和 内核线程是一一对应的关系，也就是说我们可以直接把 Java 线程看做 内核线程。而创建内核线程这事得 native 方法才能干，所以我们可以在 <code>start()</code>的源码里寻觅到<code>native start0()</code>的踪影</p>
 </blockquote>
 <h4 id="停止线程"><strong>停止线程</strong></h4>
 <p>线程启动了，自个代码执行完自然会自动停止。那要是这个线程是个<code>Work Thread</code>呢（一直搁那while循环）</p>

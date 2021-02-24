@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="http://glidea.github.io/favicon.ico?v=1614165106463">
+<link rel="shortcut icon" href="http://glidea.github.io/favicon.ico?v=1614168906980">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="http://glidea.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="site-header">
     <div class="left">
       <a href="http://glidea.github.io">
-        <img class="avatar" src="http://glidea.github.io/images/avatar.png?v=1614165106463" alt="" width="32px" height="32px">
+        <img class="avatar" src="http://glidea.github.io/images/avatar.png?v=1614168906980" alt="" width="32px" height="32px">
       </a>
       <a href="http://glidea.github.io">
         <h1 class="site-title">Glidea&#39;s Note</h1>
@@ -153,7 +153,7 @@ FutureTask&lt;Object&gt; futureTask = new FutureTask&lt;&gt;(callable);
 <ul>
 <li>实现了 <strong>具体任务</strong> 和 <strong>线程环境</strong> 的解耦</li>
 <li>基于上一点可以很好的实现线程的复用。比如线程池每个线程的<code>run()</code>都不断从 WorkQueue 中获取 Runnable 实例，并执行 Runnable 实例的<code>run()</code>（注意前后两个<code>run()</code>的区别）</li>
-<li>此外由于单继承机制，实现 Runnable 接口的实现类有更好的拓展性</li>
+<li>此外由于单继承机制，实现 Runnable 接口的方式有更好的拓展性</li>
 </ul>
 </blockquote>
 </li>
@@ -217,7 +217,7 @@ thread.interrupt();
 </li>
 </ul>
 <pre><code class="language-java">Thread thread = new Thread(() -&gt; {
-  new Scanner(System.in).nextLine();
+  new Scanner(System.in).nextLine();// blocked(os) here wait for input
 });
 thread.start();
 

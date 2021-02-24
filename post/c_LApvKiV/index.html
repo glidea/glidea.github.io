@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1614045902423">
+<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1614139337936">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://glidea.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="site-header">
     <div class="left">
       <a href="https://glidea.github.io">
-        <img class="avatar" src="https://glidea.github.io/images/avatar.png?v=1614045902423" alt="" width="32px" height="32px">
+        <img class="avatar" src="https://glidea.github.io/images/avatar.png?v=1614139337936" alt="" width="32px" height="32px">
       </a>
       <a href="https://glidea.github.io">
         <h1 class="site-title">Glidea&#39;s Note</h1>
@@ -102,7 +102,7 @@
 </li>
 <li>
 <p>源头二：多核环境下，程序并行执行</p>
-<figure data-type="image" tabindex="2"><a href="https://imgchr.com/i/yfB6Ag"><img src="https://s3.ax1x.com/2021/02/19/yfB6Ag.png" alt="yfB6Ag.png" loading="lazy"></a></figure>
+<figure data-type="image" tabindex="2"><a href="https://imgtu.com/i/yLLKr8"><img src="https://s3.ax1x.com/2021/02/24/yLLKr8.png" alt="yLLKr8.png" loading="lazy"></a></figure>
 <blockquote>
 <p>如果在多核环境下考虑 CPU 缓存，会导致可见性的问题，而可见性问题也会导致原子性问题，但这不是主要的因素。因为不管有没有缓存，只要 CPU 是直接操作寄存器的，都有原子性问题</p>
 </blockquote>
@@ -138,7 +138,7 @@
 <li>
 <p>无锁的实现</p>
 <pre><code class="language-c">while(true) {
-	oldVal = getVal()
+		oldVal = getVal()
   	newVal = doUpdate(oldVal)
     /**
      * CAS：比较val的最新值与oldVal，若相等，则将newVal覆盖val
@@ -183,7 +183,7 @@ while (if not get all lock) {
     tryLock B {
       ...
     }
-  }
+	}
 }
 // 线程2
 while (if not get all lock) {
@@ -191,7 +191,7 @@ while (if not get all lock) {
     tryLock A {
       ...
     }
-  }
+	}
 }
 // 每次两线程都是只能获取第一把锁，对于第二把始终无法获得，每次都想先释放第一把给别人先用，等会再试
 // 恰巧每次都无法获取第二把

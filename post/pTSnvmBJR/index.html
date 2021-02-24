@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1614139337936">
+<link rel="shortcut icon" href="https://glidea.github.io/favicon.ico?v=1614156144172">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://glidea.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="site-header">
     <div class="left">
       <a href="https://glidea.github.io">
-        <img class="avatar" src="https://glidea.github.io/images/avatar.png?v=1614139337936" alt="" width="32px" height="32px">
+        <img class="avatar" src="https://glidea.github.io/images/avatar.png?v=1614156144172" alt="" width="32px" height="32px">
       </a>
       <a href="https://glidea.github.io">
         <h1 class="site-title">Glidea&#39;s Note</h1>
@@ -128,8 +128,8 @@ executorService.submit(runnable);
 };
 FutureTask&lt;Object&gt; futureTask = new FutureTask&lt;&gt;(callable);
 // ...
-// futureTask create thread same way as Runnable
-// 区别只在于 futureTask 可以直接通过 futureTask.get() 阻塞式获得线程执行结果
+// after this time，futureTask create thread same way as Runnable
+// 区别只在于 futureTask 可以“直接”通过 futureTask.get() 阻塞式获得线程执行结果
 </code></pre>
 </li>
 <li>
@@ -159,8 +159,13 @@ FutureTask&lt;Object&gt; futureTask = new FutureTask&lt;&gt;(callable);
 </li>
 </ul>
 <h4 id="启动线程"><strong>启动线程</strong></h4>
+<p>如果你没用线程池，那创建线程后，如何启动？</p>
 <p>调用<code>start()</code>启动线程，而非<code>run()</code>。run 方法只是一个普通方法，而 start 方法会创建线程环境，并调用 run 方法执行</p>
+<blockquote>
+<p>Java 线程和 内核线程是一一对应的关系，也就是说我们可以直接把 Java 线程看做 内核线程，而创建内核线程这事得 native 方法才能干。所以我们可以在 <code>start()</code>的源码里寻觅到<code>native start0()</code>的踪影</p>
+</blockquote>
 <h4 id="停止线程"><strong>停止线程</strong></h4>
+<p>线程启动了，自个代码执行完自然会自动停止。那要是这个线程是个<code>Work Thread</code>呢（一直搁那while循环）</p>
 <ul>
 <li>外部调用 <code>interrupt()</code> 向线程发送中断信号</li>
 <li>线程通过<code>isIntercepted()</code>轮询到中断信号后，开始善后工作</li>
@@ -183,18 +188,17 @@ thread.start();
 
 Thread.sleep(1000);
 thread.interrupt();
-// 需要注意的一点是，在线程池里面，只能说当前任务停止了而已，停止线程不是调用者说的算的
 </code></pre>
 <p>但线程也可能不会被唤醒，最直观的原因就是：线程不去捕获<code>InterruptedException</code>（这取决于以何种方式进入这些状态）。如线程在等待<code>synchronize</code>锁（<code>BLOCKED</code>），或在使用不可打断方式等待<code>Lock</code>锁（<code>WAITING</code>），都无法响应中断</p>
 <blockquote>
-<p>所有强制停止线程，不留给线程善后的余地的方式都是不推荐的（<code>stop()</code>、<code>suspend()</code>）</p>
+<p>所有强制停止线程的手段，一般只用于停止 不想鸟中断的线程（<code>stop()</code>、<code>suspend()</code>）</p>
 </blockquote>
 <h4 id="线程状态"><strong>线程状态</strong></h4>
 <figure data-type="image" tabindex="1"><a href="https://imgchr.com/i/yET8rq"><img src="https://s3.ax1x.com/2021/01/31/yET8rq.png" alt="yET8rq.png" loading="lazy"></a></figure>
 <ul>
 <li>NEW：Thread state for a thread which has not yet started</li>
 <li>RUNNABLE：Thread state for a runnable thread. A thread in the runnable state is executing in the Java virtual machine but it may be waiting for other resources from the operating system such as processor.</li>
-<li>BLOCKED：Thread state for a thread blocked waiting for a monitor lock. A thread in the blocked state is waiting for a monitor lock to enter a synchronized block/method or reenter a synchronized block/method after calling <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#wait()"><code>Object.wait</code></a></li>
+<li>BLOCKED：Thread state for a thread blocked waiting for a monitor lock. A thread in the blocked state is waiting for a monitor lock to enter a synchronized block/method or reenter a synchronized block/method after calling <code>Object.wait</code></li>
 <li>WAITING：A thread in the waiting state is waiting for another thread to perform a particular action. For example, a thread that has called <code>Object.wait()</code> on an object is waiting for another thread to call <code>Object.notify()</code> or <code>Object.notifyAll()</code> on that object. A thread that has called <code>Thread.join()</code> is waiting for a specified thread to terminate</li>
 <li>TIMED_WAITING：Thread state for a waiting thread with a specified waiting time</li>
 <li>TERMINATED：Thread state for a terminated thread. The thread has completed execution.</li>
@@ -202,9 +206,25 @@ thread.interrupt();
 <blockquote>
 <p><strong>关于 RUNNABLE 包含 OS 阻塞状态的说明</strong></p>
 <ul>
-<li>很多人认为 RUNNABLE 仅包含运行、可运行状态，实际上是错误的。因访问 IO 出现的阻塞，仍属于 RUNNABLE 的范畴，可以参考上方 Oracle 官方的描述：<code>RUNNABLE -&gt; waiting for other resources from the operating system</code></li>
-<li>这个也可以通过实验证明，起线程读文件（文件 IO 都会阻塞式读取），在主线程实时打印对应线程状态，或打线程级断点，在 Debuger 观察</li>
+<li>
+<p>很多人认为 RUNNABLE 仅包含运行、可运行状态，实际上是错误的。部分原因导致的阻塞，仍属于 RUNNABLE 的范畴，可以参考上方 Oracle 官方的描述：<code>RUNNABLE -&gt; waiting for other resources from the operating system such as processor.</code></p>
+</li>
+<li>
+<p>划重点<code>such as</code>，表示等待的资源不只是<code>processor</code>，而<code>可运行/就绪状态</code>是<code>万事俱备，只欠CPU</code>，所以此处必须得有<code>阻塞状态</code>的带名啊</p>
+</li>
+<li>
+<p>如果你觉得我在咬文嚼字，<code>no BB，show code to u</code></p>
+</li>
 </ul>
+<pre><code class="language-java">Thread thread = new Thread(() -&gt; {
+  new Scanner(System.in).nextLine();
+});
+thread.start();
+
+Thread.sleep(1000);
+System.out.println(thread.getState());// print res: RUNNABLE
+// 或者搁 IDEA 打个多线程级别的断点，在 Debuger 查看 Frames
+</code></pre>
 </blockquote>
 <h4 id="思考题"><strong>思考题</strong></h4>
 <blockquote>

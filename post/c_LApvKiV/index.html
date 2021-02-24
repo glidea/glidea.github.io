@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="http://glidea.github.io/favicon.ico?v=1614168906980">
+<link rel="shortcut icon" href="http://glidea.github.io/favicon.ico?v=1614169368343">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="http://glidea.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="site-header">
     <div class="left">
       <a href="http://glidea.github.io">
-        <img class="avatar" src="http://glidea.github.io/images/avatar.png?v=1614168906980" alt="" width="32px" height="32px">
+        <img class="avatar" src="http://glidea.github.io/images/avatar.png?v=1614169368343" alt="" width="32px" height="32px">
       </a>
       <a href="http://glidea.github.io">
         <h1 class="site-title">Glidea&#39;s Note</h1>
@@ -113,13 +113,13 @@
 <li>
 <p>使临界区具有互斥性</p>
 <p>我们可以顺着刚才的思路具体分析一下，为什么“开关中断”在单核环境下有效，而到了多核环境却失了效</p>
-<p>单核环境下开关中断，使得临界区的执行发生了两个变化：</p>
+<p><code>单核环境下开关中断</code>，使得临界区的执行发生了两个变化：</p>
 <ul>
 <li>一旦某个线程进入并执行临界区，直到当前线程走出临界区，别的线程都不能执行临界区</li>
 <li>临界区执行期间，不会产生线程切换</li>
 </ul>
 <p>这两个变化哪个是原子性问题得以解决的现象，或者都是？</p>
-<p>多核环境下开关中断，变化一不再产生，变化二依然存在</p>
+<p><code>多核环境下开关中断</code>，变化一不再产生，变化二依然存在</p>
 <p>即可推导出变化二不是必要条件，<strong>使临界区具有互斥性</strong>是解决原子性问题的方案</p>
 </li>
 <li>
@@ -200,8 +200,8 @@ while (if not get all lock) {
 </li>
 <li>
 <p>饥饿</p>
-<p>想象一下由于锁机制，每次上厕所都得锁门，你先进去了，恰巧你又拉肚子，蹲了很久，外面等待的人就可能饿死</p>
-<p>使用公平锁就OK</p>
+<p>因为锁一般都是非公平的，也就是不会遵循先来后到的原则，运气不好的线程只能一直躺平<br>
+使用公平锁就OK</p>
 </li>
 </ul>
 

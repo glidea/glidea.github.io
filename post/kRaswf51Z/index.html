@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="http://glidea.github.io/favicon.ico?v=1614244354812">
+<link rel="shortcut icon" href="http://glidea.github.io/favicon.ico?v=1614666577233">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="http://glidea.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="site-header">
     <div class="left">
       <a href="http://glidea.github.io">
-        <img class="avatar" src="http://glidea.github.io/images/avatar.png?v=1614244354812" alt="" width="32px" height="32px">
+        <img class="avatar" src="http://glidea.github.io/images/avatar.png?v=1614666577233" alt="" width="32px" height="32px">
       </a>
       <a href="http://glidea.github.io">
         <h1 class="site-title">Glidea&#39;s Note</h1>
@@ -90,7 +90,7 @@
 <p>强引用：只要 GC Roots 强引用的到，就不会被 GC 回收</p>
 </li>
 <li>
-<p>软引用：某次 GC 后内存还不够，就把只有软引用的 obj 列入再次 GC 的回收范围</p>
+<p>软引用：某次 GC 后内存还不够，就把只有软引用的 obj 列入再次 GC 的回收范围（前提是软引用对于 GC Roots 是可达的）</p>
 </li>
 <li>
 <p>弱引用：如果只有软引用，一旦 GC，就会被回收</p>
@@ -103,12 +103,12 @@
 <p>软弱引用可以关联引用队列，obj 回收后软弱引用对象会自动加入引用队列，便于回收软弱引用对象</p>
 <p>虚引用关联了默认的引用队列</p>
 <p>软弱引用可以用于缓存的实现</p>
-<p>虚引用对象在其引用的 obj 被回收的时候，会自动加入引用队列等待扫描线程，从而起到通知系统 obj 被回收的作用。你可能会对这个作用感到疑惑，系统自个回收的，系统会不知道？原因在于虚引用指向的是特殊的 obj，而系统回收 obj 时，从来都是“杀人不睁眼的”，又因为特殊的 obj 的“特殊”是指其在死后还需要处理一些善后工作，所以必需要有这么一个通知机制。</p>
+<p>虚引用对象在其引用的 obj 被回收的时候，会自动加入引用队列等待扫描线程，从而起到通知系统 obj 被回收的作用。你可能会对这个作用感到疑惑，系统自个回收的，系统会不知道？原因在于虚引用指向的是特殊的 obj，而系统回收 obj 时，从来都是“杀人不睁眼的”，又因为特殊的 obj 的“特殊”是指其在死后还需要处理一些善后工作，所以必需要有这么一个通知机制</p>
 <p>虚引用具体用途是用于堆外内存的管理，拿 NIO 举例子，当 Buffer 对象被回收后，虚引用通知系统释放 Buffer 对象指向的本地内存</p>
 </blockquote>
 <h3 id="判断对象是否可达"><strong>判断对象是否可达</strong></h3>
 <blockquote>
-<p>沿着 GC Roots 的强引用链搜索，找不到的都是不可达对象</p>
+<p>沿着 GC Roots 的强、软引用链搜索，找不到的都是不可达对象</p>
 </blockquote>
 <ul>
 <li>可以作为 GC Roots 的对象

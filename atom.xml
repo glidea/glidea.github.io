@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://glidea.github.io</id>
     <title>Glidea&apos;s Note</title>
-    <updated>2021-03-17T06:26:28.577Z</updated>
+    <updated>2021-03-17T09:28:44.952Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://glidea.github.io"/>
     <link rel="self" href="http://glidea.github.io/atom.xml"/>
@@ -17,7 +17,7 @@
         <updated>2021-02-19T15:27:48.000Z</updated>
     </entry>
     <entry>
-        <title type="html"><![CDATA[多线程基础]]></title>
+        <title type="html"><![CDATA[Java多线程基础]]></title>
         <id>http://glidea.github.io/post/pTSnvmBJR/</id>
         <link href="http://glidea.github.io/post/pTSnvmBJR/">
         </link>

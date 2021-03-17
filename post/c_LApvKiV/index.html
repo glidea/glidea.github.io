@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="http://glidea.github.io/favicon.ico?v=1615962385240">
+<link rel="shortcut icon" href="http://glidea.github.io/favicon.ico?v=1615973322692">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="http://glidea.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="site-header">
     <div class="left">
       <a href="http://glidea.github.io">
-        <img class="avatar" src="http://glidea.github.io/images/avatar.png?v=1615962385240" alt="" width="32px" height="32px">
+        <img class="avatar" src="http://glidea.github.io/images/avatar.png?v=1615973322692" alt="" width="32px" height="32px">
       </a>
       <a href="http://glidea.github.io">
         <h1 class="site-title">Glidea&#39;s Note</h1>
@@ -104,7 +104,7 @@
 <p>在单核环境下，这种办法是行得通的，而且也是一种很廉价的做法。只需要在执行这临界区前后，开关中断就可以了，但在多核环境下，这法子就莫得卵用了</p>
 </li>
 <li>
-<p>因为即使关闭所有核心的中断，由于无法阻塞（也不值得）其它核心上的线程也执行临界区，还是会粗线原子性问题。这就引出了我们的源头二</p>
+<p>即使关闭所有核心的中断，由于无法阻塞（也不值得）其它核心上的线程也执行临界区，还是会粗线原子性问题。这就引出了我们的源头二</p>
 </li>
 </ul>
 </blockquote>
@@ -117,7 +117,7 @@
 </blockquote>
 </li>
 </ul>
-<h4 id="解决原子性问题的方案"><strong>解决原子性问题的方案</strong></h4>
+<h4 id="解决原子性问题的基本思路"><strong>解决原子性问题的基本思路</strong></h4>
 <ul>
 <li>
 <p>使临界区具有互斥性</p>
@@ -133,16 +133,27 @@
 </li>
 <li>
 <p>大不了重试，不信下次还有人跟我争</p>
-<p>前面说过原子性问题的直接原因是：某些更新结果是基于旧值的。临界区没有互斥性，不会产生基于旧值的更新就别想了。我们可以退而求其次，一旦产生了这种更新结果，就舍弃，重新基于最新值做更新。只要竞争不是很激烈，总有到自己改成功的时候，这种解决方案称为<strong>无锁</strong></p>
+<p>前面说过导致原子性问题的直接原因是：某些更新结果是基于旧值的。临界区如果无法获得互斥性，基于旧值的更新就依然无法避免，但这并不等同于原子性问题是无法避免的</p>
+<p>我们可以退而求其次，一旦产生了这种更新结果，就舍弃，重新基于最新值做更新。只要竞争不是很激烈，总有到自己改成功的时候，这种解决方案称为<strong>无锁</strong></p>
 </li>
 </ul>
 <h4 id="解决原子性问题的落地方案"><strong>解决原子性问题的落地方案</strong></h4>
 <ul>
 <li>
 <p>使临界区具有互斥性（锁机制）</p>
-<p>Java 的通用解决方案是 <code>synchronized</code> 关键字和 <code>Lock</code> 接口的实现类</p>
-<p>两种解决方案都可以大致抽象成一个锁模型</p>
-<figure data-type="image" tabindex="3"><a href="https://imgchr.com/i/yhoovV"><img src="https://s3.ax1x.com/2021/02/19/yhoovV.png" alt="yhoovV.png" loading="lazy"></a></figure>
+<p>操作系统层面的解决方案纷繁复杂，不过大道至简，所有问题都可以由更高一级的抽象：管程（<code>Monitor</code>）一把梭</p>
+<figure data-type="image" tabindex="3"><a href="https://imgtu.com/i/6cAJ8s"><img src="https://s3.ax1x.com/2021/03/17/6cAJ8s.png" alt="6cAJ8s.png" loading="lazy"></a></figure>
+<p>管程运作机制：</p>
+<figure data-type="image" tabindex="4"><a href="https://imgchr.com/i/yhoovV"><img src="https://s3.ax1x.com/2021/02/19/yhoovV.png" alt="yhoovV.png" loading="lazy"></a></figure>
+<ul>
+<li>lock：线程A 想执行临界区，就先要成为对应 Monitor 的<code>Owner</code>。如果此时<code>Owner</code>已存在，就先到<code>Entry</code>阻塞等待。<code>Owner</code>啥时候干完活，走了，同时自己又是<code>list head</code>，就可以参与新的一轮竞争（新来的 Thread 不需要排队）</li>
+<li>执行临界区：<code>Owner</code>才有权执行临界区，而<code>Owner</code>有且仅有一个，这是保证互斥性的根本。不过临界区的执行到某个阶段，对于<code>Owner</code>来说可能需要某些条件得到满足，才能继续往下推进。原地空转等待条件满足是个办法，但是万一条件迟迟得不到满足，<code>Entry</code>里的兄弟可不能一直陪<code>Owner</code>等下去，最终导致系统串行化程度过高。所以此时必须得先找个专门的地（<code>Condition_Wait</code>）阻塞等待</li>
+<li>unlock：<code>Owner Thread</code>放弃<code>Owner</code>的宝座，<code>Owner</code>重置为<code>nil</code></li>
+</ul>
+<p>高级语言 Java 提供的<code>Monitor</code>是 <code>synchronized的重量级锁状态</code> 和 <code>Lock接口的实现类</code></p>
+<blockquote>
+<p>注：为<code>Lock接口的实现类</code>提供抽象的<code>AQS</code>，其具体实现与上方<code>Monitor</code>的描述不完全一致</p>
+</blockquote>
 </li>
 <li>
 <p>无锁的实现</p>
@@ -221,7 +232,7 @@ while (if not get all lock) {
           <div class="next-post">
             <a class="purple-link" href="http://glidea.github.io/post/pTSnvmBJR/">
               <h3 class="post-title">
-                下一篇：多线程基础
+                下一篇：Java多线程基础
               </h3>
             </a>
           </div>

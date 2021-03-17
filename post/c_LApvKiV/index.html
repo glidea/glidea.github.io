@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="http://glidea.github.io/favicon.ico?v=1614666577233">
+<link rel="shortcut icon" href="http://glidea.github.io/favicon.ico?v=1615946464280">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="http://glidea.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="site-header">
     <div class="left">
       <a href="http://glidea.github.io">
-        <img class="avatar" src="http://glidea.github.io/images/avatar.png?v=1614666577233" alt="" width="32px" height="32px">
+        <img class="avatar" src="http://glidea.github.io/images/avatar.png?v=1615946464280" alt="" width="32px" height="32px">
       </a>
       <a href="http://glidea.github.io">
         <h1 class="site-title">Glidea&#39;s Note</h1>
@@ -96,8 +96,17 @@
 <figure data-type="image" tabindex="1"><a href="https://imgchr.com/i/yfwZuT"><img src="https://s3.ax1x.com/2021/02/19/yfwZuT.png" alt="yfwZuT.png" loading="lazy"></a></figure>
 <p>我们在思考解决方法的时候，可能会想：</p>
 <blockquote>
-<p>让这三条指令（临界区）“一气呵成”地执行完，也就是让 OS 在执行这临界区的时候，不要切换线程，能不能解决问题呢</p>
-<p>在单核环境下，这种办法是行得通的，而且也是一种很廉价的做法。只需要在执行这临界区前后，开关中断就可以了。但在多核环境下，这法子就莫得卵用了，还是会粗线原子性问题，这就引出了我们的源头二</p>
+<ul>
+<li>
+<p>让这三条指令（临界区）“一气呵成”地执行完，也就是让 OS 在执行这临界区的时候，不要切换线程，能不能解决问题呢？</p>
+</li>
+<li>
+<p>在单核环境下，这种办法是行得通的，而且也是一种很廉价的做法。只需要在执行这临界区前后，开关中断就可以了，但在多核环境下，这法子就莫得卵用了</p>
+</li>
+<li>
+<p>因为即使关闭所有核心的中断，由于无法阻塞（也不值得）其它核心上的线程也执行临界区，还是会粗线原子性问题。这就引出了我们的源头二</p>
+</li>
+</ul>
 </blockquote>
 </li>
 <li>
@@ -138,7 +147,7 @@
 <li>
 <p>无锁的实现</p>
 <pre><code class="language-c">while(true) {
-	oldVal = getVal()
+		oldVal = getVal()
   	newVal = doUpdate(oldVal)
     /**
      * CAS：比较val的最新值与oldVal，若相等，则将newVal覆盖val
@@ -200,8 +209,8 @@ while (if not get all lock) {
 </li>
 <li>
 <p>饥饿</p>
-<p>因为锁一般都是非公平的，也就是不会遵循先来后到的原则，运气不好的线程只能一直躺平<br>
-使用公平锁就OK</p>
+<p>因为锁一般都是非公平的，也就是不会遵循先来后到的原则，运气不好的线程只能一直躺平</p>
+<p>使用公平锁就OK</p>
 </li>
 </ul>
 

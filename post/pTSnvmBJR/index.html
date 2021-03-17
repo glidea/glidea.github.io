@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="http://glidea.github.io/favicon.ico?v=1615990456302">
+<link rel="shortcut icon" href="http://glidea.github.io/favicon.ico?v=1615990802462">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="http://glidea.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="site-header">
     <div class="left">
       <a href="http://glidea.github.io">
-        <img class="avatar" src="http://glidea.github.io/images/avatar.png?v=1615990456302" alt="" width="32px" height="32px">
+        <img class="avatar" src="http://glidea.github.io/images/avatar.png?v=1615990802462" alt="" width="32px" height="32px">
       </a>
       <a href="http://glidea.github.io">
         <h1 class="site-title">Glidea&#39;s Note</h1>
@@ -149,7 +149,7 @@ FutureTask&lt;Object&gt; futureTask = new FutureTask&lt;&gt;(callable);
 </ul>
 </blockquote>
 <blockquote>
-<p><strong>既然本质只有两种创建线程的方法，那<code>实现 Runnable 接口</code>的优势是什么</strong></p>
+<p><strong><code>实现 Runnable 接口</code>的优势是什么</strong></p>
 <ul>
 <li>实现了 <strong>具体任务</strong> 和 <strong>线程环境</strong> 的解耦</li>
 <li>基于上一点可以很好的实现线程的复用。比如线程池每个线程的<code>run()</code>都不断从 WorkQueue 中获取 Runnable 实例，并执行 Runnable 实例的<code>run()</code>（注意前后两个<code>run()</code>的区别）</li>
@@ -210,7 +210,7 @@ thread.interrupt();
 <p>很多人认为 RUNNABLE 仅包含运行、可运行状态，实际上是错误的。部分原因导致的阻塞，仍属于 RUNNABLE 的范畴，可以参考上方 Oracle 官方的描述：<code>RUNNABLE -&gt; waiting for other resources from the operating system such as processor.</code></p>
 </li>
 <li>
-<p>划重点<code>such as</code>，表示等待的资源不只是<code>processor</code>，而<code>可运行/就绪</code>是<code>万事俱备，只欠CPU</code>的状态，所以此处必须得有<code>阻塞状态</code>的带名啊</p>
+<p>划重点<code>such as</code>，表示等待的资源不只是<code>processor</code>，而<code>可运行/就绪</code>是<code>万事俱备，只欠CPU</code>的状态，所以...</p>
 </li>
 <li>
 <p>如果你觉得我在咬文嚼字，<code>no BB，show code to u</code></p>

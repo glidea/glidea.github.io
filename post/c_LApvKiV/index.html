@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="http://glidea.github.io/favicon.ico?v=1615973322692">
+<link rel="shortcut icon" href="http://glidea.github.io/favicon.ico?v=1615990456302">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="http://glidea.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="site-header">
     <div class="left">
       <a href="http://glidea.github.io">
-        <img class="avatar" src="http://glidea.github.io/images/avatar.png?v=1615973322692" alt="" width="32px" height="32px">
+        <img class="avatar" src="http://glidea.github.io/images/avatar.png?v=1615990456302" alt="" width="32px" height="32px">
       </a>
       <a href="http://glidea.github.io">
         <h1 class="site-title">Glidea&#39;s Note</h1>
@@ -92,6 +92,9 @@
 <li>
 <p>源头一：线程切换</p>
 <p>在 CPU 运算器是与寄存器，而不是与内存直接交互的硬件架构下。更新某个值，就必须让寄存器充当“中介”，所以这个更新操作得分成三个指令：<code>读取内存的值到寄存器</code>，<code>基于寄存器值做更新</code>，<code>把更新结果写回内存</code></p>
+<blockquote>
+<p>实际上<code>CSIC</code>型的 CPU 可以直接和存储器交互，不过编译器优化不一定允许 CPU 直接和存储器交互</p>
+</blockquote>
 <p>在并发修改共享变量的时候（如 a++），由于这三个指令没办法“一气呵成”，就可能会有线程无视上个活动线程的“劳动成果”，无情地将自己<strong>基于旧值的更新结果</strong>覆盖到内存上去</p>
 <figure data-type="image" tabindex="1"><a href="https://imgchr.com/i/yfwZuT"><img src="https://s3.ax1x.com/2021/02/19/yfwZuT.png" alt="yfwZuT.png" loading="lazy"></a></figure>
 <p>我们在思考解决方法的时候，可能会想：</p>
@@ -140,34 +143,55 @@
 <h4 id="解决原子性问题的落地方案"><strong>解决原子性问题的落地方案</strong></h4>
 <ul>
 <li>
-<p>使临界区具有互斥性（锁机制）</p>
-<p>操作系统层面的解决方案纷繁复杂，不过大道至简，所有问题都可以由更高一级的抽象：管程（<code>Monitor</code>）一把梭</p>
+<p>使临界区具有互斥性</p>
+<p>操作系统层面的解决方案纷繁复杂，不过正所谓大道至简，利用其它同步原语实现的管程（<code>Monitor</code>），提供了简单易用的接口，是更高层级的抽象，是解决原子性问题的万能钥匙</p>
 <figure data-type="image" tabindex="3"><a href="https://imgtu.com/i/6cAJ8s"><img src="https://s3.ax1x.com/2021/03/17/6cAJ8s.png" alt="6cAJ8s.png" loading="lazy"></a></figure>
 <p>管程运作机制：</p>
 <figure data-type="image" tabindex="4"><a href="https://imgchr.com/i/yhoovV"><img src="https://s3.ax1x.com/2021/02/19/yhoovV.png" alt="yhoovV.png" loading="lazy"></a></figure>
 <ul>
-<li>lock：线程A 想执行临界区，就先要成为对应 Monitor 的<code>Owner</code>。如果此时<code>Owner</code>已存在，就先到<code>Entry</code>阻塞等待。<code>Owner</code>啥时候干完活，走了，同时自己又是<code>list head</code>，就可以参与新的一轮竞争（新来的 Thread 不需要排队）</li>
+<li>lock：某个线程想执行临界区，就先要成为对应 Monitor 的<code>Owner</code>。如果此时<code>Owner</code>已存在，就先到<code>Entry</code>阻塞等待。<code>Owner</code>啥时候干完活走了，同时自己又是<code>list head</code>，就可以参与新的一轮竞争（新来的 Thread 不需要排队）</li>
 <li>执行临界区：<code>Owner</code>才有权执行临界区，而<code>Owner</code>有且仅有一个，这是保证互斥性的根本。不过临界区的执行到某个阶段，对于<code>Owner</code>来说可能需要某些条件得到满足，才能继续往下推进。原地空转等待条件满足是个办法，但是万一条件迟迟得不到满足，<code>Entry</code>里的兄弟可不能一直陪<code>Owner</code>等下去，最终导致系统串行化程度过高。所以此时必须得先找个专门的地（<code>Condition_Wait</code>）阻塞等待</li>
-<li>unlock：<code>Owner Thread</code>放弃<code>Owner</code>的宝座，<code>Owner</code>重置为<code>nil</code></li>
+<li>unlock：<code>Owner Thread</code>执行完临界区，将<code>Owner</code>重置为<code>nil</code></li>
 </ul>
-<p>高级语言 Java 提供的<code>Monitor</code>是 <code>synchronized的重量级锁状态</code> 和 <code>Lock接口的实现类</code></p>
+<p>高级语言 Java 提供的<code>Monitor</code>是 <code>synchronized的重量级锁</code> 和 <code>Lock接口的实现类</code></p>
 <blockquote>
 <p>注：为<code>Lock接口的实现类</code>提供抽象的<code>AQS</code>，其具体实现与上方<code>Monitor</code>的描述不完全一致</p>
 </blockquote>
 </li>
 <li>
 <p>无锁的实现</p>
-<pre><code class="language-c">while(true) {
-		oldVal = getVal()
-  	newVal = doUpdate(oldVal)
+<ul>
+<li>
+<p>CAS</p>
+<pre><code class="language-js">while(true) {
+		var oldVal = getVal() // 共享变量一般用volatile修饰，保证可见性
+  	var newVal = doUpdate(oldVal)
     /**
      * CAS：比较val的最新值与oldVal，若相等，则将newVal覆盖val
      * 这两步骤是由底层保证的原子操作
      **/
-    bool isSucc = CAS(&amp;val, oldVal, newVal)
+    bool isSucc = atomic_CAS(&amp;val, oldVal, newVal)
     if isSucc then break
 }
 </code></pre>
+<p>Java 中的应用：<code>Atomic</code>、<code>LongAdder</code>、<code>synchronized的轻量级锁、重量级锁的自旋优化</code>、<code>AQS</code>...</p>
+</li>
+<li>
+<p>数据库版本号</p>
+<pre><code class="language-sql">SELECT * FROM table WHERE id=1
++----+------+----------+  
+| id | stock | version |  
++----+-------+---------+  
+|  1 | 100   |    1    |  
++----+-------+---------+  
+set old_version = version of result set
+
+int row = UPDATE table SET stock=stock-1, version=version+1 
+					 WHERE id=#{id} AND stock &gt; 0 AND version=#{old_version}
+if row == 0 then try again
+</code></pre>
+</li>
+</ul>
 </li>
 </ul>
 <h4 id="锁机制导致的活跃性问题"><strong>锁机制导致的活跃性问题</strong></h4>

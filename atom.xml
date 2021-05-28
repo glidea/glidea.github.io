@@ -2,13 +2,20 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://glidea.github.io</id>
     <title>Glidea&apos;s Note</title>
-    <updated>2021-05-28T08:47:55.557Z</updated>
+    <updated>2021-05-28T08:49:30.071Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://glidea.github.io"/>
     <link rel="self" href="http://glidea.github.io/atom.xml"/>
     <logo>http://glidea.github.io/images/avatar.png</logo>
     <icon>http://glidea.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Glidea&apos;s Note</rights>
+    <entry>
+        <title type="html"><![CDATA[Linux 拾遗 (1)：基本使用]]></title>
+        <id>http://glidea.github.io/post/kep1AM5nf/</id>
+        <link href="http://glidea.github.io/post/kep1AM5nf/">
+        </link>
+        <updated>2021-05-28T08:48:07.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[原子性问题的来龙去脉]]></title>
         <id>http://glidea.github.io/post/c_LApvKiV/</id>
@@ -36,12 +43,5 @@
         <link href="http://glidea.github.io/post/h1icQUmLi/">
         </link>
         <updated>2021-01-23T08:12:03.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[垃圾回收]]></title>
-        <id>http://glidea.github.io/post/kRaswf51Z/</id>
-        <link href="http://glidea.github.io/post/kRaswf51Z/">
-        </link>
-        <updated>2021-01-06T09:22:23.000Z</updated>
     </entry>
 </feed>

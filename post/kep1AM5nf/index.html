@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>并发 | Glidea&#39;s Note</title>
+<title>Linux 拾遗 (1)：基本使用 | Glidea&#39;s Note</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -66,74 +66,96 @@
 
 
       <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">Linux 拾遗 (1)：基本使用</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2021-05-28</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="http://glidea.github.io/tag/-QV9Lj8sd/">
+                    Linux
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <h3 id="命令">命令</h3>
+<blockquote>
+<p>基础</p>
+</blockquote>
+<p>man man</p>
+<p>tree/ls、cd、pwd、touch、mkdir、rm、mv、cp、scp、rename</p>
+<p>vim、cat、less、head、tail</p>
+<p>ln、stat、df、du、wc</p>
+<p>chmod、chown、chgrp</p>
+<p>find、grep</p>
+<p>yum/apt-get</p>
+<blockquote>
+<p>解压缩</p>
+</blockquote>
+<p>tar cvf *.tar.gz file... &amp; tar xvf *.tar.gz file...</p>
+<p>解压缩其它格式要额外安装对应程序</p>
+<blockquote>
+<p>进程管理</p>
+</blockquote>
+<p>who</p>
+<p>top、ps、kill</p>
+<blockquote>
+<p>网络管理</p>
+</blockquote>
+<p>ifconfig、ping、netstat、nc</p>
+<blockquote>
+<p><a href="https://www.runoob.com/linux/linux-command-manual.html">More</a></p>
+</blockquote>
+<h3 id="vim">Vim</h3>
+<p>gg、G、:123</p>
+<p>o、I、A</p>
+<p>dd、123dd</p>
+<p>yy、123yy、v</p>
+<p>u</p>
+<p>/key &amp; ?key（n、N）、:noh</p>
+<p>Shift+k、3+Shift+k</p>
+<p>:vsp、:vsp 1.c、ctrl+ww</p>
+<h3 id="gcc">GCC</h3>
+<blockquote>
+<p>预处理：gcc -E test.c</p>
+</blockquote>
+<p>合并头文件、宏定义到源码中，并删除注释</p>
+<blockquote>
+<p>编译：gcc -S test.c &amp; gcc -S test.i</p>
+</blockquote>
+<p>将预处理的最终源码转换成汇编代码</p>
+<blockquote>
+<p>汇编：gcc -c test.c &amp; gcc -c test.s</p>
+</blockquote>
+<p>将汇编代码转换成对应的目标文件</p>
+<blockquote>
+<p>链接：gcc test.c -lxxx</p>
+</blockquote>
+<p>将符号（变量名、函数名等一些列标识符）用对应的内存地址（变量地址、函数地址等）替代</p>
+<h3 id="参考">参考</h3>
+<p>http://c.biancheng.net/linux_tutorial/</p>
 
-        <div class="current-tag-container">
-          <h2 class="title">
-            <i class="icon icon-pricetags-outline"></i> 并发
-          </h2> 
+          </div>
         </div>
 
         
-<section class="post-item">
-    <div class="content">
-      <a href="http://glidea.github.io/post/c_LApvKiV/">
-        <h2 class="post-title">原子性问题的来龙去脉</h2>
-      </a>
-      <div class="post-abstract">
-        
+          <div class="next-post">
+            <a class="purple-link" href="http://glidea.github.io/post/c_LApvKiV/">
+              <h3 class="post-title">
+                下一篇：原子性问题的来龙去脉
+              </h3>
+            </a>
+          </div>
+          
       </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2021-02-19</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="http://glidea.github.io/tag/XShPlIOCO/">
-                并发
-                
-              </a>
-            
-          </span>
-        
-      </div>
-    </div>
-    
-  </section>
 
-<section class="post-item">
-    <div class="content">
-      <a href="http://glidea.github.io/post/pTSnvmBJR/">
-        <h2 class="post-title">多线程基础</h2>
-      </a>
-      <div class="post-abstract">
-        
-      </div>
-      <div class="post-info">
-        <span><i class="icon icon-calendar-outline"></i> 2021-01-28</span>
-        
-          <span>
-            <i class="icon icon-pricetags-outline"></i>
-            
-              <a href="http://glidea.github.io/tag/XShPlIOCO/">
-                并发
-                
-              </a>
-            
-          </span>
-        
-      </div>
-    </div>
-    
-  </section>
-
-
-<div class="pagination-container">
-  
-  
-</div>
-
-
-      </div>
+      
 
       <div class="site-footer">
   <div class="slogan"></div>

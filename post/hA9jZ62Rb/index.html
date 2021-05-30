@@ -1,0 +1,369 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>Linux 拾遗 (2)：进程 | Glidea&#39;s Note</title>
+<meta name="description" content="">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="http://glidea.github.io/favicon.ico?v=1622358271487">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="http://glidea.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="http://glidea.github.io">
+        <img class="avatar" src="http://glidea.github.io/images/avatar.png?v=1622358271487" alt="" width="32px" height="32px">
+      </a>
+      <a href="http://glidea.github.io">
+        <h1 class="site-title">Glidea&#39;s Note</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            笔记
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">Linux 拾遗 (2)：进程</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2021-05-30</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="http://glidea.github.io/tag/-QV9Lj8sd/">
+                    Linux
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <h3 id="pcb-结构">PCB 结构</h3>
+<ul>
+<li>进程标识符（pid、ppid、uid、gid...）</li>
+<li>文件描述符表</li>
+<li>进程切换时保持的寄存器值</li>
+<li>虚拟地址转换页表</li>
+<li>进程状态</li>
+<li>进程调度信息</li>
+<li>进程可用资源上限（<code>ulimit -a</code>）</li>
+<li>当前工作目录</li>
+<li>未决信号集、阻塞信号集</li>
+<li>......</li>
+</ul>
+<blockquote>
+<p><code>./kernels/3.10.0-1127.19.1.el7.x86_64/include/linux/sched.h</code>#<code>struct task_struct</code></p>
+<p>不同 Linux、不同版本位置可能不一样</p>
+<p>Ref：https://www.cnblogs.com/Lynn-Zhang/p/5589944.html</p>
+</blockquote>
+<h3 id="进程空间">进程空间</h3>
+<p>![image-20210528184424045](../../Library/Application Support/typora-user-images/image-20210528184424045.png)</p>
+<h3 id="进程控制函数">进程控制函数</h3>
+<blockquote>
+<p>fork</p>
+</blockquote>
+<ul>
+<li>
+<p>创建 n个进程要注意什么？</p>
+<pre><code class="language-c">for(int i = 0; i &lt; n; i++) {
+  	pid_t pid = fork();
+		if(pid == 0)
+    	  break;
+}
+</code></pre>
+</li>
+<li>
+<p>fork 后父子进程空间的哪些相同哪些不同？</p>
+<ul>
+<li>除了 PCB 部分信息之外，都相同</li>
+</ul>
+</li>
+<li>
+<p>哪些共享，哪些独享？</p>
+<ul>
+<li>文件描述符对应的文件结构体共享。描述符表独享，但其指向的结构体共享</li>
+<li><code>mmap#MAP_SHARED</code>建立的映射区</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>exec</p>
+</blockquote>
+<ul>
+<li>替换.text、.data</li>
+<li>注意 exec 后，除非出错，否则不会返回</li>
+</ul>
+<blockquote>
+<p>wait</p>
+</blockquote>
+<ul>
+<li>孤儿进程
+<ul>
+<li>当子进程结束，init 进程（新的 parent）会自动回收残留资源，不会变成僵尸</li>
+</ul>
+</li>
+<li>僵尸进程
+<ul>
+<li>若出现了僵尸进程，说明父进程没有进行回收。此时清除僵尸进程的办法就是等待父进程结束，或直接 kill 掉父进程，使得 init 进程可以领养这个僵尸，最终回收</li>
+</ul>
+</li>
+<li><code>wait</code>函数功能
+<ul>
+<li>阻塞（<code>wait / waitpid#0</code>） / 非阻塞（<code>waitpid#WNOHANG</code>）等待<strong>子</strong>进程退出</li>
+<li>回收子进程残留资源（主要为 PCB，子进程退出只关闭 fd 和释放用户空间）</li>
+<li>获取子进程的结束原因（正常终止→退出值；异常终止→终止信号）</li>
+</ul>
+</li>
+</ul>
+<h3 id="进程间通信">进程间通信</h3>
+<blockquote>
+<p>文件通信</p>
+</blockquote>
+<blockquote>
+<p>管道</p>
+</blockquote>
+<ul>
+<li>
+<p>pipe</p>
+<ul>
+<li>适用于有血缘关系的进程间通信，血缘具体是什么？或者说 init 进程是所有进程的祖先，为什么 pipe 不能用于所有进程间的通信呢？
+<ul>
+<li>这里的“血缘关系”指的是，调用 pipe 的进程为 Root，延展出的血缘树（pipe 得先创建，不然子进程无法共享 fd，还是相当于没有血缘）</li>
+<li>原理上是可以的，但是“非血缘关系”的进程间，没法共享 fd 读写</li>
+</ul>
+</li>
+<li>pipe 一方不关闭读端或写端，会咋样？<a href="https://www.zhihu.com/question/287923848">Ref</a>
+<ul>
+<li>占用资源，直到一方进程结束，自动 close fd</li>
+<li>无法对异常情况进行判断。因为读写端 fd 的引用计数都无法归零</li>
+</ul>
+</li>
+<li>异常情况：读端 fd 引用计数为 0，向写端 write 的进程会收到 SIGPIPE 信号</li>
+<li>优缺：使用简单，但只能单向通信，不能跨血缘沟通</li>
+</ul>
+<pre><code class="language-c">// gcc编译时务必加上 -std=c99，个人非常不喜欢 c88的声明风格，没有颗粒感，淦！
+int fd[2];
+if (pipe(fd) == -1) {
+  exit(1);
+}
+
+pid_t pid = fork();
+if (pid &lt; 0) {
+  exit(1);
+}
+
+if (pid == 0) {
+  close(fd[0]);
+  char *str = &quot;test pipe\n&quot;;
+  write(fd[1], str, strlen(str));
+  wait(NULL);
+  close(fd[1]);
+
+} else {
+  close(fd[1]);
+  char buf[1024];
+  int len = read(fd[0], buf, sizeof(buf));
+  write(STDOUT_FILENO, buf, len);
+  close(fd[0]);
+}
+</code></pre>
+</li>
+<li>
+<p>fifo</p>
+<ul>
+<li>原理上和 pipe 一样，都是分配在内核缓冲区</li>
+<li>区别在于 fifo 作为了一个 ls 后，能看到的“文件”存在，能通过路径找到，相当于向外暴露了接口。这也是 fifo 能跨“血缘”通信的原因</li>
+<li>使用方法和文件读写差不多</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>mmap</p>
+</blockquote>
+<pre><code class="language-c">/**
+ * addr: 映射区首地址。传NULL时，内核自动分配
+ * length：映射区大小
+ * prot: 映射区权限PROT_READ、PROT_WRITE、PROT_READ|PROT_WRITE
+ * flags：设置是否共享、是否为匿名映射区等。MAP_SHARED、MAP_PRIVATE、MAP_ANON
+ * fd：映射到的文件对应的fd
+ * offset：映射文件的偏移（必须为4k的整数倍）
+ **/
+void *mmap(void *adrr, size_t length, int prot, int flags, int fd, off_t offset);
+</code></pre>
+<pre><code class="language-c">/**
+ * 匿名映射，仅适用于有“血缘”关系的进程通信
+ **/
+int *p = mmap(NULL, 4, PROT_READ|PROT_WRITE, MAP_SHARED | MAP_ANON, -1, 0);
+if(p == MAP_FAILED) {
+  perror(&quot;mmap error&quot;);
+  exit(1);
+}
+
+pid_t pid = fork();
+if(pid == 0) {
+  *p = 2000;
+  printf(&quot;child, *p = %d\n&quot;, *p);
+} else {
+  sleep(1);
+  printf(&quot;parent, *p = %d\n&quot;, *p);
+}
+
+munmap(p, 4);
+
+/**
+ * 适用于任何进程间的通信
+ * 通信的进程都打开相同的文件，并在自己的虚拟内存建立映射区，通过返回的首地址通信
+ **/
+int fd = open(&quot;/file path&quot;, O_RDWR | O_CREAT, 0664);
+// 如果通信发生在双方都存活的时候，并且文件只用于通信，可以考虑 unlink(&quot;/file path&quot;)，避免临时文件的残留
+ftruncate(fd, 4);
+
+// 注意 mmap的返回地址类型实际是 void*
+int *p = mmap(NULL, 4, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
+if (mm == MAP_FAILED)
+  exit(1);
+close(fd);
+
+//...
+
+munmap(mm, 4);
+</code></pre>
+<ul>
+<li>创建映射区时，会默认先读一次文件，所以 open 的文件必须具有读权限</li>
+<li>映射区的释放与文件关闭无关</li>
+<li>映射区的权限应 &lt;= 文件打开的权限。如果是 MAP_PRIVATE，无所谓</li>
+<li>MAP_PRIVATE 在使用 Page Cache 时，使用的是 copy on write 机制，并且不会修改原文件</li>
+</ul>
+<blockquote>
+<p>信号</p>
+</blockquote>
+<p>![image-20210530134444240](../../Library/Application Support/typora-user-images/image-20210530134444240.png)</p>
+<ul>
+<li>简单、开销小、处理延时高</li>
+<li>信号的产生方式
+<ul>
+<li>按键。如：Ctrl+c、Ctrl+z、Ctrl+\</li>
+<li>系统调用。如：<code>kill(pid_t pid, int sig)</code>、raise、abort</li>
+<li>执行命令。如：<strong>kill</strong></li>
+<li>硬件异常等</li>
+</ul>
+</li>
+<li>信号产生后，在 PCB -&gt; 未决信号集的对应位置上置 1</li>
+<li>当内核某次准备返回用户态的时候，会实现检查未决信号集是否有 1，如果有，并且阻塞信号集对应位是 0（未被屏蔽），则将未决信号集对应位置翻转回 0，并处理信号</li>
+<li>信号处理方式
+<ul>
+<li>执行默认处理动作（Term、Core、Stop、Cont）</li>
+<li>执行用户事先注册的函数（通过：<code>signal(int signum, sighandler_t handler)</code>|<code>sigaction(int signum, const struct sigaction *act, struct sigaction *oldact)</code>注册）</li>
+<li>忽略</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>本地 Socket</p>
+</blockquote>
+<blockquote>
+<p>消息队列</p>
+</blockquote>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="http://glidea.github.io/post/kep1AM5nf/">
+              <h3 class="post-title">
+                下一篇：Linux 拾遗 (1)：基本使用
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan"></div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  <h3>选择性完美主义者</h3>
+<br>
+ | <a class="rss" href="http://glidea.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="http://glidea.github.io/favicon.ico?v=1623337967254">
+<link rel="shortcut icon" href="http://glidea.github.io/favicon.ico?v=1623339954410">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="http://glidea.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="site-header">
     <div class="left">
       <a href="http://glidea.github.io">
-        <img class="avatar" src="http://glidea.github.io/images/avatar.png?v=1623337967254" alt="" width="32px" height="32px">
+        <img class="avatar" src="http://glidea.github.io/images/avatar.png?v=1623339954410" alt="" width="32px" height="32px">
       </a>
       <a href="http://glidea.github.io">
         <h1 class="site-title">Glidea&#39;s Note</h1>
@@ -96,7 +96,7 @@
 <p>实际上<code>CSIC</code>型的 CPU 可以直接和存储器交互，不过编译器优化不一定允许 CPU 直接和存储器交互</p>
 </blockquote>
 <p>在并发修改共享变量的时候（如 a++），由于这三个指令没办法“一气呵成”，就可能会有线程无视上个活动线程的“劳动成果”，无情地将自己<strong>基于旧值的更新结果</strong>覆盖到内存上去</p>
-<figure data-type="image" tabindex="1"><a href="https://imgchr.com/i/yfwZuT"><img src="https://s3.ax1x.com/2021/02/19/yfwZuT.png" alt="yfwZuT.png" loading="lazy"></a></figure>
+<figure data-type="image" tabindex="1"><a href="https://imgtu.com/i/yfwZuT"><img src="https://z3.ax1x.com/2021/02/19/yfwZuT.png" alt="yfwZuT.png" loading="lazy"></a></figure>
 <p>我们在思考解决方法的时候，可能会想：</p>
 <blockquote>
 <ul>
@@ -114,7 +114,7 @@
 </li>
 <li>
 <p>源头二：多核环境下，程序并行执行</p>
-<figure data-type="image" tabindex="2"><a href="https://imgtu.com/i/yLLKr8"><img src="https://s3.ax1x.com/2021/02/24/yLLKr8.png" alt="yLLKr8.png" loading="lazy"></a></figure>
+<figure data-type="image" tabindex="2"><a href="https://imgtu.com/i/yLLKr8"><img src="https://z3.ax1x.com/2021/02/24/yLLKr8.png" alt="yLLKr8.png" loading="lazy"></a></figure>
 <blockquote>
 <p>如果在多核环境下考虑 CPU 缓存，会导致可见性的问题，而可见性问题也会导致原子性问题，但这不是主要的因素。因为不管有没有缓存，只要 CPU 是直接操作寄存器的，都有原子性问题</p>
 </blockquote>
@@ -145,9 +145,9 @@
 <li>
 <p>使临界区具有互斥性</p>
 <p>操作系统层面的解决方案纷繁复杂，不过正所谓大道至简，利用其它同步原语实现的管程（<code>Monitor</code>），提供了简单易用的接口，是更高层级的抽象，是解决原子性问题的万能钥匙</p>
-<figure data-type="image" tabindex="3"><a href="https://imgtu.com/i/6cAJ8s"><img src="https://s3.ax1x.com/2021/03/17/6cAJ8s.png" alt="6cAJ8s.png" loading="lazy"></a></figure>
+<figure data-type="image" tabindex="3"><a href="https://imgtu.com/i/6cAJ8s"><img src="https://z3.ax1x.com/2021/03/17/6cAJ8s.png" alt="6cAJ8s.png" loading="lazy"></a></figure>
 <p>管程运作机制：</p>
-<figure data-type="image" tabindex="4"><a href="https://imgchr.com/i/yhoovV"><img src="https://s3.ax1x.com/2021/02/19/yhoovV.png" alt="yhoovV.png" loading="lazy"></a></figure>
+<figure data-type="image" tabindex="4"><a href="https://imgtu.com/i/yhoovV"><img src="https://z3.ax1x.com/2021/02/19/yhoovV.png" alt="yhoovV.png" loading="lazy"></a></figure>
 <ul>
 <li>lock：某个线程想执行临界区，就先要成为对应 Monitor 的<code>Owner</code>。如果此时<code>Owner</code>已存在，就先到<code>Entry</code>阻塞等待。<code>Owner</code>啥时候干完活走了，同时自己又是<code>list head</code>，就可以参与新的一轮竞争（新来的 Thread 不需要排队）</li>
 <li>执行临界区：<code>Owner</code>才有权执行临界区，而<code>Owner</code>有且仅有一个，这是保证互斥性的根本。不过临界区的执行到某个阶段，对于<code>Owner</code>来说可能需要某些条件得到满足，才能继续往下推进。原地空转等待条件满足是个办法，但是万一条件迟迟得不到满足，<code>Entry</code>里的兄弟可不能一直陪<code>Owner</code>等下去，最终导致系统串行化程度过高。所以此时必须得先找个专门的地（<code>Condition_Wait</code>）阻塞等待</li>
@@ -164,7 +164,7 @@
 <li>
 <p>CAS</p>
 <pre><code class="language-js">while(true) {
-	var oldVal = getVal() // 共享变量一般用volatile修饰，保证可见性
+		var oldVal = getVal() // 共享变量一般用volatile修饰，保证可见性
   	var newVal = doUpdate(oldVal)
     /**
      * CAS：比较val的最新值与oldVal，若相等，则将newVal覆盖val
@@ -227,7 +227,7 @@ while (if not get all lock) {
     tryLock B {
       ...
     }
-  }
+	}
 }
 // 线程2
 while (if not get all lock) {
@@ -235,7 +235,7 @@ while (if not get all lock) {
     tryLock A {
       ...
     }
-  }
+	}
 }
 // 每次两线程都是只能获取第一把锁，对于第二把始终无法获得，每次都想先释放第一把给别人先用，等会再试
 // 恰巧每次都无法获取第二把

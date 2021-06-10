@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="http://glidea.github.io/favicon.ico?v=1623337967254">
+<link rel="shortcut icon" href="http://glidea.github.io/favicon.ico?v=1623339954410">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="http://glidea.github.io/styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="site-header">
     <div class="left">
       <a href="http://glidea.github.io">
-        <img class="avatar" src="http://glidea.github.io/images/avatar.png?v=1623337967254" alt="" width="32px" height="32px">
+        <img class="avatar" src="http://glidea.github.io/images/avatar.png?v=1623339954410" alt="" width="32px" height="32px">
       </a>
       <a href="http://glidea.github.io">
         <h1 class="site-title">Glidea&#39;s Note</h1>
@@ -103,7 +103,7 @@
 <p>Ref：https://www.cnblogs.com/Lynn-Zhang/p/5589944.html</p>
 </blockquote>
 <h3 id="进程空间">进程空间</h3>
-<p>![image-20210528184424045](../../Library/Application Support/typora-user-images/image-20210528184424045.png)</p>
+<figure data-type="image" tabindex="1"><a href="https://imgtu.com/i/2RXtTs"><img src="https://z3.ax1x.com/2021/06/10/2RXtTs.png" alt="2RXtTs.png" loading="lazy"></a></figure>
 <h3 id="进程控制函数">进程控制函数</h3>
 <blockquote>
 <p>fork</p>
@@ -226,6 +226,7 @@ if (pid == 0) {
 <blockquote>
 <p>mmap</p>
 </blockquote>
+<figure data-type="image" tabindex="2"><a href="https://imgtu.com/i/2RXWfx"><img src="https://z3.ax1x.com/2021/06/10/2RXWfx.png" alt="2RXWfx.png" loading="lazy"></a></figure>
 <pre><code class="language-c">/**
  * addr: 映射区首地址。传NULL时，内核自动分配
  * length：映射区大小
@@ -283,7 +284,7 @@ munmap(mm, 4);
 <blockquote>
 <p>信号</p>
 </blockquote>
-<p>![image-20210530134444240](../../Library/Application Support/typora-user-images/image-20210530134444240.png)</p>
+<figure data-type="image" tabindex="3"><a href="https://imgtu.com/i/2RXqAA"><img src="https://z3.ax1x.com/2021/06/10/2RXqAA.png" alt="2RXqAA.png" loading="lazy"></a></figure>
 <ul>
 <li>简单、开销小、处理延时高</li>
 <li>信号的产生方式
@@ -305,10 +306,7 @@ munmap(mm, 4);
 </li>
 </ul>
 <blockquote>
-<p>本地 Socket</p>
-</blockquote>
-<blockquote>
-<p>消息队列</p>
+<p>本地 Socket、消息队列、信号量</p>
 </blockquote>
 
           </div>

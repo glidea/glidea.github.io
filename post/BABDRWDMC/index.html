@@ -5,7 +5,7 @@
     
 <meta charset="utf-8" >
 
-<title>Linux 拾遗 (1)：基本使用 | Glidea&#39;s Note</title>
+<title>Bully 算法伪代码 | Glidea&#39;s Note</title>
 <meta name="description" content="">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -68,15 +68,15 @@
       <div class="content-container">
         <div class="post-detail">
           
-          <h2 class="post-title">Linux 拾遗 (1)：基本使用</h2>
+          <h2 class="post-title">Bully 算法伪代码</h2>
           <div class="post-info post-detail-info">
-            <span><i class="icon-calendar-outline"></i> 2021-05-28</span>
+            <span><i class="icon-calendar-outline"></i> 2021-06-10</span>
             
               <span>
                 <i class="icon-pricetags-outline"></i>
                 
-                  <a href="http://glidea.github.io/tag/-QV9Lj8sd/">
-                    Linux
+                  <a href="http://glidea.github.io/tag/5pKFCaelZ/">
+                    分布式
                     
                   </a>
                 
@@ -84,72 +84,72 @@
             
           </div>
           <div class="post-content">
-            <h3 id="命令">命令</h3>
-<blockquote>
-<p>基础</p>
-</blockquote>
-<p>man man</p>
-<p>tree/ls、cd、pwd、touch、mkdir、rm、mv、cp、scp、rename</p>
-<p>vim、cat、less、head、tail</p>
-<p>ln、stat、df、du、wc</p>
-<p>chmod、chown、chgrp</p>
-<p>find、grep</p>
-<p>yum/apt-get</p>
-<blockquote>
-<p>解压缩</p>
-</blockquote>
-<p>tar cvf *.tar.gz file... &amp; tar xvf *.tar.gz file...</p>
-<p>解压缩其它格式要额外安装对应程序</p>
-<blockquote>
-<p>进程管理</p>
-</blockquote>
-<p>who</p>
-<p>top、ps、kill</p>
-<blockquote>
-<p>网络管理</p>
-</blockquote>
-<p>ifconfig、ping、netstat、nc</p>
-<blockquote>
-<p><a href="https://www.runoob.com/linux/linux-command-manual.html">More</a></p>
-</blockquote>
-<h3 id="vim">Vim</h3>
-<p>gg、G、:123、w</p>
-<p>o、I、A</p>
-<p>p</p>
-<p>dd、123dd</p>
-<p>yy、123yy、v</p>
-<p>u</p>
-<p>/key &amp; ?key（n、N）、:noh</p>
-<p>Shift+k、3+Shift+k</p>
-<p>:vsp、:vsp 1.c、ctrl+ww</p>
-<h3 id="gcc">GCC</h3>
-<blockquote>
-<p>预处理：gcc -E test.c</p>
-</blockquote>
-<p>合并头文件、宏定义到源码中，并删除注释</p>
-<blockquote>
-<p>编译：gcc -S test.c &amp; gcc -S test.i</p>
-</blockquote>
-<p>将预处理的最终源码转换成汇编代码</p>
-<blockquote>
-<p>汇编：gcc -c test.c &amp; gcc -c test.s</p>
-</blockquote>
-<p>将汇编代码转换成对应的目标文件</p>
-<blockquote>
-<p>链接：gcc test.c -lxxx</p>
-</blockquote>
-<p>将符号（变量名、函数名等一些列标识符）用对应的内存地址（变量地址、函数地址等）替代</p>
-<h3 id="参考">参考</h3>
-<p>http://c.biancheng.net/linux_tutorial/</p>
+            <ol>
+<li>集群中每个节点判断自己的 ID 是否为当前活着的节点中 ID 最大的，如果是，则直接<br>
+向其他节点发送 Victory 消息，宣誓自己的主权；</li>
+<li>如果自己不是当前活着的节点中 ID 最大的，则向比自己 ID 大的所有节点发送<br>
+Election 消息，并等待其他节点的回复；</li>
+<li>若在给定的时间范围内，本节点没有收到其他节点回复的 Alive 消息，则认为自己成为<br>
+主节点，并向其他节点发送 Victory 消息，宣誓自己成为主节点；若接收到来自比自己<br>
+ID 大的节点的 Alive 消息，则等待其他节点发送 Victory 消息；</li>
+<li>若本节点收到比自己 ID 小的节点发送的 Election 消息，则回复一个 Alive 消息，告知<br>
+其他节点，我比你大，重新选举。</li>
+</ol>
+<p>仅根据上述步骤反推的代码，并补充了合理的细节。但仅具有一点点的参考意义</p>
+<pre><code class="language-java">boolean done = true
+
+when server start -&gt; {
+  done = false
+  election()
+}
+
+new Thread execute -&gt; {
+  while wait Msg
+    if Msg is ElectionMsg
+    	sendTo(ElectionMsg Owner, AliveMsg)
+    	if done
+      	done = false
+      	election()
+    if Msg is VictoryMsg
+      setMaster(VictoryMsg Owner)
+}
+
+election() {
+  if myid is biggest
+    setMaster(me)
+    broadcast(VictoryMsg)
+  else
+    for one IN set of id &gt; myid
+      sendTo(one, ElectionMsg)
+    if wait AliveMsg in timeout
+      wait VictoryMsg
+      setMaster(VictoryMsg Owner)
+    else
+      setMaster(me)
+      broadcast(VictoryMsg)
+  done = true
+}
+
+new Thread execute -&gt; {
+  call method of master
+  if find master no response in timeout
+  	if done
+    	done = false
+    	election()
+  	else 
+    	wait done == true
+  	recall method of master
+}
+</code></pre>
 
           </div>
         </div>
 
         
           <div class="next-post">
-            <a class="purple-link" href="http://glidea.github.io/post/c_LApvKiV/">
+            <a class="purple-link" href="http://glidea.github.io/post/hA9jZ62Rb/">
               <h3 class="post-title">
-                下一篇：原子性问题的来龙去脉
+                下一篇：Linux 拾遗 (2)：进程
               </h3>
             </a>
           </div>
